@@ -190,6 +190,55 @@ button:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
 @media (max-width:760px){.tabbar::after{display:none}}
 .tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:13px;font-weight:600;color:var(--icon)}
 .tab[aria-current="page"]{color:var(--navy);font-weight:700}
+/* orders */
+#orders[hidden],#home[hidden]{display:none}
+.ptitle{display:flex;align-items:center;justify-content:space-between;padding:18px 26px 14px}
+.ptitle h2{margin:0;font-size:22px;font-weight:800;letter-spacing:-.03em}
+.olink{display:flex;align-items:center;gap:2px;font-size:14px;font-weight:500;color:#4E5560}
+.dates{display:flex;justify-content:space-between;padding:0 22px 20px}
+.day{width:42px;height:61px;border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px}
+.day small{font-size:12px;font-weight:500;color:#8E9196;line-height:14px}
+.day b{font-size:18px;font-weight:700;line-height:21px}
+.day i{width:4px;height:4px;border-radius:50%;background:rgba(46,58,79,.35)}
+.day i.n{background:transparent}
+.day.on{background:var(--lime)}.day.on small{color:var(--navy)}.day.on i{background:var(--orange)}
+.ocard{margin:0 22px;background:#E7E9EA;border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:16px}
+.ohead{display:flex;align-items:center;justify-content:space-between}
+.ohead .l{display:flex;align-items:center;gap:8px}
+.ohead b{font-size:20px;font-weight:700;letter-spacing:-.02em}
+.stchip{background:#fff;border-radius:12px;padding:4px 10px;font-size:13px;font-weight:700;color:var(--orange);line-height:16px}
+.ohead small{font-size:13px;font-weight:500;color:#5F6368}
+.odiv{height:1px;background:#F0F1F3}
+.onums{display:flex;justify-content:space-between;align-items:flex-end}
+.onums small{display:block;font-size:13px;font-weight:500;color:#5F6368;margin-bottom:2px}
+.onums .big{font-size:30px;font-weight:800;letter-spacing:-.03em;line-height:36px}
+.onums .r{text-align:right}.onums .r b{font-size:20px;font-weight:700;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.oacts{display:flex;gap:8px}
+.oacts .p{flex:1;height:48px;border-radius:24px;background:var(--navy);color:#fff;font-size:15px;font-weight:600}
+.oacts .s{height:48px;border-radius:24px;background:#fff;padding:0 18px;font-size:15px;font-weight:600}
+.ilist{padding:0 22px}
+.ghead{display:flex;align-items:center;justify-content:space-between;padding:28px 0 6px}
+.ghead.first{padding-top:32px}
+.ghead .l{display:flex;align-items:center;gap:6px}
+.ghead .l b{font-size:17px;font-weight:700}.ghead .l .c{font-size:17px;font-weight:700;color:#8E9196}
+.ghead .meta{font-size:13px;font-weight:600}
+.irow{display:flex;align-items:center;gap:12px;padding:12px 0;border-top:1px solid #F0F1F3}
+.ghead+.irow{border-top:0}
+.irow img{width:56px;height:56px;border-radius:12px;object-fit:cover;flex:none}
+.irow .t{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px}
+.irow .t b{font-size:15px;font-weight:700;letter-spacing:-.02em;line-height:18px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.irow .t span{font-size:13px;color:#8E9196;line-height:16px}
+.irow .t em{font-style:normal;font-size:12px;font-weight:500;color:var(--orange);line-height:14px}
+.irow .q{flex:none;display:flex;flex-direction:column;align-items:flex-end;gap:6px}
+.step{width:92px;height:32px;border:1px solid #E3E6EA;border-radius:16px;background:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 4px}
+.step button{width:24px;height:24px;font-size:16px;font-weight:500;color:#4E5560;display:grid;place-items:center}
+.step b{font-size:14px;font-weight:700;font-variant-numeric:tabular-nums}
+.irow .q small{font-size:13px;font-weight:500;color:#5F6368;font-variant-numeric:tabular-nums}
+.irow.lock .t b,.irow.lock .t span,.irow.lock .t em,.irow.lock .q small,.irow.lock .q b{color:#9AA0A6}
+.irow.lock .q b{font-size:15px;font-weight:700}
+
+.omore{padding:6px 0 4px}
+.omore button{width:100%;height:44px;border-radius:22px;background:var(--gray);font-size:14px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:4px}
 
 /* cargo animations */
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
@@ -281,15 +330,16 @@ button:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
               </div>
             </div>
             <div id="home"></div>
+            <div id="orders" hidden></div>
           </div>
           <div class="scrim"></div>
           <div class="bnb">
             <button class="mini" id="mini" aria-label="지금 주문 상태 보기"></button>
             <nav class="tabbar">
-              <button class="tab" aria-current="page"><svg width="26" height="26" viewBox="0 0 24 24"><path d="M12 2.6 20.5 7v10L12 21.4 3.5 17V7Z" fill="#2E3A4F"/><path d="M3.8 7.2 12 11.6l8.2-4.4M12 11.6v9.5" fill="none" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/></svg>바로주문</button>
-              <button class="tab"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#4E5560" stroke-width="1.5"><circle cx="12" cy="12" r="9.5"/><path d="m15.8 8.2-2.2 5.4-5.4 2.2 2.2-5.4Z" stroke-linejoin="round"/></svg>발견</button>
-              <button class="tab"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#4E5560" stroke-width="1.5" stroke-linejoin="round"><path d="M5.5 2.8h13v18.4l-2.2-1.5-2.1 1.5-2.2-1.5-2.2 1.5-2.1-1.5-2.2 1.5Z"/><path d="M9 8h6M9 11.5h6M9 15h3.5" stroke-linecap="round"/></svg>주문내역</button>
-              <button class="tab"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#4E5560" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 21c.8-4 4-6 8-6s7.2 2 8 6" stroke-linecap="round"/></svg>마이페이지</button>
+              <button class="tab" data-tab="home" aria-current="page"><svg width="26" height="26" viewBox="0 0 24 24"><path d="M12 2.6 20.5 7v10L12 21.4 3.5 17V7Z" fill="currentColor"/><path d="M3.8 7.2 12 11.6l8.2-4.4M12 11.6v9.5" fill="none" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/></svg>바로주문</button>
+              <button class="tab" data-tab="disc"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9.5"/><path d="m15.8 8.2-2.2 5.4-5.4 2.2 2.2-5.4Z" stroke-linejoin="round"/></svg>발견</button>
+              <button class="tab" data-tab="orders"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M5.5 2.8h13v18.4l-2.2-1.5-2.1 1.5-2.2-1.5-2.2 1.5-2.1-1.5-2.2 1.5Z"/><path d="M9 8h6M9 11.5h6M9 15h3.5" stroke-linecap="round"/></svg>주문내역</button>
+              <button class="tab" data-tab="my"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 21c.8-4 4-6 8-6s7.2 2 8 6" stroke-linecap="round"/></svg>마이페이지</button>
             </nav>
           </div>
         </div>
@@ -436,10 +486,53 @@ function rail(s){
   <span class="arrival"><svg width="11" height="11" viewBox="0 0 24 24"><path d="M3 11 12 3l9 8v10h-6v-6H9v6H3Z" fill="#fff"/></svg></span>
   ${cargo(s)}<span class="cap">${s.cap}</span></div>`;
 }
-let chipIdx=0,bIdx=0,bTimer=null,cdTimer=null,cur=1;
+let view='home',chipIdx=0,bIdx=0,bTimer=null,cdTimer=null,cur=1;
 function productsHTML(set){return set.map(k=>{const p=PRODUCTS[k];return `<div class="card fade-in"><div class="im"><img src="${IMG[k]}" alt="${p[0]}">${p[4]?'<span class="new">신제품</span>':''}</div><div class="nm">${p[0]}<br>${p[1]}</div><div class="pr">${p[2]}</div><div class="ds">${p[3]}</div></div>`;}).join('');}
+const ORD_TOTAL=312400;
+const ORDERS=[
+ {g:'일반주문',c:12,meta:'· 17:20 마감',mc:'var(--orange)',link:'지난 주문에서 담기',items:[
+  {img:'p1',n:'도톰한 사각어묵',u:'390g',p:5180,q:10},
+  {img:'p2',n:'프레스트 미트볼',u:'300g',p:6980,q:4,st:'16:30까지 수정 가능'},
+  {img:'p4',n:'친환경 깐양파',u:'300g',p:3480,q:8},
+  {img:'p6',n:'상하 프로틴 스트링 치즈',u:'200g(10입)',p:12582,q:3,st:'수정 마감 · 공급사 14:00',lock:1},
+  {img:'p1',n:'사각어묵 슬라이스',u:'1kg',p:8900,q:3}],more:'일반주문 7품목 더보기'},
+ {g:'정기주문',c:4,meta:'17:20 자동 확정',mc:'#5F6368',items:[
+  {img:'p5',n:'홀그레인 머스타드',u:'200g',p:4990,q:2},
+  {img:'p5',n:'옐로 머스타드',u:'2kg',p:8700,q:1},
+  {img:'p6',n:'체다 슬라이스 치즈',u:'100매',p:16400,q:1,st:'16:30까지 빼기 가능'},
+  {img:'p3',n:'오징어 링',u:'1kg',p:9400,q:2}]},
+ {g:'예약주문',c:2,meta:'확정 완료',mc:'#9AA0A6',items:[
+  {img:'p3',n:'[해동] 손질 오징어 (대, 마리)',u:'',p:3180,q:6,lock:1},
+  {img:'p3',n:'손질 쭈꾸미',u:'500g',p:7900,q:2,lock:1}]}];
+const won=n=>n.toLocaleString('ko-KR')+'원';
+const ordSum=()=>ORDERS.reduce((a,g)=>a+g.items.reduce((b,it)=>b+it.p*it.q,0),0);
+const ORD_HIDDEN=ORD_TOTAL-ordSum();
+function setTab(k){document.querySelectorAll('.tab').forEach(t=>t.toggleAttribute('aria-current',t.dataset.tab===k));document.querySelectorAll('.tab[aria-current]').forEach(t=>t.setAttribute('aria-current','page'));}
+function showOrders(){
+ view='orders';setTab('orders');
+ const days=[['수',28,1],['목',29,1],['금',30,1],['토',31,2],['일',1,0],['월',2,1],['화',3,0]];
+ const el=document.getElementById('orders');
+ el.innerHTML=`<div class="ptitle"><h2>주문내역</h2><span class="olink">지난 주문 검색${chev('#4E5560')}</span></div>
+  <div class="dates">${days.map(d=>`<div class="day${d[2]===2?' on':''}"><small>${d[0]}</small><b>${d[1]}</b><i class="${d[2]?'':'n'}"></i></div>`).join('')}</div>
+  <div class="ocard"><div class="ohead"><span class="l"><b>10/31(토) 입고</b><span class="stchip">담는 중</span></span><small>내일 07:00 도착</small></div>
+   <div class="odiv"></div>
+   <div class="onums"><div><small>일부 품목 수정 가능</small><div class="big">17:20까지</div></div><div class="r"><small>18품목 합계</small><b id="otot"></b></div></div>
+   <div class="oacts"><button class="p">주문 확정하기 →</button><button class="s">품목 담기</button></div></div>
+  <div class="ilist">${ORDERS.map((g,gi)=>`<div class="ghead${gi?'':' first'}"><span class="l"><b>${g.g}</b><span class="c">${g.c}</span><span class="meta" style="color:${g.mc}">${g.link?g.meta:''}</span></span>${g.link?`<span class="olink" style="font-size:13px">${g.link}${chev('#4E5560')}</span>`:`<span class="meta" style="color:${g.mc}">${g.meta}</span>`}</div>
+   ${g.items.map((it,ii)=>`<div class="irow${it.lock?' lock':''}"><img src="${IMG[it.img]}" alt=""><div class="t"><b>${it.n}</b><span>${it.u?it.u+' · ':''}${won(it.p)}</span>${it.st?`<em>${it.st}</em>`:''}</div>
+    <div class="q">${it.lock?`<b>×${it.q}</b>`:`<div class="step"><button data-g="${gi}" data-i="${ii}" data-d="-1" aria-label="빼기">−</button><b id="q${gi}_${ii}">${it.q}</b><button data-g="${gi}" data-i="${ii}" data-d="1" aria-label="더하기">+</button></div>`}<small id="s${gi}_${ii}">${won(it.p*it.q)}</small></div></div>`).join('')}
+   ${g.more?`<div class="omore"><button>${g.more}${chev('#111')}</button></div>`:''}`).join('')}</div>
+  <div class="spacer"></div>`;
+ const upd=()=>{document.getElementById('otot').textContent=won(ORD_HIDDEN+ordSum());};upd();
+ el.querySelectorAll('.step button').forEach(b=>b.onclick=()=>{const it=ORDERS[+b.dataset.g].items[+b.dataset.i];it.q=Math.max(1,it.q+ +b.dataset.d);document.getElementById(`q${b.dataset.g}_${b.dataset.i}`).textContent=it.q;document.getElementById(`s${b.dataset.g}_${b.dataset.i}`).textContent=won(it.p*it.q);upd();});
+ document.getElementById('home').hidden=true;el.hidden=false;
+ const m=STATES[1].mini,mini=document.getElementById('mini');
+ mini.innerHTML=`<span class="mth">${miniThumb(m.thumb)}</span><span class="mtx">${m.html}</span><span class="bar"><i style="width:${m.bar}%"></i></span>${chev('#111')}`;
+ mini.classList.add('on');startCountdown();
+ document.getElementById('scroll').scrollTop=0;if(isM())window.scrollTo(0,0);
+}
 function render(i){
- cur=i;const s=STATES[i];
+ cur=i;const s=STATES[i];view='home';document.getElementById('home').hidden=false;document.getElementById('orders').hidden=true;setTab('home');
  document.getElementById('cartBadge').textContent=s.cart;document.getElementById('cartBadge').hidden=!s.cart;
  const now=s.now.length?`<div class="now"><div class="task-card">${s.now.map(r=>row(r,'now')).join('')}</div></div>`:'';
  document.getElementById('home').innerHTML=`
@@ -480,7 +573,7 @@ function hScroll(el){
 function bindHome(){
  const sc=document.getElementById('scroll'),hero=document.getElementById('hero'),mini=document.getElementById('mini');
  if(window._io)window._io.disconnect();
- window._io=new IntersectionObserver(([e])=>{mini.classList.toggle('on',!e.isIntersecting)},{root:isM()?null:sc,threshold:0,rootMargin:'0px 0px -132px 0px'});
+ window._io=new IntersectionObserver(([e])=>{if(view==='home')mini.classList.toggle('on',!e.isIntersecting)},{root:isM()?null:sc,threshold:0,rootMargin:'0px 0px -132px 0px'});
  window._io.observe(hero);
  hScroll(document.getElementById('chips'));
  document.querySelectorAll('#chips .chip').forEach(c=>c.onclick=()=>{chipIdx=+c.dataset.j;document.querySelectorAll('#chips .chip').forEach(x=>x.setAttribute('aria-pressed',String(x===c)));document.getElementById('grid').innerHTML=productsHTML(CHIPS[chipIdx].set);});
@@ -493,7 +586,7 @@ function bindHome(){
 function setBanner(i,anim=true){const t=document.getElementById('btrack');if(!t)return;t.style.transition=anim?'':'none';bIdx=i;t.style.transform=`translateX(${-i*100}%)`;document.getElementById('bpage').textContent=`${(i%3)+1} | 3`;if(!anim){t.offsetWidth;t.style.transition='';}}
 function nextBanner(){const n=bIdx+1;setBanner(n,true);if(n===3){setTimeout(()=>setBanner(0,false),470);}}
 function startCountdown(){clearInterval(cdTimer);const el=document.getElementById('cd');if(!el)return;let sec=1*3600+58*60;cdTimer=setInterval(()=>{sec=Math.max(0,sec-1);const h=Math.floor(sec/3600),m=Math.floor(sec%3600/60),s2=sec%60;el.textContent=`${h}:${String(m).padStart(2,'0')}:${String(s2).padStart(2,'0')}`;},1000);}
-document.getElementById('mini').onclick=()=>(isM()?window:document.getElementById('scroll')).scrollTo({top:0,behavior:'smooth'});
+document.getElementById('mini').onclick=()=>view==='orders'?render(1):(isM()?window:document.getElementById('scroll')).scrollTo({top:0,behavior:'smooth'});
 // panel
 const timesHTML=STATES.map((s,i)=>`<button class="time-btn" data-i="${i}" aria-pressed="false"><span class="t">${s.t.replace(':','<i>:</i>')}</span><span class="d"><b>${s.name}</b>${s.desc}</span></button>`).join('');
 document.getElementById('times').innerHTML=timesHTML;document.getElementById('sheetInner').innerHTML=timesHTML;
@@ -502,6 +595,7 @@ document.querySelectorAll('.time-btn').forEach(b=>b.onclick=()=>{render(+b.datas
  if(!req||!on)return;b.hidden=false;
  b.onclick=()=>{const p=req.call(r);if(p&&p.catch)p.catch(()=>{b.hidden=true;});};
  const upd=()=>{b.hidden=!!(document.fullscreenElement||document.webkitFullscreenElement);};document.addEventListener('fullscreenchange',upd);document.addEventListener('webkitfullscreenchange',upd);})();
+document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{if(t.dataset.tab==='orders')showOrders();else if(t.dataset.tab==='home'&&view!=='home')render(cur);});
 document.getElementById('home').addEventListener('click',e=>{if(e.target.closest('#hero'))render((cur+1)%STATES.length);});
 document.getElementById('fab').onclick=()=>document.getElementById('sheet').hidden=false;
 document.getElementById('sheet').onclick=e=>{if(e.target.id==='sheet')e.currentTarget.hidden=true;};
