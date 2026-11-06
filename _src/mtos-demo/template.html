@@ -12,6 +12,7 @@
 }
 *{box-sizing:border-box}
 html,body{height:100%}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 body{margin:0;background:var(--stage);color:var(--ink);font-family:var(--font);-webkit-font-smoothing:antialiased;overflow:hidden}
 button{font-family:inherit;color:inherit;border:0;background:none;padding:0;cursor:pointer}
 button:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
@@ -371,7 +372,7 @@ const STATES=[
   count:'3건',cart:'18',label:'10/31(토) 입고 · 오늘 17:20 마감',head:'장바구니 18품목,<br>주문을 마무리해 주세요',lk:'마감까지',lv:'1시간 58분',rk:'장바구니',rv:'312,400원',
   prog:84,marks:[{type:'pin',x:91,text:'주문 마감'},{type:'tick',x:191}],cap:'내일 07:00 도착',cargo:'c15',cx:33,cy:-17,
   btn1:'주문 확정하기',btn2:'품목 담기',
-  now:[{icon:'trend',t:'대파 10단, 평소의 2배예요',s:'과발주 · 10/31 입고분',b:'확인'},{icon:'clock',t:'10/31 입고분, 떡 수정 마감',s:'오늘 16:30 · 1시간 30분 남음',b:'수정하기'}],
+  now:[{icon:'trend',t:'대파 10단, 평소의 2배예요',s:'과발주 · 10/31 입고분',b:'확인'},{icon:'clock',t:'떡 수정 마감 임박',s:'10/31 입고분 · 16:30까지, 1시간 30분 남음',b:'수정하기'}],
   mini:{thumb:'full',html:'마감까지 <span class="tp" id="cd">1:58:00</span> 남았어요',bar:84}},
  {id:'1900',t:'19:00',name:'출고 대기',desc:'주문 마감, 포장 중',scene:'저녁 7시, 주문이 마감됐어요. 바구니가 박스로 포장되고, 다음 할 일은 11/2 입고분 미리 담기예요.',
   count:'2건',cart:'',label:'10/31(토) 입고 · 주문 마감됨',head:'18품목 주문 완료,<br>내일 07:00 도착해요',lk:'출고까지',lv:'3시간',rk:'결제 예정',rv:'312,400원',
