@@ -83,7 +83,7 @@ button:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
 .hicon{position:relative;width:26px;height:26px;display:grid;place-items:center}
 .hicon .dot{position:absolute;top:1px;right:2px;width:7px;height:7px;border-radius:50%;background:var(--orange);border:1.5px solid #fff}
 .hicon .badge{position:absolute;top:-7px;right:-9px;min-width:19px;height:19px;padding:0 5px;border-radius:10px;background:var(--orange);color:#fff;font-size:11px;font-weight:700;display:grid;place-items:center;border:2px solid #fff}
-.sec-title{display:flex;align-items:center;gap:6px;font-size:22px;font-weight:800;letter-spacing:-.03em;padding:44px 26px 22px}
+.sec-title{display:flex;align-items:center;gap:6px;font-size:22px;font-weight:800;letter-spacing:-.03em;padding:50px 26px 22px}
 .sec-title.first{padding-top:18px;padding-bottom:14px}
 .sec-title .cnt{color:var(--orange)}
 .sec-title .more{margin-left:auto;font-size:14px;font-weight:500;color:var(--sub);display:flex;align-items:center;gap:2px;letter-spacing:0}
@@ -128,8 +128,10 @@ button:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
 @keyframes drop{0%{top:9px;opacity:0}20%{opacity:1}75%{opacity:1}100%{top:19px;opacity:0}}
 
 /* task card & lists */
-.now{padding:22px 22px 0}
-.task-card{border:1.5px solid var(--line);border-radius:20px;padding:16px 14px 16px 10px;display:flex;flex-direction:column;gap:16px;background:#fff}
+.now{padding:16px 22px 0}
+.task-card{border-radius:22px;padding:16px 14px 16px 10px;display:flex;flex-direction:column;gap:16px;background:#ECECEC}
+.task-card .ttext span,.task-card .ttext span.warn{color:#B1705E;font-weight:500}
+.task-card .pill{background:#fff}
 .row{display:flex;align-items:center;gap:15px}
 .ticon{width:40px;flex:none;display:grid;place-items:center;color:var(--icon)}
 .tdate{width:40px;flex:none;display:flex;flex-direction:column;align-items:center;color:var(--icon)}
@@ -142,9 +144,11 @@ button:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
 .pill{height:34px;padding:0 12px;border-radius:17px;background:var(--gray);font-size:13px;font-weight:600;flex:none}
 .link{display:flex;align-items:center;gap:2px;font-size:14px;font-weight:600;color:var(--navy);flex:none}
 .soon{display:flex;flex-direction:column;gap:18px;padding:0 22px}
+.soon .ticon,.soon .tdate{color:#292C31}
+.soon .link{color:#8E9196}
 
 /* banner */
-.banner-wrap{padding:44px 22px 0}
+.banner-wrap{padding:50px 22px 0}
 .banner{position:relative;height:180px;border-radius:22px;overflow:hidden}
 .btrack{display:flex;height:100%;transition:transform .45s cubic-bezier(.45,0,.2,1)}
 .slide{flex:none;width:100%;height:100%;position:relative;padding:29px 20px}
@@ -162,7 +166,8 @@ button:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
 .chips.drag .chip{pointer-events:none}
 .chips::-webkit-scrollbar{display:none}
 .chip{flex:none;display:flex;align-items:center;gap:10px;height:56px;padding:8px 18px 8px 8px;border-radius:20px;background:#fff;box-shadow:inset 0 0 0 1.5px var(--chipline);text-align:left;color:#111}
-.chip[aria-pressed="true"]{background:var(--gray);box-shadow:none}
+.chip{background:#F3F3F3;box-shadow:none}
+.chip[aria-pressed="true"]{background:#fff;box-shadow:inset 0 0 0 2px #292C31}
 .chip[aria-pressed="true"] span span{color:#4A5160}
 .chip .th{width:40px;height:40px;padding:2px;flex:none}
 .chip .th img{width:36px;height:36px;border-radius:14px;object-fit:cover;display:block}
@@ -174,7 +179,7 @@ button:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
 .card .new{position:absolute;left:6px;top:6px;background:var(--orange);color:#fff;font-size:11px;font-weight:700;padding:3px 6px;border-radius:6px}
 .card .nm{margin-top:10px;font-size:14px;line-height:1.35;letter-spacing:-.02em}
 .card .pr{font-size:18px;font-weight:700;margin-top:3px;letter-spacing:-.02em}
-.card .ds{font-size:13px;color:var(--mid);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.card .ds{font-size:12px;color:var(--mid);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .fade-in{animation:fadeIn .35s ease}
 @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 .spacer{height:180px}
@@ -187,15 +192,15 @@ button:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
 .mini .mth{width:34px;height:34px;flex:none;position:relative}
 .mini .mth img{position:absolute;display:block;max-width:none}
 .hicon .badge[hidden]{display:none}
-.mini .mtx{flex:1;min-width:0;display:flex;align-items:center;gap:6px;font-size:16px;font-weight:600;letter-spacing:-.02em;white-space:nowrap;overflow:hidden}
+.mini .mtx{color:#111;flex:1;min-width:0;display:flex;align-items:center;gap:6px;font-size:16px;font-weight:600;letter-spacing:-.02em;white-space:nowrap;overflow:hidden}
 .mini .mtx em{font-style:normal;font-weight:700}
 .mini .tp{background:var(--navy);color:#fff;font-size:13px;font-weight:700;padding:2px 7px;border-radius:6px;font-variant-numeric:tabular-nums}
 .mini .bar{width:44px;height:4px;border-radius:2px;background:rgba(46,58,79,.18);position:relative;flex:none;overflow:hidden}
 .mini .bar i{position:absolute;left:0;top:0;bottom:0;background:var(--navy);border-radius:2px}
-.tabbar{pointer-events:auto;height:84px;background:#fff;display:flex;padding:6px 12px 26px;position:relative}
+.tabbar{pointer-events:auto;height:84px;background:#fff;display:flex;padding:6px 12px 26px;position:relative;box-shadow:inset 0 1px 0 rgba(0,0,0,.06)}
 .tabbar::after{content:"";position:absolute;left:50%;bottom:8px;width:134px;height:5px;margin-left:-67px;border-radius:3px;background:#111;display:none}
 @media (max-width:760px){.tabbar::after{display:none}}
-.tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:12px;font-weight:500;color:var(--icon)}
+.tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:13px;font-weight:600;color:var(--icon)}
 .tab[aria-current="page"]{color:var(--navy);font-weight:700}
 
 /* cargo animations */
@@ -426,7 +431,7 @@ function miniThumb(k){
 }
 function row(r,kind){
  const lead=r.date?`<div class="tdate"><small>${r.date[0]}</small><b>${r.date[1]}</b></div>`:`<div class="ticon">${svgI(r.icon)}</div>`;
- const tail=kind==='now'?`<button class="pill">${r.b}</button>`:`<button class="link">${r.l}${chev('#2E3A4F')}</button>`;
+ const tail=kind==='now'?`<button class="pill">${r.b}</button>`:`<button class="link">${r.l}${chev('#8E9196')}</button>`;
  return `<div class="row">${lead}<div class="ttext"><b>${r.t}</b><span class="${r.warn?'warn':''}">${r.s}</span></div>${tail}</div>`;
 }
 function rail(s){
