@@ -178,7 +178,7 @@ button:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
 .scrim{display:none}
 .mini{pointer-events:auto;margin:0;height:48px;background:var(--lime);border-radius:0;display:flex;align-items:center;gap:8px;padding:0 20px;box-shadow:0 16px 16px rgba(0,0,0,.1),inset 0 -2px 1px rgba(0,0,0,.05);transform:translateY(48px);opacity:0;transition:transform .35s cubic-bezier(.2,.8,.2,1),opacity .25s;width:100%;text-align:left}
 .mini.on{transform:none;opacity:1}
-.mini .mth{width:34px;height:34px;flex:none;position:relative}
+.mini .mth{width:34px;height:34px;flex:none;position:relative;clip-path:inset(-7px -6px -7px -10px)}
 .mini .mth img{position:absolute;display:block;max-width:none}
 .hicon .badge[hidden]{display:none}
 .mini .mtx{color:#111;flex:1;min-width:0;display:flex;align-items:center;gap:6px;font-size:16px;font-weight:600;letter-spacing:-.02em;white-space:nowrap;overflow:hidden}
@@ -426,21 +426,28 @@ function lerpL(A,B,t,dissolve){
 let anim=null;
 function startCargo(){
  if(anim)cancelAnimationFrame(anim.raf);
- const el=document.getElementById('cargo');if(!el)return;
- const fr=MOTION[el.dataset.key];const nodes={};el.querySelectorAll('img').forEach(n=>nodes[n.dataset.l]=n);
+ const els=[...document.querySelectorAll('.cargo[data-key]')];if(!els.length)return;
  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
- const paint=L=>{for(const n in nodes){const v=L[n];if(!v)continue;const a=v.r*Math.PI/180,c=Math.cos(a),s=Math.sin(a);const st=nodes[n].style;
+ const mk=el=>{const nodes={};el.querySelectorAll('img').forEach(n=>nodes[n.dataset.l]=n);
+  const paint=L=>{for(const n in nodes){const v=L[n];if(!v)continue;const a=v.r*Math.PI/180,c=Math.cos(a),s=Math.sin(a);const st=nodes[n].style;
    st.left=v.x+'px';st.top=v.y+'px';st.width=v.w+'px';st.height=v.h+'px';st.transform=`matrix(${c},${-s},${s},${c},0,0)`;st.opacity=v.o;
    if(n==='sealed'&&L.wipe){const wr=L.wipe.x+L.wipe.w,wl=L.wipe.x;const ri=Math.max(0,v.x+v.w-wr),li=Math.max(0,wl-v.x);st.clipPath=`inset(0 ${ri}px 0 ${li}px)`;}}};
- let i=0,phase='hold',t0=performance.now();paint(fr[0].layers);
- if(reduce){const last=fr[fr.length-1].layers;paint(last);return;}
- const step=now=>{const f=fr[i],tr=f.tr,el2=(now-t0)/1000;
-  if(phase==='hold'){if(el2>=tr.wait){phase='move';t0=now;}}
-  else{const j=+tr.to-1,d=tr.dur||0;const p=d?Math.min(1,(now-t0)/1000/d):1;const e=bez(tr.ease,p);
-   const L={},A=f.layers,B=fr[j].layers;for(const n in A)L[n]=B[n]?lerpL(A[n],B[n],e,tr.type==='DISSOLVE'&&p<1):A[n];
-   paint(p>=1?B:L);if(p>=1){i=j;phase='hold';t0=now;}}
-  anim.raf=requestAnimationFrame(step);};
+  return {fr:MOTION[el.dataset.key],paint,i:0,phase:'hold',t0:performance.now()};};
+ const runs=els.map(mk);
+ runs.forEach(r=>r.paint(reduce?r.fr[r.fr.length-1].layers:r.fr[0].layers));
+ if(reduce)return;
+ const tick=(r,now)=>{const f=r.fr[r.i],tr=f.tr,el2=(now-r.t0)/1000;
+  if(r.phase==='hold'){if(el2>=tr.wait){r.phase='move';r.t0=now;}}
+  else{const j=+tr.to-1,d=tr.dur||0;const p=d?Math.min(1,(now-r.t0)/1000/d):1;const e=bez(tr.ease,p);
+   const L={},A=f.layers,B=r.fr[j].layers;for(const n in A)L[n]=B[n]?lerpL(A[n],B[n],e,tr.type==='DISSOLVE'&&p<1):A[n];
+   r.paint(p>=1?B:L);if(p>=1){r.i=j;r.phase='hold';r.t0=now;}}};
+ const step=now=>{runs.forEach(r=>tick(r,now));anim.raf=requestAnimationFrame(step);};
  anim={raf:requestAnimationFrame(step)};
+}
+function cargoMini(s){
+ const [key,w,h]=CARGO[s.cargo];const f0=MOTION[key][0];const k=Math.min(34/w,34/h);
+ const imgs=Object.keys(f0.layers).filter(n=>n!=='wipe').map(n=>`<img data-l="${n}" src="${IMG[LIMG(n)]}" alt="" style="transform-origin:0 0">`).join('');
+ return `<div class="cargo" data-key="${key}" style="left:${(34-w*k)/2}px;top:${(34-h*k)/2}px;width:${w}px;height:${h}px;transform:scale(${k});transform-origin:0 0">${imgs}</div>`;
 }
 function cargoOld(s){
  if(s.cargo==='c15'){return `<div class="cargo c15" style="left:${s.cx}px;top:${s.cy}px;width:54px;height:65px">
@@ -528,8 +535,8 @@ function showOrders(){
  el.querySelectorAll('.step button').forEach(b=>b.onclick=()=>{const it=ORDERS[+b.dataset.g].items[+b.dataset.i];it.q=Math.max(1,it.q+ +b.dataset.d);document.getElementById(`q${b.dataset.g}_${b.dataset.i}`).textContent=it.q;document.getElementById(`s${b.dataset.g}_${b.dataset.i}`).textContent=won(it.p*it.q);upd();});
  document.getElementById('home').hidden=true;el.hidden=false;
  const m=STATES[1].mini,mini=document.getElementById('mini');
- mini.innerHTML=`<span class="mth">${miniThumb(m.thumb)}</span><span class="mtx">${m.html}</span><span class="bar"><i style="width:${m.bar}%"></i></span>${chev('#111')}`;
- mini.classList.add('on');startCountdown();
+ mini.innerHTML=`<span class="mth">${cargoMini(STATES[1])}</span><span class="mtx">${m.html}</span><span class="bar"><i style="width:${m.bar}%"></i></span>${chev('#111')}`;
+ mini.classList.add('on');startCountdown();startCargo();
  document.getElementById('scroll').scrollTop=0;if(isM())window.scrollTo(0,0);
 }
 function render(i){
@@ -556,7 +563,7 @@ function render(i){
   <div class="grid" id="grid">${productsHTML(CHIPS[chipIdx].set)}</div>
   <div class="spacer"></div>`;
  const mini=document.getElementById('mini');
- mini.innerHTML=`<span class="mth">${miniThumb(s.mini.thumb)}</span><span class="mtx">${s.mini.html}</span><span class="bar"><i style="width:${s.mini.bar}%"></i></span>${chev('#111')}`;
+ mini.innerHTML=`<span class="mth">${cargoMini(s)}</span><span class="mtx">${s.mini.html}</span><span class="bar"><i style="width:${s.mini.bar}%"></i></span>${chev('#111')}`;
  document.querySelectorAll('.time-btn,.sheet .time-btn').forEach(b=>b.setAttribute('aria-pressed',String(+b.dataset.i===i)));
  document.getElementById('sceneK').textContent=`${s.t} · ${s.name}`;document.getElementById('sceneV').textContent=s.scene;
  document.getElementById('fabT').textContent=s.t;
