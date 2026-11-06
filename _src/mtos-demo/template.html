@@ -41,17 +41,19 @@ button:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
 .time-btn[aria-pressed="true"] .t{color:var(--navy)}
 .time-btn:hover{border-color:#C8CDD4}
 /* presentation panel — warm gray stage, pill time buttons */
-.panel{width:308px;gap:18px}
-.panel h1{font-size:24px;font-weight:600;color:#F7F5F2;letter-spacing:-.02em;padding-left:12px}
-.panel .times{gap:12px}
-.panel .time-btn{grid-template-columns:auto 1fr;gap:28px;height:80px;padding:0 30px;border-radius:40px;border:0;background:#D2CFCB;box-shadow:none;transition:background .2s}
-.panel .time-btn .t{font-size:27px;font-weight:600;color:#A29E99;letter-spacing:0}
+.panel{width:270px;gap:0}
+.panel h1{font-size:19px;font-weight:600;color:#F7F5F2;letter-spacing:-.02em;padding:0;margin:0 0 22px}
+.panel h1.sub{margin-top:76px}
+.panel .times{gap:0;border-top:3px solid #fff}
+.panel .time-btn,.panel .ov-btn{display:grid;grid-template-columns:auto 1fr;align-items:center;gap:18px;height:80px;padding:0;border-radius:0;border:0;border-bottom:3px solid #fff;background:none;box-shadow:none;text-align:left;width:100%;transition:border-color .2s}
+.panel .ov-btn{grid-template-columns:1fr}
+.panel .time-btn .t{font-size:25px;font-weight:600;color:#fff;letter-spacing:0;font-variant-numeric:tabular-nums}
 .panel .time-btn .t i{font-style:normal;padding:0 3px;position:relative;top:-2px}
-.panel .time-btn .d{font-size:12px;font-weight:500;color:#A29E99;line-height:1.4}
-.panel .time-btn .d b{font-size:18px;font-weight:700;color:#A29E99;margin-bottom:1px}
-.panel .time-btn:hover{background:#DCD9D6}
-.panel .time-btn[aria-pressed="true"]{background:#fff}
-.panel .time-btn[aria-pressed="true"] .t,.panel .time-btn[aria-pressed="true"] .d,.panel .time-btn[aria-pressed="true"] .d b{color:#111}
+.panel .time-btn .d,.panel .ov-btn .d{font-size:12px;font-weight:500;color:#fff;line-height:1.4}
+.panel .time-btn .d b,.panel .ov-btn .d b{display:block;font-size:19px;font-weight:600;color:#fff;margin-bottom:1px}
+.panel .time-btn:hover .t,.panel .time-btn:hover .d,.panel .time-btn:hover .d b,.panel .ov-btn:hover .d,.panel .ov-btn:hover .d b{color:#EDEAE6}
+.panel [aria-pressed="true"]{border-bottom-color:#222}
+.panel [aria-pressed="true"] .t,.panel [aria-pressed="true"] .d,.panel [aria-pressed="true"] .d b{color:#111!important}
 .scene{background:var(--navy);color:#fff;border-radius:18px;padding:16px 18px}
 .scene .k{font-size:12px;font-weight:700;color:var(--lime);margin-bottom:6px}
 .scene .v{font-size:14px;line-height:1.6}
@@ -352,8 +354,10 @@ button:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
   </div>
 
   <aside class="panel" aria-label="시연 패널">
-    <h1>시간대별 히어로 영역 카드 정보</h1>
+    <h1>시간대별 히어로 영역 정보</h1>
     <div class="times" id="times"></div>
+    <h1 class="sub">기타 화면</h1>
+    <div class="times"><button class="ov-btn" id="ovOrders" aria-pressed="false"><span class="d"><b>주문내역</b>10/31 입고분 담는 중</span></button></div>
     <div hidden><span id="sceneK"></span><span id="sceneV"></span></div>
   </aside>
 </div>
@@ -520,7 +524,7 @@ const ordSum=()=>ORDERS.reduce((a,g)=>a+g.items.reduce((b,it)=>b+it.p*it.q,0),0)
 const ORD_HIDDEN=ORD_TOTAL-ordSum();
 function setTab(k){document.querySelectorAll('.tab').forEach(t=>t.toggleAttribute('aria-current',t.dataset.tab===k));document.querySelectorAll('.tab[aria-current]').forEach(t=>t.setAttribute('aria-current','page'));}
 function showOrders(){
- view='orders';setTab('orders');
+ view='orders';setTab('orders');document.querySelectorAll('.time-btn').forEach(b=>b.setAttribute('aria-pressed','false'));document.getElementById('ovOrders').setAttribute('aria-pressed','true');
  const days=[['수',28,1],['목',29,1],['금',30,1],['토',31,2],['일',1,0],['월',2,1],['화',3,0]];
  const el=document.getElementById('orders');
  el.innerHTML=`<div class="ptitle"><h2>주문내역</h2><span class="olink">지난 주문 검색${chev('#4E5560')}</span></div>
@@ -567,7 +571,7 @@ function render(i){
   <div class="spacer"></div>`;
  const mini=document.getElementById('mini');
  mini.innerHTML=`<span class="mth">${cargoMini(s)}</span><span class="mtx">${s.mini.html}</span><span class="bar"><i style="width:${s.mini.bar}%"></i></span>${chev('#111')}`;
- document.querySelectorAll('.time-btn,.sheet .time-btn').forEach(b=>b.setAttribute('aria-pressed',String(+b.dataset.i===i)));
+ document.querySelectorAll('.time-btn,.sheet .time-btn').forEach(b=>b.setAttribute('aria-pressed',String(+b.dataset.i===i)));document.getElementById('ovOrders').setAttribute('aria-pressed','false');
  document.getElementById('sceneK').textContent=`${s.t} · ${s.name}`;document.getElementById('sceneV').textContent=s.scene;
  document.getElementById('fabT').textContent=s.t;
  document.getElementById('scroll').scrollTop=0;if(isM())window.scrollTo(0,0);mini.classList.remove('on');
@@ -601,6 +605,7 @@ document.getElementById('mini').onclick=()=>view==='orders'?render(1):(isM()?win
 // panel
 const timesHTML=STATES.map((s,i)=>`<button class="time-btn" data-i="${i}" aria-pressed="false"><span class="t">${s.t.replace(':','<i>:</i>')}</span><span class="d"><b>${s.name}</b>${s.desc}</span></button>`).join('');
 document.getElementById('times').innerHTML=timesHTML;document.getElementById('sheetInner').innerHTML=timesHTML;
+document.getElementById('ovOrders').onclick=()=>showOrders();
 document.querySelectorAll('.time-btn').forEach(b=>b.onclick=()=>{render(+b.dataset.i);document.getElementById('sheet').hidden=true;});
 (()=>{const b=document.getElementById('fsBtn'),r=document.documentElement;const req=r.requestFullscreen||r.webkitRequestFullscreen;const on=document.fullscreenEnabled||document.webkitFullscreenEnabled;
  if(!req||!on)return;b.hidden=false;
