@@ -246,6 +246,9 @@ button:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
   .sheet .inner{background:#fff;width:100%;border-radius:24px 24px 0 0;padding:16px 16px calc(20px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:8px}
 }
 .sheet[hidden]{display:none}
+.hero{cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .12s}
+.hero:active{transform:scale(.985)}
+@media (max-width:760px){.fab,.fab.fs{display:none!important}}
 @media (max-width:760px){
   /* mobile: the document itself scrolls so the browser toolbars can collapse */
   html,body{height:auto;min-height:100%;overflow:visible;background:#fff}
@@ -499,6 +502,7 @@ document.querySelectorAll('.time-btn').forEach(b=>b.onclick=()=>{render(+b.datas
  if(!req||!on)return;b.hidden=false;
  b.onclick=()=>{const p=req.call(r);if(p&&p.catch)p.catch(()=>{b.hidden=true;});};
  const upd=()=>{b.hidden=!!(document.fullscreenElement||document.webkitFullscreenElement);};document.addEventListener('fullscreenchange',upd);document.addEventListener('webkitfullscreenchange',upd);})();
+document.getElementById('home').addEventListener('click',e=>{if(e.target.closest('#hero'))render((cur+1)%STATES.length);});
 document.getElementById('fab').onclick=()=>document.getElementById('sheet').hidden=false;
 document.getElementById('sheet').onclick=e=>{if(e.target.id==='sheet')e.currentTarget.hidden=true;};
 addEventListener('keydown',e=>{if(e.key==='ArrowRight')render((cur+1)%5);if(e.key==='ArrowLeft')render((cur+4)%5);});
