@@ -300,6 +300,12 @@ button:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
   .sheet .inner{background:#fff;width:100%;border-radius:24px 24px 0 0;padding:16px 16px calc(20px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:8px}
 }
 .sheet[hidden]{display:none}
+/* variant: full-bleed hero */
+.app.bleed .statusbar,.app.bleed .header,.app.bleed #home .sec-title.first,.app.bleed .hero-wrap{background:var(--lime)}
+.app.bleed .hero-wrap{padding:0}
+.app.bleed .hero{background:transparent;border-radius:0;padding:12px 26px 28px}
+.app.bleed .now{padding-top:0;background:linear-gradient(var(--lime) 0,#fff 100%)}
+.app.bleed .task-card{background:#fff;box-shadow:0 6px 18px rgba(23,31,13,.08)}
 @media (max-width:385px){.mini{padding:0 12px;gap:6px}}
 .hero{cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .12s}
 .hero:active{transform:scale(.985)}
@@ -357,7 +363,7 @@ button:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
     <h1>시간대별 히어로 영역 정보</h1>
     <div class="times" id="times"></div>
     <h1 class="sub">기타 화면</h1>
-    <div class="times"><button class="ov-btn" id="ovOrders" aria-pressed="false"><span class="d"><b>주문내역</b>10/31 입고분 담는 중</span></button></div>
+    <div class="times"><button class="ov-btn" id="ovOrders" aria-pressed="false"><span class="d"><b>주문내역</b>10/31 입고분 담는 중</span></button><button class="ov-btn" id="ovBleed" aria-pressed="false"><span class="d"><b>히어로 배경형</b>시안 · 히어로를 배경으로 풀어낸 안</span></button></div>
     <div hidden><span id="sceneK"></span><span id="sceneV"></span></div>
   </aside>
 </div>
@@ -524,7 +530,7 @@ const ordSum=()=>ORDERS.reduce((a,g)=>a+g.items.reduce((b,it)=>b+it.p*it.q,0),0)
 const ORD_HIDDEN=ORD_TOTAL-ordSum();
 function setTab(k){document.querySelectorAll('.tab').forEach(t=>t.toggleAttribute('aria-current',t.dataset.tab===k));document.querySelectorAll('.tab[aria-current]').forEach(t=>t.setAttribute('aria-current','page'));}
 function showOrders(){
- view='orders';setTab('orders');document.querySelectorAll('.time-btn').forEach(b=>b.setAttribute('aria-pressed','false'));document.getElementById('ovOrders').setAttribute('aria-pressed','true');
+ setBleed(false);view='orders';setTab('orders');document.getElementById('ovBleed').setAttribute('aria-pressed','false');document.querySelectorAll('.time-btn').forEach(b=>b.setAttribute('aria-pressed','false'));document.getElementById('ovOrders').setAttribute('aria-pressed','true');
  const days=[['수',28,1],['목',29,1],['금',30,1],['토',31,2],['일',1,0],['월',2,1],['화',3,0]];
  const el=document.getElementById('orders');
  el.innerHTML=`<div class="ptitle"><h2>주문내역</h2><span class="olink">지난 주문 검색${chev('#4E5560')}</span></div>
@@ -571,12 +577,14 @@ function render(i){
   <div class="spacer"></div>`;
  const mini=document.getElementById('mini');
  mini.innerHTML=`<span class="mth">${cargoMini(s)}</span><span class="mtx">${s.mini.html}</span><span class="bar"><i style="width:${s.mini.bar}%"></i></span>${chev('#111')}`;
- document.querySelectorAll('.time-btn,.sheet .time-btn').forEach(b=>b.setAttribute('aria-pressed',String(+b.dataset.i===i)));document.getElementById('ovOrders').setAttribute('aria-pressed','false');
+ document.querySelectorAll('.time-btn,.sheet .time-btn').forEach(b=>b.setAttribute('aria-pressed',String(+b.dataset.i===i)));document.getElementById('ovOrders').setAttribute('aria-pressed','false');document.getElementById('ovBleed').setAttribute('aria-pressed',String(bleed));if(bleed)document.querySelectorAll('.time-btn').forEach(b=>b.setAttribute('aria-pressed','false'));
  document.getElementById('sceneK').textContent=`${s.t} · ${s.name}`;document.getElementById('sceneV').textContent=s.scene;
  document.getElementById('fabT').textContent=s.t;
  document.getElementById('scroll').scrollTop=0;if(isM())window.scrollTo(0,0);mini.classList.remove('on');
  bindHome();startCountdown();startCargo();fitRail();
 }
+let bleed=false;
+function setBleed(v){bleed=v;document.querySelector('.app').classList.toggle('bleed',v);try{history.replaceState(null,'',v?'#bleed':location.pathname+location.search)}catch(e){}}
 const isM=()=>matchMedia('(max-width:760px)').matches;
 function hScroll(el){
  if(!el)return;let down=false,sx=0,sl=0,moved=0;
@@ -606,7 +614,8 @@ document.getElementById('mini').onclick=()=>view==='orders'?render(1):(isM()?win
 const timesHTML=STATES.map((s,i)=>`<button class="time-btn" data-i="${i}" aria-pressed="false"><span class="t">${s.t.replace(':','<i>:</i>')}</span><span class="d"><b>${s.name}</b>${s.desc}</span></button>`).join('');
 document.getElementById('times').innerHTML=timesHTML;document.getElementById('sheetInner').innerHTML=timesHTML;
 document.getElementById('ovOrders').onclick=()=>showOrders();
-document.querySelectorAll('.time-btn').forEach(b=>b.onclick=()=>{render(+b.dataset.i);document.getElementById('sheet').hidden=true;});
+document.getElementById('ovBleed').onclick=()=>{setBleed(true);render(0);};
+document.querySelectorAll('.time-btn').forEach(b=>b.onclick=()=>{setBleed(false);render(+b.dataset.i);document.getElementById('sheet').hidden=true;});
 (()=>{const b=document.getElementById('fsBtn'),r=document.documentElement;const req=r.requestFullscreen||r.webkitRequestFullscreen;const on=document.fullscreenEnabled||document.webkitFullscreenEnabled;
  if(!req||!on)return;b.hidden=false;
  b.onclick=()=>{const p=req.call(r);if(p&&p.catch)p.catch(()=>{b.hidden=true;});};
@@ -619,5 +628,5 @@ addEventListener('keydown',e=>{if(e.key==='ArrowRight')render((cur+1)%5);if(e.ke
 function fitRail(){document.querySelectorAll('.rail').forEach(r=>{r.style.zoom='';const avail=r.parentElement.clientWidth-parseFloat(getComputedStyle(r.parentElement).paddingLeft)-parseFloat(getComputedStyle(r.parentElement).paddingRight);r.style.zoom=avail<302?(avail/302).toFixed(4):'';});}
 function fit(){fitRail();const w=document.getElementById('dwrap'),d=document.getElementById('device');if(innerWidth<=760){w.style.width='';w.style.height='';d.style.transform='';return;}const s=Math.min(1,(innerHeight-72)/844);d.style.transform=`scale(${s})`;w.style.width=390*s+'px';w.style.height=844*s+'px';}
 addEventListener('resize',fit);fit();
-render(1);
+if(location.hash==='#bleed'){setBleed(true);render(0);}else render(1);
 </script>
