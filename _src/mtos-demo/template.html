@@ -478,7 +478,7 @@ button:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
     <h1>시간대별 히어로 영역 정보</h1>
     <div class="times" id="times"></div>
     <h1 class="sub">기타 화면</h1>
-    <div class="times"><button class="ov-btn" id="ovFirst" aria-pressed="false"><span class="d"><b>가입 완료 첫 화면</b></span></button><button class="ov-btn" id="ovOrders" aria-pressed="false"><span class="d"><b>주문내역</b></span></button></div>
+    <div class="times"><button class="ov-btn" id="ovOrders" aria-pressed="false"><span class="d"><b>주문내역</b></span></button></div>
     <div class="alt"><button class="alt-pill" id="ovBleed" aria-pressed="false">대안 · 히어로 배경형</button></div>
     <div hidden><span id="sceneK"></span><span id="sceneV"></span></div>
   </aside>
@@ -789,7 +789,7 @@ function startCountdown(){clearInterval(cdTimer);const el=document.getElementByI
 document.getElementById('mini').onclick=()=>view==='orders'?render(1):(isM()?window:document.getElementById('scroll')).scrollTo({top:0,behavior:'smooth'});
 // panel
 const timesHTML=STATES.map((s,i)=>`<button class="time-btn" data-i="${i}" aria-pressed="false"><span class="t">${s.t.replace(':','<i>:</i>')}</span><span class="d"><b>${s.name}</b></span></button>`).join('');
-document.getElementById('times').innerHTML=timesHTML;document.getElementById('sheetInner').innerHTML=timesHTML;
+document.getElementById('times').innerHTML='<button class="ov-btn" id="ovFirst" aria-pressed="false"><span class="d"><b>가입 완료 첫 화면</b></span></button>'+timesHTML;document.getElementById('sheetInner').innerHTML=timesHTML;
 document.getElementById('ovOrders').onclick=()=>showOrders();
 document.getElementById('ovFirst').onclick=()=>showFirst();
 document.getElementById('ovBleed').onclick=()=>{setBleed(true);render(0);};
@@ -801,9 +801,9 @@ document.querySelectorAll('.time-btn').forEach(b=>b.onclick=()=>{setBleed(false)
 document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{if(t.dataset.tab==='orders')showOrders();else if(t.dataset.tab==='home'&&view==='orders')render(cur);});
 document.getElementById('home').addEventListener('click',e=>{
  if(e.target.closest('.wchip')){openWx();return;}
- if(view==='first'){if(e.target.closest('#fhero'))showOrders();return;}
+ if(view==='first'){if(e.target.closest('#fhero'))render(0);return;}
  if(!e.target.closest('#hero'))return;
- if(bleed){setBleed(false);render(0);}else if(cur===STATES.length-1)showFirst();else render(cur+1);});
+ if(bleed){setBleed(false);showFirst();}else if(cur===STATES.length-1)showOrders();else render(cur+1);});
 document.getElementById('orders').addEventListener('click',e=>{if(e.target.closest('.ocard')&&!e.target.closest('button')){setBleed(true);render(0);}});
 document.getElementById('fab').onclick=()=>document.getElementById('sheet').hidden=false;
 document.getElementById('sheet').onclick=e=>{if(e.target.id==='sheet')e.currentTarget.hidden=true;};
@@ -811,5 +811,5 @@ addEventListener('keydown',e=>{if(e.key==='ArrowRight')render((cur+1)%5);if(e.ke
 function fitRail(){document.querySelectorAll('.rail').forEach(r=>{r.style.zoom='';const avail=r.parentElement.clientWidth-parseFloat(getComputedStyle(r.parentElement).paddingLeft)-parseFloat(getComputedStyle(r.parentElement).paddingRight);const nw=+r.dataset.w||302;r.style.zoom=avail<nw?(avail/nw).toFixed(4):'';});}
 function fit(){fitRail();const w=document.getElementById('dwrap'),d=document.getElementById('device');if(innerWidth<=760){w.style.width='';w.style.height='';d.style.transform='';return;}const s=Math.min(1,(innerHeight-72)/844);d.style.transform=`scale(${s})`;w.style.width=390*s+'px';w.style.height=844*s+'px';}
 addEventListener('resize',fit);fit();
-if(location.hash==='#bleed'){setBleed(true);render(0);}else if(location.hash==='#first')showFirst();else render(1);
+if(location.hash==='#bleed'){setBleed(true);render(0);}else showFirst();
 </script>
