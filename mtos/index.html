@@ -319,11 +319,17 @@ button:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
 .panel .alt-pill{height:36px;padding:0 16px;border-radius:18px;border:1.5px solid rgba(255,255,255,.85);color:#fff;font-size:13px;font-weight:600;background:transparent;transition:background .2s,color .2s}
 .panel .alt-pill:hover{background:rgba(255,255,255,.15)}
 .panel .alt-pill[aria-pressed="true"]{background:#fff;color:#111;border-color:#fff;box-shadow:none}
-/* variant: full-bleed hero */
-.app.bleed .statusbar,.app.bleed .header,.app.bleed #home .sec-title.first,.app.bleed .hero-wrap{background:var(--lime)}
+/* variant: full-bleed hero (soft pastel lime) */
+.app.bleed .statusbar{background:#F1FAD6}
+.app.bleed .scroll{background:
+  radial-gradient(160px 130px at 70px 150px,rgba(255,255,255,.75),rgba(255,255,255,0) 100%),
+  radial-gradient(150px 140px at 340px 360px,rgba(207,242,106,.55),rgba(207,242,106,0) 100%),
+  radial-gradient(120px 110px at 40px 480px,rgba(233,251,196,.8),rgba(233,251,196,0) 100%),
+  linear-gradient(#F1FAD6 0,#E6F7AE 270px,#DEF494 480px,#fff 600px);
+  background-repeat:no-repeat;background-size:100% 600px;background-attachment:local}
 .app.bleed .hero-wrap{padding:0}
 .app.bleed .hero{background:transparent;border-radius:0;padding:12px 26px 28px}
-.app.bleed .now{padding-top:0;background:linear-gradient(var(--lime) 0,#fff 100%)}
+.app.bleed .now{padding-top:0}
 .app.bleed .task-card{background:#fff;box-shadow:0 6px 18px rgba(23,31,13,.08)}
 @media (max-width:385px){.mini{padding:0 12px;gap:6px}}
 .hero{cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .12s}
