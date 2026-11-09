@@ -461,6 +461,7 @@ button:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
 .panel [aria-pressed="true"] .t,.panel [aria-pressed="true"] .d,.panel [aria-pressed="true"] .d b{color:#C2EF81!important}
 .panel .alt-pill{border-color:#9B9B97;color:#9B9B97}.panel .alt-pill:hover{background:rgba(155,155,151,.15)}
 .panel .alt-pill[aria-pressed="true"]{background:#C2EF81;color:#111;border-color:#C2EF81}
+.tab svg.on{display:none}.tab[aria-current="page"] svg.on{display:block}.tab[aria-current="page"] svg.off{display:none}
 </style></head><body>
 
 <div class="stage">
@@ -490,9 +491,9 @@ button:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
           <div class="bnb">
             <button class="mini" id="mini" aria-label="지금 주문 상태 보기"></button>
             <nav class="tabbar">
-              <button class="tab" data-tab="home" aria-current="page"><svg width="26" height="26" viewBox="0 0 24 24"><path d="M12 2.6 20.5 7v10L12 21.4 3.5 17V7Z" fill="currentColor"/><path d="M3.8 7.2 12 11.6l8.2-4.4M12 11.6v9.5" fill="none" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/></svg>바로주문</button>
+              <button class="tab" data-tab="home" aria-current="page"><svg class="on" width="26" height="26" viewBox="0 0 24 24"><path d="M12 2.6 20.5 7v10L12 21.4 3.5 17V7Z" fill="currentColor"/><path d="M3.8 7.2 12 11.6l8.2-4.4M12 11.6v9.5" fill="none" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/></svg><svg class="off" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M12 2.6 20.5 7v10L12 21.4 3.5 17V7Z"/><path d="M3.5 7 12 11.6 20.5 7M12 11.6v9.8"/></svg>바로주문</button>
               <button class="tab" data-tab="disc"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9.5"/><path d="m15.8 8.2-2.2 5.4-5.4 2.2 2.2-5.4Z" stroke-linejoin="round"/></svg>발견</button>
-              <button class="tab" data-tab="orders"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M5.5 2.8h13v18.4l-2.2-1.5-2.1 1.5-2.2-1.5-2.2 1.5-2.1-1.5-2.2 1.5Z"/><path d="M9 8h6M9 11.5h6M9 15h3.5" stroke-linecap="round"/></svg>주문내역</button>
+              <button class="tab" data-tab="orders"><svg class="off" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M5.5 2.8h13v18.4l-2.2-1.5-2.1 1.5-2.2-1.5-2.2 1.5-2.1-1.5-2.2 1.5Z"/><path d="M9 8h6M9 11.5h6M9 15h3.5" stroke-linecap="round"/></svg><svg class="on" width="26" height="26" viewBox="0 0 24 24"><path d="M5.5 2.8h13v18.4l-2.2-1.5-2.1 1.5-2.2-1.5-2.2 1.5-2.1-1.5-2.2 1.5Z" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M9 8h6M9 11.5h6M9 15h3.5" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/></svg>주문내역</button>
               <button class="tab" data-tab="my"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 21c.8-4 4-6 8-6s7.2 2 8 6" stroke-linecap="round"/></svg>마이페이지</button>
             </nav>
           </div>
