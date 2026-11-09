@@ -480,7 +480,7 @@ button:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
     <h1>시간대별 히어로 영역 정보</h1>
     <div class="times" id="times"></div>
     <h1 class="sub">기타 화면</h1>
-    <div class="times"><button class="ov-btn" id="ovOrders" aria-pressed="false"><span class="d"><b>주문내역</b></span></button></div>
+    <div class="times"><button class="ov-btn" id="ovOrders" aria-pressed="false"><span class="d"><b>주문내역</b></span></button><button class="ov-btn" id="ovWx" aria-pressed="false"><span class="d"><b>날씨 바텀시트</b></span></button></div>
     <div class="alt"><button class="alt-pill" id="ovBleed" aria-pressed="false">대안 · 히어로 배경형</button></div>
     <div hidden><span id="sceneK"></span><span id="sceneV"></span></div>
   </aside>
@@ -728,9 +728,9 @@ function wxRender(){const w=WX[wxSel],el=document.getElementById('wxs');
  el.querySelectorAll('.dc').forEach(b=>b.onclick=()=>{wxSel=+b.dataset.i;wxRender();});}
 function openWx(){let el=document.getElementById('wxs');if(!el){el=document.createElement('div');el.id='wxs';el.className='wxs';el.innerHTML='<div class="dim"></div><div class="pane"></div>';document.querySelector('.app').appendChild(el);el.querySelector('.dim').onclick=closeWx;}
  wxSel=0;wxRender();el.offsetWidth;el.classList.add('on');}
-function closeWx(){const el=document.getElementById('wxs');if(el)el.classList.remove('on');}
+function closeWx(){const el=document.getElementById('wxs');if(el)el.classList.remove('on');const b=document.getElementById('ovWx');if(b&&b.getAttribute('aria-pressed')==='true'){b.setAttribute('aria-pressed','false');document.querySelectorAll('.time-btn').forEach(x=>x.setAttribute('aria-pressed',String(+x.dataset.i===cur)));}}
 function render(i){
- cur=i;const s=STATES[i];if(location.hash==='#first')try{history.replaceState(null,'',location.pathname+location.search)}catch(e){}view='home';document.getElementById('home').hidden=false;document.getElementById('orders').hidden=true;setTab('home');
+ closeWx();cur=i;const s=STATES[i];if(location.hash==='#first')try{history.replaceState(null,'',location.pathname+location.search)}catch(e){}view='home';document.getElementById('home').hidden=false;document.getElementById('orders').hidden=true;setTab('home');
  document.getElementById('cartBadge').textContent=s.cart;document.getElementById('cartBadge').hidden=!s.cart;
  const now=s.now.length?`<div class="now"><div class="task-card">${s.now.map(r=>row(r,'now')).join('')}</div></div>`:'';
  const INS=`<div class="insight"><span class="wchip"><span class="wx"><img src="${IMG.cloud}" alt=""><i></i><i></i><i></i></span>내일 비 70%</span><span class="txt">부침가루 주문이 평소보다 늘고 있어요</span>${chev('#111')}</div>`;
@@ -795,6 +795,7 @@ const timesHTML=STATES.map((s,i)=>`<button class="time-btn" data-i="${i}" aria-p
 document.getElementById('times').innerHTML='<button class="ov-btn" id="ovFirst" aria-pressed="false"><span class="d"><b>가입 완료 첫 화면</b></span></button>'+timesHTML;document.getElementById('sheetInner').innerHTML=timesHTML;
 document.getElementById('ovOrders').onclick=()=>showOrders();
 document.getElementById('ovFirst').onclick=()=>showFirst();
+document.getElementById('ovWx').onclick=()=>{setBleed(false);render(1);openWx();document.querySelectorAll('.time-btn').forEach(b=>b.setAttribute('aria-pressed','false'));document.getElementById('ovWx').setAttribute('aria-pressed','true');};
 document.getElementById('ovBleed').onclick=()=>{setBleed(true);render(0);};
 document.querySelectorAll('.time-btn').forEach(b=>b.onclick=()=>{setBleed(false);render(+b.dataset.i);document.getElementById('sheet').hidden=true;});
 (()=>{const b=document.getElementById('fsBtn'),r=document.documentElement;const req=r.requestFullscreen||r.webkitRequestFullscreen;const on=document.fullscreenEnabled||document.webkitFullscreenEnabled;
