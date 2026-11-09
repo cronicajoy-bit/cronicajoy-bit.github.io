@@ -349,6 +349,7 @@ button:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
   .scrim,.bnb{position:fixed}
 }
 @media (max-width:760px){.tabbar{height:calc(60px + max(8px,env(safe-area-inset-bottom,0px)));padding-bottom:max(8px,env(safe-area-inset-bottom,0px))}.fab{bottom:calc(128px + max(8px,env(safe-area-inset-bottom,0px)))}.fab.fs{right:calc(84px + env(safe-area-inset-right,0px))}.fab.fs[hidden]{display:none}}
+
 </style></head><body>
 
 <div class="stage">
@@ -584,6 +585,7 @@ function showOrders(){
  mini.classList.add('on');startCountdown();startCargo();
  document.getElementById('scroll').scrollTop=0;if(isM())window.scrollTo(0,0);
 }
+
 function render(i){
  cur=i;const s=STATES[i];view='home';document.getElementById('home').hidden=false;document.getElementById('orders').hidden=true;setTab('home');
  document.getElementById('cartBadge').textContent=s.cart;document.getElementById('cartBadge').hidden=!s.cart;
@@ -632,7 +634,7 @@ function bindHome(){
  const sc=document.getElementById('scroll'),hero=document.getElementById('hero'),mini=document.getElementById('mini');
  if(window._io)window._io.disconnect();
  window._io=new IntersectionObserver(([e])=>{if(view==='home')mini.classList.toggle('on',!e.isIntersecting)},{root:isM()?null:sc,threshold:0,rootMargin:'0px 0px -132px 0px'});
- window._io.observe(hero);
+ if(hero)window._io.observe(hero);
  hScroll(document.getElementById('chips'));
  document.querySelectorAll('#chips .chip').forEach(c=>c.onclick=()=>{chipIdx=+c.dataset.j;document.querySelectorAll('#chips .chip').forEach(x=>x.setAttribute('aria-pressed',String(x===c)));document.getElementById('grid').innerHTML=productsHTML(CHIPS[chipIdx].set);});
  bIdx=0;setBanner(0,false);clearInterval(bTimer);let paused=false;
