@@ -369,7 +369,8 @@ button:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
 .panel .time-btn .d b,.panel .ov-btn .d b{font-size:17px;margin:0}
 .panel h1.sub{margin-top:40px}
 /* first visit */
-.fhero{position:relative;overflow:hidden;background:var(--lime);border-radius:14px;padding:60px 22px 20px;display:flex;flex-direction:column;cursor:default}
+.fhero{position:relative;overflow:hidden;background:var(--lime);border-radius:14px;padding:60px 22px 20px;display:flex;flex-direction:column;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.ocard{cursor:pointer;-webkit-tap-highlight-color:transparent}
 .fhero h2{position:relative;margin:0;font-size:24px;line-height:1.33;font-weight:700;letter-spacing:-.02em}
 .fhero .fsub{position:relative;margin:26px 0 0;font-size:14px;line-height:1.5;font-weight:500;color:#2E3A4F;letter-spacing:-.02em}
 .fhero .rail{margin-top:22px;align-self:flex-start}
@@ -757,7 +758,11 @@ document.querySelectorAll('.time-btn').forEach(b=>b.onclick=()=>{setBleed(false)
  b.onclick=()=>{const p=req.call(r);if(p&&p.catch)p.catch(()=>{b.hidden=true;});};
  const upd=()=>{b.hidden=!!(document.fullscreenElement||document.webkitFullscreenElement);};document.addEventListener('fullscreenchange',upd);document.addEventListener('webkitfullscreenchange',upd);})();
 document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{if(t.dataset.tab==='orders')showOrders();else if(t.dataset.tab==='home'&&view==='orders')render(cur);});
-document.getElementById('home').addEventListener('click',e=>{if(e.target.closest('#hero'))render((cur+1)%STATES.length);});
+document.getElementById('home').addEventListener('click',e=>{
+ if(view==='first'){if(e.target.closest('#fhero'))showOrders();return;}
+ if(!e.target.closest('#hero'))return;
+ if(bleed){setBleed(false);render(0);}else if(cur===STATES.length-1)showFirst();else render(cur+1);});
+document.getElementById('orders').addEventListener('click',e=>{if(e.target.closest('.ocard')&&!e.target.closest('button')){setBleed(true);render(0);}});
 document.getElementById('fab').onclick=()=>document.getElementById('sheet').hidden=false;
 document.getElementById('sheet').onclick=e=>{if(e.target.id==='sheet')e.currentTarget.hidden=true;};
 addEventListener('keydown',e=>{if(e.key==='ArrowRight')render((cur+1)%5);if(e.key==='ArrowLeft')render((cur+4)%5);});
