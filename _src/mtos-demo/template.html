@@ -6,7 +6,7 @@
 :root{
   --lime:#CAF18F; --lime-deep:#CAF18F; --navy:#2E3A4F; --orange:#FF5729; --ink:#111111;
   --sub:#8E9196; --mid:#5F6368; --icon:#4E5560; --line:#E3E6EA; --gray:#F2F2F2; --chipline:#E9ECF1;
-  --stage:#81817B; --stage-ink:#23272E; --panel:#FFFFFF;
+  --stage:#72726C; --stage-ink:#23272E; --panel:#FFFFFF;
   --font:"Pretendard",-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
   color-scheme:light;
 }
@@ -436,6 +436,17 @@ button:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
 .panel h1::before{content:'';width:7px;height:7px;border-radius:50%;background:#fff;flex:none}
 .sec-title.q{font-size:20px}
 .ticon img{display:block;width:32px;height:32px;margin:-3px}.ticon img.ic_clip{width:44px;height:44px;margin:-9px}
+
+/* panel palette v3 */
+.panel h1{color:#989792}.panel h1::before{background:#989792}
+.panel .times{border-top-color:#9B9B97}
+.panel .time-btn,.panel .ov-btn{border-bottom-color:#9B9B97}
+.panel .time-btn .t,.panel .time-btn .d,.panel .time-btn .d b,.panel .ov-btn .d,.panel .ov-btn .d b{color:#9B9B97}
+.panel .time-btn:hover .t,.panel .time-btn:hover .d,.panel .time-btn:hover .d b,.panel .ov-btn:hover .d,.panel .ov-btn:hover .d b{color:#C9C8C3}
+.panel .time-btn[aria-pressed="true"],.panel .ov-btn[aria-pressed="true"]{border-bottom-color:#C2EF81;box-shadow:0 -2px 0 #C2EF81}
+.panel [aria-pressed="true"] .t,.panel [aria-pressed="true"] .d,.panel [aria-pressed="true"] .d b{color:#C2EF81!important}
+.panel .alt-pill{border-color:#9B9B97;color:#9B9B97}.panel .alt-pill:hover{background:rgba(155,155,151,.15)}
+.panel .alt-pill[aria-pressed="true"]{background:#C2EF81;color:#111;border-color:#C2EF81}
 </style>
 
 <div class="stage">
