@@ -328,10 +328,16 @@ button:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
   linear-gradient(#F1FAD6 0,#E6F7AE 270px,#DEF494 480px,#EAF8BE 600px,#fff 900px);
   background-repeat:no-repeat;background-size:100% 900px;background-attachment:local}
 .app.bleed .hero-wrap{padding:0}
-.app.bleed .hero{background:transparent;border-radius:0;padding:12px 26px 28px}
+.app.bleed .hero{background:transparent;border-radius:0;padding:6px 26px 28px}
+.app.bleed #home .sec-title.first{display:none}
+.app.bleed .hero .label{font-weight:500;color:#4E5560}
+.app.bleed .nums small{color:#5F6368}
+.app.bleed .nums .r b{font-size:16px}
+.app.bleed .rail .cap{font-size:11px;color:#5F6368}
+.app.bleed .insight-out{padding:16px 26px 0}
 .app.bleed .now{padding-top:0}
 .app.bleed .task-card{background:#fff;box-shadow:0 6px 18px rgba(23,31,13,.08)}
-.app.bleed .soon-wrap{margin:20px 22px 0;background:#fff;border-radius:22px;box-shadow:0 6px 18px rgba(23,31,13,.08);padding:22px 14px 22px 16px}
+.app.bleed .soon-wrap{margin:16px 22px 0;background:#fff;border-radius:22px;box-shadow:0 6px 18px rgba(23,31,13,.08);padding:22px 14px 22px 16px}
 .app.bleed .soon-wrap .sec-title{padding:0 0 18px 4px}
 .app.bleed .soon-wrap .soon{padding:0}
 @media (max-width:385px){.mini{padding:0 12px;gap:6px}}
@@ -525,16 +531,17 @@ function row(r,kind){
  const tail=kind==='now'?`<button class="pill">${r.b}</button>`:`<button class="link">${r.l}${chev('#8E9196')}</button>`;
  return `<div class="row">${lead}<div class="ttext"><b>${r.t}</b><span class="${r.warn?'warn':''}">${r.s}</span></div>${tail}</div>`;
 }
-function rail(s){
- let m='';
+function rail(s,W=302){
+ const kx=W/302,d=W-302;let m='';
  for(const k of s.marks){
-  if(k.type==='pin')m+=`<div class="pin" style="left:${k.x}px;top:13px"><span>${k.text}</span><svg width="13" height="17" viewBox="0 0 13 17"><path d="M6.5 16.5 1.3 9.3A6.5 6.5 0 1 1 11.7 9.3Z" fill="#fff"/></svg></div>`;
-  if(k.type==='tick')m+=`<i class="tick" style="left:${k.x}px"></i>`;
-  if(k.type==='passed')m+=`<i class="passed" style="left:${k.x}px"></i>`;
+  if(k.type==='pin')m+=`<div class="pin" style="left:${k.x*kx}px;top:13px"><span>${k.text}</span><svg width="13" height="17" viewBox="0 0 13 17"><path d="M6.5 16.5 1.3 9.3A6.5 6.5 0 1 1 11.7 9.3Z" fill="#fff"/></svg></div>`;
+  if(k.type==='tick')m+=`<i class="tick" style="left:${(k.x+4)*kx-4}px"></i>`;
+  if(k.type==='passed')m+=`<i class="passed" style="left:${(k.x+3)*kx-3}px"></i>`;
  }
- return `<div class="rail"><i class="base"></i><i class="prog" style="width:${s.prog}px"></i>${m}
-  <span class="arrival"><svg width="11" height="11" viewBox="0 0 24 24"><path d="M3 11 12 3l9 8v10h-6v-6H9v6H3Z" fill="#fff"/></svg></span>
-  ${cargo(s)}<span class="cap">${s.cap}</span></div>`;
+ const pw=Math.round(s.prog*kx);
+ return `<div class="rail" style="width:${W}px" data-w="${W}"><i class="base" style="width:${293+d}px"></i><i class="prog" style="width:${pw}px"></i>${m}
+  <span class="arrival" style="left:${281+d}px"><svg width="11" height="11" viewBox="0 0 24 24"><path d="M3 11 12 3l9 8v10h-6v-6H9v6H3Z" fill="#fff"/></svg></span>
+  ${cargo({...s,cx:s.cx+(pw-s.prog)})}<span class="cap">${s.cap}</span></div>`;
 }
 let view='home',chipIdx=0,bIdx=0,bTimer=null,cdTimer=null,cur=1;
 function productsHTML(set){return set.map(k=>{const p=PRODUCTS[k];return `<div class="card fade-in"><div class="im"><img src="${IMG[k]}" alt="${p[0]}">${p[4]?'<span class="new">신제품</span>':''}</div><div class="nm">${p[0]}<br>${p[1]}</div><div class="pr">${p[2]}</div><div class="ds">${p[3]}</div></div>`;}).join('');}
@@ -585,17 +592,20 @@ function render(i){
  cur=i;const s=STATES[i];view='home';document.getElementById('home').hidden=false;document.getElementById('orders').hidden=true;setTab('home');
  document.getElementById('cartBadge').textContent=s.cart;document.getElementById('cartBadge').hidden=!s.cart;
  const now=s.now.length?`<div class="now"><div class="task-card">${s.now.map(r=>row(r,'now')).join('')}</div></div>`:'';
+ const INS=`<div class="insight"><span class="wchip"><span class="wx"><img src="${IMG.cloud}" alt=""><i></i><i></i><i></i></span>내일 비 70%</span><span class="txt">부침가루 주문이 평소보다 늘고 있어요</span>${chev('#111')}</div>`;
+ const RW=bleed?Math.max(302,(document.querySelector('.app').clientWidth||390)-52):302;
  document.getElementById('home').innerHTML=`
   <div class="sec-title first">지금 할 일 <span class="cnt">${s.count}</span></div>
   <div class="hero-wrap"><section class="hero" id="hero">
    <div class="label"><i></i>${s.label}</div>
    <h2>${s.head}</h2>
    <div class="nums"><div class="l"><small>${s.lk}</small><b>${s.lv}</b></div><div class="r"><small>${s.rk}</small><b>${s.rv}</b></div></div>
-   ${rail(s)}
+   ${rail(s,RW)}
    <div class="actions"><button class="btn primary">${s.btn1} <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button><button class="btn secondary">${s.btn2}</button></div>
-   <div class="insight"><span class="wchip"><span class="wx"><img src="${IMG.cloud}" alt=""><i></i><i></i><i></i></span>내일 비 70%</span><span class="txt">부침가루 주문이 평소보다 늘고 있어요</span>${chev('#111')}</div>
+   ${bleed?'':INS}
   </section></div>
   ${now}
+  ${bleed?'<div class="insight-out">'+INS+'</div>':''}
   <div class="soon-wrap"><div class="sec-title">미리 챙겨 두세요 <span class="cnt">3건</span></div>
   <div class="soon">${SOON.map(r=>row(bleed&&r.tb?{...r,t:r.tb}:r,'soon')).join('')}</div></div>
   <div class="banner-wrap"><div class="banner" id="banner"><div class="btrack" id="btrack">${[...BANNERS,BANNERS[0]].map(b=>`<div class="slide" style="background:${b.bg}"><span class="tag">${b.tag}</span><h3>${b.h}</h3><p>${b.p}</p><div class="circle"><img src="${IMG[b.img]}" alt=""></div></div>`).join('')}</div>
@@ -654,7 +664,7 @@ document.getElementById('home').addEventListener('click',e=>{if(e.target.closest
 document.getElementById('fab').onclick=()=>document.getElementById('sheet').hidden=false;
 document.getElementById('sheet').onclick=e=>{if(e.target.id==='sheet')e.currentTarget.hidden=true;};
 addEventListener('keydown',e=>{if(e.key==='ArrowRight')render((cur+1)%5);if(e.key==='ArrowLeft')render((cur+4)%5);});
-function fitRail(){document.querySelectorAll('.rail').forEach(r=>{r.style.zoom='';const avail=r.parentElement.clientWidth-parseFloat(getComputedStyle(r.parentElement).paddingLeft)-parseFloat(getComputedStyle(r.parentElement).paddingRight);r.style.zoom=avail<302?(avail/302).toFixed(4):'';});}
+function fitRail(){document.querySelectorAll('.rail').forEach(r=>{r.style.zoom='';const avail=r.parentElement.clientWidth-parseFloat(getComputedStyle(r.parentElement).paddingLeft)-parseFloat(getComputedStyle(r.parentElement).paddingRight);const nw=+r.dataset.w||302;r.style.zoom=avail<nw?(avail/nw).toFixed(4):'';});}
 function fit(){fitRail();const w=document.getElementById('dwrap'),d=document.getElementById('device');if(innerWidth<=760){w.style.width='';w.style.height='';d.style.transform='';return;}const s=Math.min(1,(innerHeight-72)/844);d.style.transform=`scale(${s})`;w.style.width=390*s+'px';w.style.height=844*s+'px';}
 addEventListener('resize',fit);fit();
 if(location.hash==='#bleed'){setBleed(true);render(0);}else render(1);
