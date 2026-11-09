@@ -155,12 +155,12 @@ button:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
 .chips.drag{cursor:grabbing;scroll-behavior:auto}
 .chips.drag .chip{pointer-events:none}
 .chips::-webkit-scrollbar{display:none}
-.chip{flex:none;display:flex;align-items:center;gap:10px;height:56px;padding:8px 18px 8px 8px;border-radius:20px;background:#fff;box-shadow:inset 0 0 0 1.5px var(--chipline);text-align:left;color:#111}
+.chip{flex:none;display:flex;align-items:center;gap:10px;height:56px;padding:8px 18px 8px 8px;border-radius:16px;background:#fff;box-shadow:inset 0 0 0 1.5px var(--chipline);text-align:left;color:#111}
 .chip{background:#F3F3F3;box-shadow:none}
 .chip[aria-pressed="true"]{background:#fff;box-shadow:inset 0 0 0 2px #292C31}
 .chip[aria-pressed="true"] span span{color:#4A5160}
 .chip .th{width:40px;height:40px;padding:2px;flex:none}
-.chip .th img{width:36px;height:36px;border-radius:14px;object-fit:cover;display:block}
+.chip .th img{width:36px;height:36px;border-radius:10px;object-fit:cover;display:block}
 .chip b{display:block;font-size:15px;font-weight:700;line-height:18px;color:#111;letter-spacing:0}
 .chip span span{display:block;font-size:12px;font-weight:500;line-height:14px;color:var(--mid);margin-top:2px}
 .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));column-gap:11px;row-gap:22px;padding:0 22px}
@@ -704,7 +704,7 @@ function showFirst(){
    <div class="ct"><span class="av">배</span><div><b>강남 3팀 배송</b><small>월~토 오전 7시 전 매장 도착</small></div><button class="pb">배송 정보</button></div></div>
   <div class="banner-wrap"><div class="banner" id="banner"><div class="btrack" id="btrack">${[...BANNERS,BANNERS[0]].map(b=>`<div class="slide" style="background:${b.bg}"><span class="tag">${b.tag}</span><h3>${b.h}</h3><p>${b.p}</p><div class="circle"><img src="${IMG[b.img]}" alt=""></div></div>`).join('')}</div>
    <div class="bctl"><button id="bprev" aria-label="이전 배너"><svg width="8" height="10" viewBox="0 0 8 10"><path d="M6 1 2 5l4 4" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button><span id="bpage">1 | 3</span><button id="bpause" aria-label="자동 넘김 멈춤"><svg width="8" height="10" viewBox="0 0 8 10"><rect x="1" y="1" width="2" height="8" fill="#fff"/><rect x="5" y="1" width="2" height="8" fill="#fff"/></svg></button><button id="bnext" aria-label="다음 배너"><svg width="8" height="10" viewBox="0 0 8 10"><path d="m2 1 4 4-4 4" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div></div></div>
-  <div class="sec-title">분식 매장이 많이 담아요 <span class="more">전체보기${chev('#8E9196')}</span></div>
+  <div class="sec-title q">분식 매장이 많이 담아요 <span class="more">전체보기${chev('#8E9196')}</span></div>
   <div class="grid" id="grid">${productsHTML(['p1','p2','p3','p4','p5','p6'])}</div>
   <div class="spacer"></div>`;
  document.getElementById('orders').hidden=true;document.getElementById('home').hidden=false;
@@ -751,7 +751,7 @@ function render(i){
   <div class="soon">${SOON.map(r=>row(bleed&&r.tb?{...r,t:r.tb}:r,'soon')).join('')}</div></div>
   <div class="banner-wrap"><div class="banner" id="banner"><div class="btrack" id="btrack">${[...BANNERS,BANNERS[0]].map(b=>`<div class="slide" style="background:${b.bg}"><span class="tag">${b.tag}</span><h3>${b.h}</h3><p>${b.p}</p><div class="circle"><img src="${IMG[b.img]}" alt=""></div></div>`).join('')}</div>
    <div class="bctl"><button id="bprev" aria-label="이전 배너"><svg width="8" height="10" viewBox="0 0 8 10"><path d="M6 1 2 5l4 4" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button><span id="bpage">1 | 3</span><button id="bpause" aria-label="자동 넘김 멈춤"><svg width="8" height="10" viewBox="0 0 8 10"><rect x="1" y="1" width="2" height="8" fill="#fff"/><rect x="5" y="1" width="2" height="8" fill="#fff"/></svg></button><button id="bnext" aria-label="다음 배너"><svg width="8" height="10" viewBox="0 0 8 10"><path d="m2 1 4 4-4 4" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div></div></div>
-  <div class="sec-title">지금 담기 좋아요 <span class="more">전체보기${chev('#8E9196')}</span></div>
+  <div class="sec-title q">지금 담기 좋아요 <span class="more">전체보기${chev('#8E9196')}</span></div>
   <div class="chips" id="chips">${CHIPS.map((c,j)=>`<button class="chip" aria-pressed="${j===chipIdx}" data-j="${j}"><span class="th"><img src="${IMG[c.img]}" alt=""></span><span><b>${c.t}</b><span>${c.s}</span></span></button>`).join('')}</div>
   <div class="grid" id="grid">${productsHTML(CHIPS[chipIdx].set)}</div>
   <div class="spacer"></div>`;
