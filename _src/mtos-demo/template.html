@@ -392,6 +392,23 @@ button:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
 .fcheck .trk i{position:absolute;left:0;top:0;height:100%;border-radius:3px;background:var(--orange)}
 .fcheck .cr{display:flex;align-items:center;gap:12px;padding:14px 0}
 
+.fcheck{padding:18px 10px 10px}
+.fcheck .hd{padding:0 8px 10px;margin:0}
+.fcheck .pg{display:flex;align-items:center;gap:4px;color:var(--navy)!important}
+.fcheck .pg i{width:6px;height:6px;border-radius:50%;background:#CDCFD3}
+.fcheck .pg i.on{background:var(--navy)}
+.fcheck .pg em{font-style:normal;margin-left:4px;color:var(--navy)}
+.fcheck .nx{display:flex;align-items:center;gap:12px;background:#fff;border-radius:12px;padding:14px 8px 14px 6px}
+.fcheck .nx img{width:40px;height:26px;object-fit:contain;flex:none}
+.fcheck .nx>div{flex:1;min-width:0}
+.fcheck .nx b{display:block;font-size:17px;font-weight:700;color:#111}
+.fcheck .nx small{display:block;font-size:12px;color:#8E9196;margin-top:2px}
+.fcheck .nx .link{color:#8E9196}
+/* rail shimmer */
+.rail .prog{overflow:hidden}
+.rail .prog::after{content:"";position:absolute;top:0;bottom:0;left:-70px;width:70px;background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,.38),rgba(255,255,255,0));animation:rShine 3s cubic-bezier(.42,0,.58,1) 1.4s infinite}
+@keyframes rShine{0%{transform:translateX(0)}53.3%,100%{transform:translateX(var(--sw,400px))}}
+@media (prefers-reduced-motion:reduce){.rail .prog::after{animation:none;display:none}}
 .fcheck .ck{width:22px;height:22px;border-radius:50%;border:2px solid #C9CDD3;flex:none;box-sizing:border-box;display:grid;place-items:center}
 .fcheck .cr.done .ck{background:var(--navy);border-color:var(--navy)}
 .fcheck .cr div{flex:1;min-width:0}.fcheck .cr b{display:block;font-size:17px;font-weight:700;letter-spacing:-.02em}.fcheck .cr small{display:block;margin-top:2px;font-size:12px;color:#8E9196}
@@ -639,7 +656,7 @@ function rail(s,W=302){
  }
  const pw=Math.round(s.prog*kx);
  const dA=(1.08+0.16*mi).toFixed(2),dC=(1.08+0.16*mi+0.12).toFixed(2);
- return `<div class="rail intro" style="width:${W}px" data-w="${W}"><i class="base" style="width:${293+d}px"></i><i class="prog" style="width:${pw}px"></i>${m}
+ return `<div class="rail intro" style="width:${W}px" data-w="${W}"><i class="base" style="width:${293+d}px"></i><i class="prog" style="width:${pw}px;--sw:${pw+70}px"></i>${m}
   <span class="arrival" style="--d:${dA}s;left:${281+d}px"><svg width="11" height="11" viewBox="0 0 24 24"><path d="M3 11 12 3l9 8v10h-6v-6H9v6H3Z" fill="#fff"/></svg></span>
   ${cargo({...s,cx:s.cx+(pw-s.prog)})}<span class="cap" style="--d:${dC}s">${s.cap}</span></div>`;
 }
@@ -702,7 +719,6 @@ function showFirst(){
  document.querySelectorAll('.time-btn').forEach(b=>b.setAttribute('aria-pressed','false'));document.getElementById('ovOrders').setAttribute('aria-pressed','false');document.getElementById('ovBleed').setAttribute('aria-pressed','false');document.getElementById('ovFirst').setAttribute('aria-pressed','true');
  try{history.replaceState(null,'','#first')}catch(e){}
  document.getElementById('cartBadge').hidden=true;
- const CHK=[['배송 요일·시간 확인하기','확인 완료 · 월~토 07:00 전 도착',1],['자주 쓰는 품목 담아 두기','다음 주문부터 한 번에 담아요'],['정기주문 설정하기','매주 같은 품목을 자동으로']];
  document.getElementById('home').innerHTML=`
   <div class="hero-wrap" style="padding-top:8px"><section class="fhero" id="fhero">
    <div class="greet" aria-hidden="true">${greetHTML()}</div>
@@ -711,8 +727,8 @@ function showFirst(){
    ${rail({...STATES[0],prog:33},railW()).replace(/<div class="cargo" id="cargo"[\s\S]*?<\/div>/,`<span class="lgw"><img src="${IMG.logo_color}" alt="아워홈"></span>`)}
    <div class="actions"><button class="btn primary">첫 주문 담기 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button><button class="btn secondary">둘러보기</button></div>
   </section></div>
-  <div class="fcheck"><div class="hd">처음 할 일 <span>1 / 3</span></div>
-   ${CHK.map(c=>`<div class="cr${c[2]?' done':''}"><i class="ck">${c[2]?'<svg width="12" height="9" viewBox="0 0 12 9"><path d="M1 4.5 4.5 8 11 1" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>':''}</i><div><b>${c[0]}</b><small>${c[1]}</small></div><span class="ar">›</span></div>`).join('')}</div>
+  <div class="fcheck"><div class="hd">처음 할 일 <span class="pg"><i class="on"></i><i></i><i></i><em>1 / 3</em></span></div>
+   <div class="nx"><img src="${IMG.basket}" alt=""><div><b>자주 쓰는 품목 담아 두기</b><small>다음 주문부터 한 번에 담아요</small></div><button class="link">담아 두기${chev('#8E9196')}</button></div></div>
   <div class="sec-title">우리 매장 담당</div>
   <div class="fcontact"><div class="ct"><span class="av">김</span><div><b>김민수 매니저</b><small>영업 담당 · 주문·단가 문의</small></div><button class="pb">전화</button><button class="pb">채팅</button></div>
    <div class="ct"><span class="av">배</span><div><b>강남 3팀 배송</b><small>월~토 오전 7시 전 매장 도착</small></div><button class="pb">배송 정보</button></div></div>
