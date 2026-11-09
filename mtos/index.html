@@ -364,8 +364,8 @@ button:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
 .rail.intro .cargo{--d:.9s}
 .rail .lgw{position:absolute;left:0;top:1px;width:36px;height:37px}
 .rail.intro .lgw{animation:rPop .26s cubic-bezier(.34,1.7,.64,1) .9s both}
-.rail .lgw img{display:block;width:36px;height:37px;animation:fLogo .75s cubic-bezier(.42,0,.58,1) 1.2s infinite}
-@keyframes fLogo{0%{rotate:0deg;translate:0 0}50%{translate:0 -6px}100%{rotate:72deg;translate:0 0}}
+.rail .lgw img{display:block;width:36px;height:37px;animation:fLogo 3.75s cubic-bezier(.42,0,.58,1) 1.2s infinite}
+@keyframes fLogo{0%{rotate:0deg;translate:0 0}10%{translate:0 -6px}20%{rotate:72deg;translate:0 0}30%{translate:0 -6px}40%{rotate:144deg;translate:0 0}50%{translate:0 -6px}60%{rotate:216deg;translate:0 0}70%{translate:0 -6px}80%{rotate:288deg;translate:0 0}90%{translate:0 -6px}100%{rotate:360deg;translate:0 0}}
 @media (prefers-reduced-motion:reduce){.rail .lgw img{animation:none}}
 .rail.intro .cap{animation:rFade .25s ease-out var(--d,1.5s) both}
 @media (prefers-reduced-motion:reduce){.rail.intro *{animation:none!important}}
