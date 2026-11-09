@@ -538,7 +538,7 @@ const im=(k,x,y,w,h,cls='',extra='')=>`<img src="${IMG[k]}" alt="" class="${cls}
 
 const MOTION={{MOTION}};
 const CARGO={c07:['담기 시작',54,65],c15:['담기',54,65],c19:['포장',54,65],c06:['배송 오렌지',64,43],cAR:['도착',54,60]};
-const LIMG=n=>({'in-lettuce':'lettuce','in-lettuce2':'lettuce','in-carrot':'carrot','in-tomato':'tomato','tomato-low':'tomato','sealed box':'sealed','body':'truck','wheel-L':'wheel','wheel-R':'wheel','puff-1':'puff','puff-2':'puff'}[n]||n);
+const LIMG=n=>({'in-lettuce':'lettuce','in-lettuce2':'lettuce','in-carrot':'carrot','in-tomato':'tomato','tomato-low':'tomato','sealed box':'sealed_old','body':'truck','wheel-L':'wheel','wheel-R':'wheel','puff-1':'puff','puff-2':'puff'}[n]||n);
 function cargo(s){
  const [key,w,h]=CARGO[s.cargo];const f0=MOTION[key][0];
  const imgs=Object.keys(f0.layers).filter(n=>n!=='wipe').map(n=>`<img data-l="${n}" src="${IMG[LIMG(n)]}" alt="" style="transform-origin:0 0">`).join('');
