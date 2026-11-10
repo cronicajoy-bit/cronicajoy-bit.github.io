@@ -1,6 +1,6 @@
 import base64, json, os, subprocess, sys
 D = os.path.dirname(os.path.abspath(__file__))
-FONTDIR = os.path.join(D, 'fonts') if os.path.isdir(os.path.join(D, 'fonts')) else os.path.join(D, '..', 'fontpkg', 'package', 'dist', 'web', 'static', 'woff2')
+FONTDIR = os.path.join(D, '..', 'fontpkg', 'package', 'dist', 'web', 'static', 'woff2')
 tpl = open(os.path.join(D, 'template.html'), encoding='utf-8').read()
 chars = set(tpl) | set(''.join(chr(c) for c in range(32, 127))) | set('·…⏱→›')
 chars = ''.join(sorted(c for c in chars if ord(c) >= 32))
@@ -18,6 +18,6 @@ for f in sorted(os.listdir(os.path.join(D, 'assets'))):
     k = f.rsplit('.', 1)[0]
     imgs[k] = 'data:image/webp;base64,' + base64.b64encode(open(os.path.join(D, 'assets', f), 'rb').read()).decode()
 motion = json.load(open(os.path.join(D, 'motion.json'), encoding='utf-8'))
-html = tpl.replace('{{FONTS}}', '\n'.join(faces)).replace('{{IMGS}}', json.dumps(imgs)).replace('{{MOTION}}', json.dumps(motion, ensure_ascii=False))
+html = tpl.replace('{{FONTS}}', '\n'.join(faces)).replace('{{IMGS}}', json.dumps(imgs)).replace('{{MOTION}}', json.dumps(motion, ensure_ascii=False)).replace('{{DECK}}', open(os.path.join(D,'deck_data.json'),encoding='utf-8').read()).replace('{{DECKIMG}}', open(os.path.join(D,'deck_imgs.json')).read())
 open(os.path.join(D, 'mtos-demo.html'), 'w', encoding='utf-8').write(html)
 print('size', len(html.encode()))
