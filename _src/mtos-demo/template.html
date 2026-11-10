@@ -1,4 +1,5 @@
 <title>M-TOS 홈 시연</title>
+<script>window.__h0=location.hash;</script>
 <meta name="claude:viewport-fit-sides" content="cover">
 <style>
 {{FONTS}}
@@ -969,7 +970,7 @@ document.getElementById('dkNext').onclick=e=>{e.stopPropagation();go(cur+1);};
 deck.addEventListener('mousemove',()=>{deck.classList.add('ui');clearTimeout(hideT);hideT=setTimeout(()=>deck.classList.remove('ui'),1800);});
 let sx0=null;deck.addEventListener('touchstart',e=>{sx0=e.touches[0].clientX;},{passive:true});
 deck.addEventListener('touchend',e=>{if(sx0===null)return;const dx=e.changedTouches[0].clientX-sx0;sx0=null;if(Math.abs(dx)>50){go(cur+(dx<0?1:-1));e.preventDefault();}},{passive:false});
-if(location.hash)deck.hidden=true;else openDeck(0);
+if(window.__h0==='#demo'||window.__h0==='#bleed')deck.hidden=true;else openDeck(0);
 })();
 </script>
 
