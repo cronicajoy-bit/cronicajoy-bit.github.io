@@ -880,11 +880,15 @@ if(location.hash==='#bleed'){setBleed(true);render(0);}else showFirst();
 #deck .dk-end a .t{display:flex;justify-content:space-between;align-items:baseline;margin-top:22px;font-size:72px;font-weight:600;letter-spacing:-.02em;line-height:1.2}
 #deck .dk-end a .t i{font-style:normal;font-weight:500;transition:transform .25s ease}
 #deck .dk-end a.again{left:96px;opacity:.55;transition:opacity .2s}
+#deck .dk-end a.again.first{opacity:1}
+#deck .dk-end a.again.first::before{height:3px;opacity:1}
+#deck .dk-end a.again.first:hover .t i{transform:translateX(10px)}
+#deck.intro .dk-ui{display:none}
 #deck .dk-end a.again:hover{opacity:.8}
 #deck .dk-end a.go{left:984px;color:#CAF18F}
 #deck .dk-end a.go::before{height:3px;opacity:1}
 #deck .dk-end a.go:hover .t i{transform:translateX(10px)}
-#deck .dk-end a.again:hover .t i{transform:rotate(-90deg)}
+#deck .dk-end a.again:not(.first):hover .t i{transform:rotate(-90deg)}
 </style>
 <div id="deck" aria-label="M-TOS 디자인 컨셉 문서" role="region" tabindex="-1">
   <div class="dk-stage" id="dkStage"></div>
@@ -947,9 +951,11 @@ function frame(b,t){const dur=b.S.dur;const lt=t%dur;
 let endEl=null;
 function buildEnd(){if(endEl)return endEl;endEl=el('dk-slide dk-end');
  endEl.innerHTML='<a class="again" id="dkAgain"><span class="l">처음으로</span><span class="t">컨셉 다시 보기<i>↺</i></span></a><a class="go" id="dkGo"><span class="l">다음으로</span><span class="t">앱 디자인 시안 보기<i>→</i></span></a>';
- stage.appendChild(endEl);endEl.querySelector('#dkAgain').onclick=e=>{e.stopPropagation();go(0);};endEl.querySelector('#dkGo').onclick=e=>{e.stopPropagation();closeDeck();};return endEl;}
+ stage.appendChild(endEl);endEl.querySelector('#dkAgain').onclick=e=>{e.stopPropagation();intro=false;go(0);};endEl.querySelector('#dkGo').onclick=e=>{e.stopPropagation();closeDeck();};return endEl;}
 function loop(now){const b=built[cur];if(b&&cur<DECK.length)frame(b,(now-t0)/1000);raf=requestAnimationFrame(loop);}
-function go(i){i=Math.max(0,Math.min(N-1,i));if(i===cur)return;const prev=cur;cur=i;
+let intro=false;
+function setEnd(){const a=buildEnd().querySelector('#dkAgain');a.querySelector('.l').textContent=intro?'디자인 컨셉':'처음으로';a.querySelector('.t').innerHTML=intro?'컨셉 문서 보기<i>→</i>':'컨셉 다시 보기<i>↺</i>';a.classList.toggle('first',intro);buildEnd().querySelector('#dkGo .l').textContent=intro?'모바일 시연':'다음으로';deck.classList.toggle('intro',intro);}
+function go(i){i=Math.max(0,Math.min(N-1,i));if(i!==N-1)intro=false;if(i===cur){setEnd();return;}const prev=cur;cur=i;setEnd();
  const node=i<DECK.length?build(i).root:buildEnd();if(i<DECK.length)frame(built[i],0);
  stage.appendChild(node);void node.offsetWidth;node.classList.add('on');t0=performance.now();
  const old=prev<0?null:(prev<DECK.length?built[prev].root:endEl);if(old&&old!==node)setTimeout(()=>{if(cur!==prev)old.classList.remove('on');},460);
@@ -961,16 +967,17 @@ function closeDeck(){deck.hidden=true;cancelAnimationFrame(raf);history.replaceS
 window.openDeck=openDeck;window.__dk={go:i=>{go(i);},seek:s=>{t0=performance.now()-s*1000;}};
 addEventListener('resize',()=>{if(!deck.hidden)fitDeck();});
 addEventListener('keydown',e=>{if(deck.hidden)return;const k=e.key;
+ if(intro){if(k==='ArrowRight'||k===' '||k==='PageDown'){intro=false;go(0);e.preventDefault();e.stopImmediatePropagation();}else if(k==='ArrowLeft'||k==='PageUp'){e.preventDefault();e.stopImmediatePropagation();}return;}
  if(k==='ArrowRight'||k==='PageDown'||k===' '||k==='Enter'){if(cur===N-1&&k!=='ArrowRight')closeDeck();else go(cur+1);}
  else if(k==='ArrowLeft'||k==='PageUp')go(cur-1);else if(k==='Home')go(0);else if(k==='End')go(N-1);else return;
  e.preventDefault();e.stopImmediatePropagation();},true);
-deck.addEventListener('click',e=>{if(e.target.closest('.dk-ui,a'))return;const r=deck.getBoundingClientRect();if(e.clientX<r.width*0.25)go(cur-1);else go(cur+1);});
+deck.addEventListener('click',e=>{if(intro||e.target.closest('.dk-ui,a'))return;const r=deck.getBoundingClientRect();if(e.clientX<r.width*0.25)go(cur-1);else go(cur+1);});
 document.getElementById('dkPrev').onclick=e=>{e.stopPropagation();go(cur-1);};
 document.getElementById('dkNext').onclick=e=>{e.stopPropagation();go(cur+1);};
 deck.addEventListener('mousemove',()=>{deck.classList.add('ui');clearTimeout(hideT);hideT=setTimeout(()=>deck.classList.remove('ui'),1800);});
 let sx0=null;deck.addEventListener('touchstart',e=>{sx0=e.touches[0].clientX;},{passive:true});
-deck.addEventListener('touchend',e=>{if(sx0===null)return;const dx=e.changedTouches[0].clientX-sx0;sx0=null;if(Math.abs(dx)>50){go(cur+(dx<0?1:-1));e.preventDefault();}},{passive:false});
-if(window.__h0==='#demo'||window.__h0==='#bleed')deck.hidden=true;else openDeck(0);
+deck.addEventListener('touchend',e=>{if(sx0===null)return;const dx=e.changedTouches[0].clientX-sx0;sx0=null;if(Math.abs(dx)>50&&!intro){go(cur+(dx<0?1:-1));e.preventDefault();}},{passive:false});
+if(window.__h0==='#demo'||window.__h0==='#bleed')deck.hidden=true;else intro=true;openDeck(N-1);
 })();
 </script>
 
