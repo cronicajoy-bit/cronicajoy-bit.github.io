@@ -650,7 +650,7 @@ function rail(s,W=302){
  const kx=W/302,d=W-302;let m='';
  let mi=0;const DL=()=>`--d:${(1.08+0.16*(mi++)).toFixed(2)}s;`;
  for(const k of [...s.marks].sort((a,b)=>a.x-b.x)){
-  if(k.type==='pin')m+=`<div class="pin" style="${DL()}left:${k.x*kx}px;top:13px"><span>${k.text}</span><svg width="13" height="17" viewBox="0 0 13 17"><path d="M6.5 16.5 1.3 9.3A6.5 6.5 0 1 1 11.7 9.3Z" fill="#fff"/></svg></div>`;
+  if(k.type==='pin')m+=`<div class="pin" style="${DL()}left:${k.x*kx}px;top:11.5px"><span>${k.text}</span><svg width="13" height="18.5" viewBox="0 -1.5 13 18.5" overflow="visible"><path d="M6.5 16.5 1.3 9.3A6.5 6.5 0 1 1 11.7 9.3Z" fill="#fff"/></svg></div>`;
   if(k.type==='tick')m+=`<i class="tick" style="${DL()}left:${(k.x+4)*kx-4}px"></i>`;
   if(k.type==='passed')m+=`<i class="passed" style="${DL()}left:${(k.x+3)*kx-3}px"></i>`;
  }
