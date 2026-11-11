@@ -659,6 +659,7 @@ button:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
 .oi .pr strong{font-size:16px;font-weight:700;letter-spacing:-.02em;color:#111;margin-right:auto}
 .oi .ostep{width:96px;height:32px;box-shadow:inset 0 0 0 1px #D9DBE0}
 .oi .ostep button{width:30px;height:30px;font-size:16px}
+.oi .ostep.sel{box-shadow:inset 0 0 0 1.5px #2E3A4F}
 .oi .ostep b{font-size:14px}
 .omore2{padding:4px 22px 0}
 .omore2 button{width:100%;height:43px;border-radius:999px;background:#F2F3F5;font-size:14px;font-weight:600;color:#111;letter-spacing:-.02em}
@@ -903,16 +904,16 @@ const OP={
  mus:{img:'pr_mushroom',n:'모둠버섯',u:'1팩',p:3550,q:5,org:'국내산',t:'냉장',fav:0},
  mst:{img:'pr_mustard',n:'청정원 겨자분',u:'200g',p:3750,q:2,box:30,org:'겨자 캐나다산',fav:0,ago:'18일 전 주문',cyc:'3주마다'}};
 const OQ_RE=['kal','per','gop','shi','mst'],OQ_LIST=['kal','per','gop','mus','mst'];
-const osel=new Set();let otab=0;
+const osel=new Set();let otab=0;const OQ_Q={};const oqQ=id=>OQ_Q[id]??(OQ_Q[id]=OP[id.split(':')[1]].q);const oK=id=>id.split(':')[1];
 const STAR=on=>`<svg width="14" height="14" viewBox="0 0 24 24"><path d="M12 2.6l2.75 5.95 6.5.75-4.83 4.42 1.33 6.42L12 16.9l-5.75 3.24 1.33-6.42L2.75 9.3l6.5-.75Z" fill="${on?'#FFC60A':'#D6DBE5'}" stroke="${on?'#FFC60A':'#D6DBE5'}" stroke-width="1.6" stroke-linejoin="round"/></svg>`;
 const ock=k=>`<button class="ock${osel.has(k)?' on':''}" data-ck="${k}" aria-label="선택">${osel.has(k)?CK:''}</button>`;
-const ostep=(k)=>`<div class="ostep${osel.has(k)?' sel':''}"><button data-k="${k}" data-d="-1" aria-label="빼기">−</button><b>${OP[k].q}</b><button data-k="${k}" data-d="1" aria-label="더하기">+</button></div>`;
+const ostep=(k)=>`<div class="ostep${osel.has(k)?' sel':''}"><button data-k="${k}" data-d="-1" aria-label="빼기">−</button><b>${oqQ(k)}</b><button data-k="${k}" data-d="1" aria-label="더하기">+</button></div>`;
 function oqHTML(){
  const tabs=['자주사는상품','즐겨찾기','세트상품','식단주문'];
- const re=OQ_RE.map(k=>{const o=OP[k];return `<div class="rc"><div class="pth"><img src="${IMG[o.img]}" alt="${o.n}"><div class="cyc">${o.ago}<i>·</i>${o.cyc}</div>${ock(k)}</div><div class="if"><b>${o.n}</b><small>${o.u}</small><strong>${won(o.p)}</strong></div>${ostep(k)}</div>`;}).join('');
- const all=OQ_LIST.every(k=>osel.has(k));
+ const re=OQ_RE.map(k=>{const o=OP[k];return `<div class="rc"><div class="pth"><img src="${IMG[o.img]}" alt="${o.n}"><div class="cyc">${o.ago}<i>·</i>${o.cyc}</div>${ock('re:'+k)}</div><div class="if"><b>${o.n}</b><small>${o.u}</small><strong>${won(o.p)}</strong></div>${ostep('re:'+k)}</div>`;}).join('');
+ const all=OQ_LIST.every(k=>osel.has('li:'+k));
  const li=OQ_LIST.map(k=>{const o=OP[k];const bd=[o.al?'<span class="bd al">알레르기</span>':'',o.t==='냉장'?'<span class="bd cold">냉장</span>':o.t==='냉동'?'<span class="bd frz">냉동</span>':''].join('');
-  return `<div class="oi"><div class="pth"><img src="${IMG[o.img]}" alt="${o.n}">${ock(k)}</div><div class="if"><div class="nm"><span>${o.n}</span>${STAR(o.fav)}</div><div class="sp">${o.u}${o.box?` · <u>BOX ${o.box}</u>`:''}${o.org?` · ${o.org}`:''}</div>${bd||o.dl?`<div class="bdg">${bd}${o.dl?`<em>${o.dl}</em>`:''}</div>`:''}<div class="pr"><strong>${won(o.p)}</strong>${ostep(k)}</div></div></div>`;}).join('');
+  return `<div class="oi"><div class="pth"><img src="${IMG[o.img]}" alt="${o.n}">${ock('li:'+k)}</div><div class="if"><div class="nm"><span>${o.n}</span>${STAR(o.fav)}</div><div class="sp">${o.u}${o.box?` · <u>BOX ${o.box}</u>`:''}${o.org?` · ${o.org}`:''}</div>${bd||o.dl?`<div class="bdg">${bd}${o.dl?`<em>${o.dl}</em>`:''}</div>`:''}<div class="pr"><strong>${won(o.p)}</strong>${ostep('li:'+k)}</div></div></div>`;}).join('');
  return `<div class="oq" id="oq"><div class="oq-title">최근에 주문한 상품이에요</div>
   <div class="otabs">${tabs.map((t,j)=>`<button data-t="${j}"${j===otab?' aria-current="page"':''}>${t}</button>`).join('')}</div>
   <div class="osub"><b>다시 살 때 된 상품</b><small>평소 주기 기준</small></div>
@@ -924,12 +925,12 @@ function oqHTML(){
 function oqRender(){const el=document.getElementById('oq');if(!el)return;const x=document.getElementById('rescroll').scrollLeft;el.outerHTML=oqHTML();document.getElementById('rescroll').scrollLeft=x;oqBind();selUpdate();}
 function oqBind(){const el=document.getElementById('oq');if(!el)return;{const w=document.getElementById('dbarW');if(w&&w.offsetHeight)document.documentElement.style.setProperty('--dbh',(w.offsetHeight-1)+'px');}hScroll(document.getElementById('rescroll'));
  el.querySelectorAll('.ock').forEach(b=>b.onclick=e=>{e.stopPropagation();const k=b.dataset.ck;osel.has(k)?osel.delete(k):osel.add(k);oqRender();});
- el.querySelectorAll('.ostep button').forEach(b=>b.onclick=e=>{e.stopPropagation();const o=OP[b.dataset.k];o.q=Math.max(1,o.q+ +b.dataset.d);oqRender();});
- el.querySelector('#oall').onclick=()=>{const all=OQ_LIST.every(k=>osel.has(k));OQ_LIST.forEach(k=>all?osel.delete(k):osel.add(k));oqRender();};
+ el.querySelectorAll('.ostep button').forEach(b=>b.onclick=e=>{e.stopPropagation();const id=b.dataset.k;OQ_Q[id]=Math.max(1,oqQ(id)+ +b.dataset.d);oqRender();});
+ el.querySelector('#oall').onclick=()=>{const all=OQ_LIST.every(k=>osel.has('li:'+k));OQ_LIST.forEach(k=>all?osel.delete('li:'+k):osel.add('li:'+k));oqRender();};
  el.querySelectorAll('.otabs button').forEach(b=>b.onclick=()=>{otab=+b.dataset.t;el.querySelectorAll('.otabs button').forEach(x=>x.toggleAttribute('aria-current',x===b));});}
 function selUpdate(){const bar=document.getElementById('selbar'),bnb=document.querySelector('.bnb');if(!bar)return;
  const n=osel.size,show=n>0&&view==='home';bar.hidden=!show;bnb.classList.toggle('sel',show);
- if(show){const sum=[...osel].reduce((a,k)=>a+OP[k].p*OP[k].q,0);bar.querySelector('.sum span').textContent=`${(dSel||['10/29'])[0].slice(0,5)} 입고요청 · 선택 ${n}품목`;bar.querySelector('.sum b').textContent=won(sum);}}
+ if(show){const sum=[...osel].reduce((a,id)=>a+OP[oK(id)].p*oqQ(id),0);bar.querySelector('.sum span').textContent=`${(dSel||['10/29'])[0].slice(0,5)} 입고요청 · 선택 ${n}품목`;bar.querySelector('.sum b').textContent=won(sum);}}
 function dbarStick(){const w=document.getElementById('dbarW');if(!w||w.hidden)return;const sc=document.getElementById('scroll');const top=isM()?0:sc.getBoundingClientRect().top;w.classList.toggle('stuck',w.getBoundingClientRect().top<=top+1&&(isM()?window.scrollY:sc.scrollTop)>20);const t=document.querySelector('.otabs');if(t){const ts=t.getBoundingClientRect().top<=w.getBoundingClientRect().bottom+1&&w.classList.contains('stuck')&&t.parentElement.getBoundingClientRect().top<t.getBoundingClientRect().top-1;t.classList.toggle('stuck',ts);}}
 document.getElementById('scroll').addEventListener('scroll',dbarStick,{passive:true});addEventListener('scroll',dbarStick,{passive:true});
 function otoast(t){let el=document.getElementById('otoast');if(!el){el=document.createElement('div');el.id='otoast';el.className='otoast';document.querySelector('.app').appendChild(el);}el.textContent=t;el.classList.add('on');clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove('on'),1600);}
