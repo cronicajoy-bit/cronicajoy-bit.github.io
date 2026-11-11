@@ -679,7 +679,7 @@ button:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
 .omore2{padding:4px 22px 0}
 .omore2 button{width:100%;height:43px;border-radius:999px;background:#F2F3F5;font-size:14px;font-weight:600;color:#111;letter-spacing:-.02em}
 .selbar{pointer-events:auto;background:#fff;border-radius:20px 20px 0 0;box-shadow:0 -6px 20px rgba(0,0,0,.2),0 -1px 3px rgba(0,0,0,.06);clip-path:inset(-40px 0 0 0);padding:16px 22px 20px;display:flex;flex-direction:column;gap:10px;position:relative;z-index:1}
-.selbar[hidden]{display:none}
+.selbar[hidden]{display:none}.selbar{padding-top:22px}.selbar .sgrab{position:absolute;left:50%;top:0;transform:translateX(-50%);width:72px;height:20px;display:grid;place-items:center}.selbar .sgrab i{width:36px;height:4px;border-radius:2px;background:#D5D8DD}.selbar.min{padding-bottom:16px;cursor:pointer}.selbar.min .bt{display:none}.selbar .sum b::after{content:'';display:inline-block;width:0;margin-left:0}.selbar.min .sum b::after{width:8px;height:8px;margin-left:10px;border-left:2px solid #111;border-top:2px solid #111;transform:translateY(1px) rotate(45deg)}
 .selbar .sum{display:flex;align-items:center;justify-content:space-between}
 .selbar .sum span{font-size:13px;font-weight:500;color:#2E3A4F}
 .selbar .sum b{font-size:16px;font-weight:700;color:#111}
@@ -730,7 +730,7 @@ button:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
           </div>
           <div class="scrim"></div>
           <div class="bnb">
-            <div class="selbar" id="selbar" hidden><div class="sum"><span></span><b></b></div><div class="bt"><button class="c" id="selCart">장바구니 담기</button><button class="o" id="selGo">바로 주문하기</button></div></div>
+            <div class="selbar" id="selbar" hidden><button class="sgrab" id="selGrab" aria-label="시트 접기"><i></i></button><div class="sum"><span></span><b></b></div><div class="bt"><button class="c" id="selCart">장바구니 담기</button><button class="o" id="selGo">바로 주문하기</button></div></div>
             <button class="mini" id="mini" aria-label="지금 주문 상태 보기"></button>
             <nav class="tabbar">
               <button class="tab" data-tab="home" aria-current="page"><svg class="on" width="26" height="26" viewBox="0 0 24 24"><path d="M12 2.6 20.5 7v10L12 21.4 3.5 17V7Z" fill="currentColor"/><path d="M3.8 7.2 12 11.6l8.2-4.4M12 11.6v9.5" fill="none" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/></svg><svg class="off" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M12 2.6 20.5 7v10L12 21.4 3.5 17V7Z"/><path d="M3.5 7 12 11.6 20.5 7M12 11.6v9.8"/></svg>바로주문</button>
@@ -957,8 +957,13 @@ function oqBind(){const el=document.getElementById('oq');if(!el)return;{const w=
  pm.querySelectorAll('button').forEach(b=>b.onclick=e=>{e.stopPropagation();oper=+b.dataset.p;oqRender();});
  document.addEventListener('click',()=>{if(!pm.hidden){pm.hidden=true;pc.setAttribute('aria-expanded','false');}},{once:true});
  el.querySelectorAll('.otabs button').forEach(b=>b.onclick=()=>{otab=+b.dataset.t;el.querySelectorAll('.otabs button').forEach(x=>x.toggleAttribute('aria-current',x===b));});}
+(()=>{const bar=document.getElementById('selbar');if(!bar)return;const tg=m=>bar.classList.toggle('min',m);
+document.getElementById('selGrab').onclick=e=>{e.stopPropagation();tg(!bar.classList.contains('min'));};
+bar.addEventListener('click',e=>{if(bar.classList.contains('min')&&!e.target.closest('#selGrab'))tg(false);});
+let y0=null;bar.addEventListener('pointerdown',e=>{if(e.target.closest('.bt button'))return;y0=e.clientY;});
+addEventListener('pointerup',e=>{if(y0===null)return;const d=e.clientY-y0;y0=null;if(d>24)tg(true);else if(d<-24)tg(false);});})();
 function selUpdate(){const bar=document.getElementById('selbar'),bnb=document.querySelector('.bnb');if(!bar)return;
- const n=osel.size,show=n>0&&view==='home';bar.hidden=!show;bnb.classList.toggle('sel',show);
+ const n=osel.size,show=n>0&&view==='home';bar.hidden=!show;if(!n)bar.classList.remove('min');bnb.classList.toggle('sel',show);
  if(show){const sum=[...osel].reduce((a,id)=>a+OP[oK(id)].p*oqQ(id),0);bar.querySelector('.sum span').textContent=`${(dSel||['10/27'])[0].slice(0,5)} 입고요청 · 선택 ${n}품목`;bar.querySelector('.sum b').textContent=won(sum);}}
 function dbarStick(){const w=document.getElementById('dbarW');if(!w||w.hidden)return;const sc=document.getElementById('scroll');const top=isM()?0:sc.getBoundingClientRect().top;w.classList.toggle('stuck',w.getBoundingClientRect().top<=top+11&&(isM()?window.scrollY:sc.scrollTop)>20);const t=document.querySelector('.otabs');if(t){const ts=t.getBoundingClientRect().top<=w.getBoundingClientRect().bottom+1&&w.classList.contains('stuck')&&t.parentElement.getBoundingClientRect().top<t.getBoundingClientRect().top-1;t.classList.toggle('stuck',ts);}}
 document.getElementById('scroll').addEventListener('scroll',dbarStick,{passive:true});addEventListener('scroll',dbarStick,{passive:true});
