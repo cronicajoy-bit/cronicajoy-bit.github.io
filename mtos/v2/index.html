@@ -752,7 +752,7 @@ button:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
     <h1 class="sub">기타 화면</h1>
     <div class="times">
       <button class="ov-btn" id="ovOrders" aria-pressed="false"><span class="d"><b>주문내역 · 담는 중</b></span></button>
-      <button class="ov-btn" id="ovReturn" aria-pressed="false"><span class="d"><b>주문내역 · 도착·반품</b></span></button>
+      
       <button class="ov-btn" id="ovCart" aria-pressed="false"><span class="d"><b>장바구니</b></span></button>
       <button class="ov-btn" id="ovDate" aria-pressed="false"><span class="d"><b>입고요청일 바꾸기</b></span></button>
       <button class="ov-btn" id="ovWx" aria-pressed="false"><span class="d"><b>날씨 바텀시트</b></span></button>
@@ -1019,7 +1019,7 @@ function showOrders(mode){
   <div class="spacer"></div>`;
  const upd=()=>{const t=document.getElementById('otot');if(t)t.textContent=won(ORD_HIDDEN+ordSum());};upd();
  el.querySelectorAll('.step button').forEach(b=>b.onclick=()=>{const it=ORDERS[+b.dataset.g].items[+b.dataset.i];it.q=Math.max(1,it.q+ +b.dataset.d);document.getElementById(`q${b.dataset.g}_${b.dataset.i}`).textContent=it.q;document.getElementById(`s${b.dataset.g}_${b.dataset.i}`).textContent=won(it.p*it.q);upd();});
- el.querySelectorAll('.day').forEach(d=>d.onclick=()=>{const n=+d.dataset.d;if(n===28)showOrders('d28');else if(n===29)showOrders('d29');});
+ el.querySelectorAll('.day').forEach(d=>d.onclick=()=>{const n=+d.dataset.d;if(n===29)showOrders('d29');});
  document.getElementById('home').hidden=true;el.hidden=false;
  const m=STATES[1].mini,mini=document.getElementById('mini');
  mini.innerHTML=`<span class="mth">${cargoMini(STATES[1])}</span><span class="mtx">${m.html}</span><span class="bar"><i style="width:${m.bar}%"></i></span>${chev('#111')}`;
@@ -1215,7 +1215,7 @@ document.getElementById('mini').onclick=()=>view==='orders'?render(1):(isM()?win
 const timesHTML=STATES.map((s,i)=>`<button class="time-btn" data-i="${i}" aria-pressed="false"><span class="t">${s.t.replace(':','<i>:</i>')}</span><span class="d"><b>${s.name}</b></span></button>`).join('');
 document.getElementById('times').innerHTML='<button class="ov-btn" id="ovFirst" aria-pressed="false"><span class="d"><b>가입 완료 첫 화면</b></span></button>'+timesHTML;document.getElementById('sheetInner').innerHTML=timesHTML;
 document.getElementById('ovOrders').onclick=()=>showOrders('d29');
-document.getElementById('ovReturn').onclick=()=>showOrders('d28');
+
 document.getElementById('ovCart').onclick=()=>{if(view==='cart')return;render(1);showCart();};
 document.getElementById('ovDate').onclick=()=>{render(2);openDts();press('ovDate');};
 document.getElementById('cartBtn').onclick=()=>showCart();
