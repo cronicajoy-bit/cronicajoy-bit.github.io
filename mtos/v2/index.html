@@ -645,7 +645,7 @@ button:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
 .ptw{position:relative}
 .pchip{height:30px;display:inline-flex;align-items:center;gap:6px;padding:0 11px 0 12px;border-radius:999px;background:#F2F3F5;font-size:16px;font-weight:700;color:#2E3A4F;letter-spacing:-.02em}
 .pchip[aria-expanded="true"] svg{rotate:180deg}.pchip svg{transition:rotate .25s}
-.pmenu{position:absolute;left:-4px;top:36px;background:#fff;border-radius:14px;box-shadow:0 8px 24px rgba(0,0,0,.14),0 0 0 1px rgba(0,0,0,.04);padding:6px;min-width:170px;display:flex;flex-direction:column}
+.pmenu{position:absolute;left:0;top:36px;background:#fff;border-radius:14px;box-shadow:0 8px 24px rgba(0,0,0,.14),0 0 0 1px rgba(0,0,0,.04);padding:6px;min-width:170px;display:flex;flex-direction:column}
 .pmenu[hidden]{display:none}
 .pmenu button{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 10px;border-radius:9px;font-size:14px;font-weight:600;color:#111;text-align:left}
 .pmenu button small{font-size:12px;font-weight:500;color:#8E9196}
@@ -936,7 +936,7 @@ function oqHTML(){
   <div class="otabs">${tabs.map((t,j)=>`<button data-t="${j}"${j===otab?' aria-current="page"':''}>${t}</button>`).join('')}</div>
   <div class="osub"><b>다시 살 때 된 상품</b><small>평소 주기 기준</small></div>
   <div class="rescroll" id="rescroll">${re}</div>
-  <div class="osub pt"><b>사장님이</b><div class="ptw"><button class="pchip" id="pchip" aria-expanded="false">${OPER[oper][0]}<svg width="10" height="6" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" fill="none" stroke="#2E3A4F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="pmenu" id="pmenu" hidden>${OPER.map((o,j)=>`<button data-p="${j}"${j===oper?' class="on"':''}>${o[0]}<small>${o[1]}</small></button>`).join('')}</div></div><b>동안 자주 산 상품</b></div>
+  <div class="osub pt"><div class="ptw"><button class="pchip" id="pchip" aria-expanded="false">${OPER[oper][0]}<svg width="10" height="6" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" fill="none" stroke="#2E3A4F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="pmenu" id="pmenu" hidden>${OPER.map((o,j)=>`<button data-p="${j}"${j===oper?' class="on"':''}>${o[0]}<small>${o[1]}</small></button>`).join('')}</div></div><b>자주 산 상품</b></div>
   <div class="ofilter"><button class="ack${all?' on':''}" id="oall" aria-label="전체 선택">${all?CK:''}</button><span>전체 선택</span><small class="pfrom">${OPER[oper][1]}</small></div>
   <div class="olist">${li}</div>
   <div class="omore2"><button>자주사는상품 24개 전체 보기 ›</button></div></div>`;}
