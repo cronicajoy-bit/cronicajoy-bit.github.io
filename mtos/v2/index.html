@@ -655,9 +655,9 @@ button:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
 .ofilter .pfrom{margin-left:auto;font-size:12px;color:#8E9196}
 .ofilter .per{margin-left:auto;height:26px;padding:0 10px 0 12px;border-radius:999px;background:#F2F3F5;font-size:12px;font-weight:600;color:#111;display:flex;align-items:center}
 .olist{padding:4px 0}
-.oi{display:flex;gap:12px;padding:13px 22px;position:relative}
+.oi{display:flex;gap:12px;padding:10px 22px;position:relative}
 .oi::after{content:"";position:absolute;left:22px;right:22px;bottom:0;height:1px;background:#E7E9ED}
-.oi .pth{width:96px;height:96px;border-radius:12px}
+.oi .pth{width:108px;height:108px;border-radius:14px}
 .oi .ock{left:6px;top:6px}
 .oi .if{flex:1;min-width:0;display:flex;flex-direction:column;gap:4px}
 .oi .nm{display:flex;align-items:center;gap:4px;font-size:15px;font-weight:700;letter-spacing:-.02em;color:#111;line-height:18px}
@@ -939,7 +939,7 @@ function oqHTML(){
   <div class="osub"><b>주문할 때가 됐어요</b><small>평소 주기 기준</small></div>
   <div class="rescroll" id="rescroll">${re}</div>
   <div class="osub pt"><div class="ptw"><button class="pchip" id="pchip" aria-expanded="false">${OPER[oper][0]}<svg width="10" height="6" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" fill="none" stroke="#2E3A4F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="pmenu" id="pmenu" hidden>${OPER.map((o,j)=>`<button data-p="${j}"${j===oper?' class="on"':''}>${o[0]}<small>${o[1]}</small></button>`).join('')}</div></div><b>주문했던 상품</b></div>
-  <div class="ofilter"><button class="ack${all?' on':''}" id="oall" aria-label="전체 선택">${all?CK:''}</button><span>전체 선택</span><small class="pfrom">${OPER[oper][1]}</small></div>
+  <div class="ofilter"><button class="ack${all?' on':''}" id="oall" aria-label="전체 선택">${all?CK:''}</button><span>전체 선택</span><small class="pfrom">주문 많은 순 · 24개</small></div>
   <div class="olist">${li}</div>
   <div class="omore2"><button>자주사는상품 24개 전체 보기 ›</button></div></div>`;}
 function oqRender(){const el=document.getElementById('oq');if(!el)return;const x=document.getElementById('rescroll').scrollLeft;el.outerHTML=oqHTML();document.getElementById('rescroll').scrollLeft=x;oqBind();selUpdate();}
