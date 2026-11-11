@@ -792,18 +792,18 @@ const STATES=[
   now:[{date:['수요일','28'],t:'10/28 입고분 2품목 담는 중',s:'10/27(화) 17:20 발주마감',b:'이어 담기'}],
   mini:{thumb:'sealed',html:'주문 완료 · 내일 07:00 도착',bar:45}},
  {id:'0600',t:'06:00',name:'배송 중',desc:'트럭이 매장으로 오는 중',scene:'',
-  count:'2건',cart:'5',label:'10/26(월) 입고 · 주문한 17품목',head:'오늘 입고분이 오고 있어요,<br>07:00 도착 예정',lk:'도착까지',lv:'58분',rk:'실린 상품',rv:'17품목',
-  prog:270,marks:[{type:'passed',x:94},{type:'passed',x:191}],cap:'07:00 도착',cargo:'c06',cx:206,cy:-1,
-  slots:[['오전','07:00','15품목 · 아워홈 탑차','실시간 위치',1],['점심','','2품목 · 협력사 배송','업체가 직접 배송해요',0]],trk:null,
-  btn1:'배송조회',btn2:'실린 상품 보기',dbar:['10/27(화)','오늘 17:20 발주마감'],ins:'부침가루 주문이 평소보다 늘고 있어요',
-  now:[{date:['화요일','27'],t:'5품목 담는 중',s:'오늘 17:20 발주마감',b:'이어 담기'}],
-  mini:{thumb:'truck',html:'17품목 배송 중 · 도착까지 <em>58분</em>',bar:92}},
+  count:'2건',cart:'5',label:'10/27(화) 입고 · 어제 주문한 18품목',head:'오늘 입고분이 오고 있어요,<br>07:00 도착 예정',lk:'도착까지',lv:'58분',rk:'실린 상품',rv:'12품목',
+  prog:270,marks:[{type:'passed',x:94},{type:'passed',x:191}],cap:'3번 나눠서 도착해요',cargo:'c06',cx:206,cy:-1,
+  slots:[['오전','07:00','12품목 · 아워홈 탑차','실시간 위치',1],['점심','11:00','4품목 · 아워홈 탑차','',1],['저녁','','2품목 · 협력사 배송','업체가 직접 배송해요',0]],trk:null,
+  btn1:'배송조회',btn2:'실린 상품 보기',dbar:['10/28(수)','오늘 17:20 발주마감'],ins:'부침가루 주문이 평소보다 늘고 있어요',
+  now:[{date:['수요일','28'],t:'2품목 담는 중',s:'오늘 17:20 발주마감',b:'이어 담기'}],
+  mini:{thumb:'truck',html:'12품목 배송 중 · 도착까지 <em>58분</em>',bar:92}},
  {id:'0705',t:'07:00',name:'도착',desc:'물건 도착, 검수할 차례',scene:'',
-  count:'1건',cart:'5',label:'10/26(월) 입고 · 06:52 도착',head:'오늘 아침 물건이<br>도착했어요',lk:'도착',lv:'17품목',rk:'도착 시각',rv:'06:52',
+  count:'1건',cart:'5',label:'10/27(화) 입고 · 06:52 도착',head:'오늘 아침 물건이<br>도착했어요',lk:'도착',lv:'12품목',rk:'도착 시각',rv:'06:52',
   prog:293,marks:[{type:'passed',x:94},{type:'passed',x:191}],cap:'반품 접수 오늘 18:00까지',cargo:'cAR',cx:253,cy:-20,
-  btn1:'입고검수',btn2:'반품·클레임',dbar:['10/27(화)','오늘 17:20 발주마감'],ins:'부침가루 주문이 평소보다 늘고 있어요',
-  now:[{date:['화요일','27'],t:'5품목 담는 중',s:'오늘 17:20 발주마감',b:'이어 담기'}],
-  mini:{thumb:'sealed',html:'17품목 도착 · <em>입고검수</em>해 주세요',bar:100}}
+  btn1:'입고검수',btn2:'반품·클레임',dbar:['10/28(수)','오늘 17:20 발주마감'],ins:'부침가루 주문이 평소보다 늘고 있어요',
+  now:[{date:['수요일','28'],t:'2품목 담는 중',s:'오늘 17:20 발주마감',b:'이어 담기'}],
+  mini:{thumb:'sealed',html:'12품목 도착 · <em>입고검수</em>해 주세요',bar:100}}
 ];
 const SOON=[{icon:'repeat',t:'떡볶이 떡, 주문할 때가 됐어요',tb:'떡볶이 떡, 주문할 때예요',s:'12일째 · 보통 2주마다 6봉',l:'6봉 담기'},{date:['수요일','28'],t:'단호박은 10/28으로',s:'리드타임 때문에 10/27엔 못 받아요',l:'담기'},{icon:'box',t:'지난 화요일 주문 그대로',s:'17품목 · 298,200원',l:'다시 주문'}];
 const PRODUCTS={pr_egg:['지킴이계란(특란)','1.8kg','6,590원','60g × 30구',0,'서신'],pr_noodle:['맛있는 생칼국수면','1kg','2,490원','칼국수·전골 사리',1,'푸디스트'],pr_jelly:['도토리묵(채묵)','3kg','9,900원','채썰기 · 무침용',0,'행복한맛남'],pr_nurungji:['우리쌀누룽지','3kg','15,900원','숭늉·누룽지탕용',0,'행복한맛남'],pr_tangsu:['등심탕수육','1kg','8,900원','튀기기만 하면 완성',0,'행복한맛남'],pr_vienna:['애니쿡 비엔나','1kg','5,490원','도시락 반찬 단골',0,'대림선']};
@@ -1212,7 +1212,7 @@ function nextBanner(){const n=bIdx+1;setBanner(n,true);if(n===BANNERS.length){se
 function startCountdown(){clearInterval(cdTimer);const el=document.getElementById('cd');if(!el)return;let sec=1*3600+58*60;cdTimer=setInterval(()=>{sec=Math.max(0,sec-1);const h=Math.floor(sec/3600),m=Math.floor(sec%3600/60),s2=sec%60;el.textContent=`${h}:${String(m).padStart(2,'0')}:${String(s2).padStart(2,'0')}`;},1000);}
 document.getElementById('mini').onclick=()=>view==='orders'?render(1):(isM()?window:document.getElementById('scroll')).scrollTo({top:0,behavior:'smooth'});
 // panel
-const ORD=[3,4,0,1,2];const timesHTML=ORD.map(i=>[STATES[i],i]).map(([s,i])=>`<button class="time-btn" data-i="${i}" aria-pressed="false"><span class="t">${s.t.replace(':','<i>:</i>')}</span><span class="d"><b>${s.name}</b></span></button>`).join('');
+const ORD=[0,1,2,3,4];const timesHTML=ORD.map(i=>[STATES[i],i]).map(([s,i])=>`<button class="time-btn" data-i="${i}" aria-pressed="false"><span class="t">${s.t.replace(':','<i>:</i>')}</span><span class="d"><b>${s.name}</b></span></button>`).join('');
 document.getElementById('times').innerHTML='<button class="ov-btn" id="ovFirst" aria-pressed="false"><span class="d"><b>가입 완료 첫 화면</b></span></button>'+timesHTML;document.getElementById('sheetInner').innerHTML=timesHTML;
 document.getElementById('ovOrders').onclick=()=>showOrders('d29');
 
