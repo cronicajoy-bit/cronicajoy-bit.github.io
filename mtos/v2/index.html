@@ -602,7 +602,7 @@ button:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
 .panel .vtag{display:inline-block;align-self:flex-start;margin:0 0 14px;font-size:12px;font-weight:700;color:#111;background:#C2EF81;border-radius:6px;padding:3px 8px}
 
 /* ===== Ver.2 · 바로주문 탭 (11/11) ===== */
-.dbar-wrap{position:sticky;top:0;z-index:5;background:#fff}
+.dbar-wrap{position:sticky;top:10px;z-index:5;background:#fff}
 .dbar-wrap.stuck{box-shadow:0 -30px 0 #fff,0 2px 0 #fff}
 .dbar-wrap::after{content:"";position:absolute;left:0;right:0;top:calc(100% - 2px);height:14px;background:#fff;pointer-events:none;opacity:0}
 .dbar-wrap.stuck::after{opacity:1}
@@ -943,7 +943,7 @@ function oqHTML(){
   <div class="olist">${li}</div>
   <div class="omore2"><button>자주사는상품 24개 전체 보기 ›</button></div></div>`;}
 function oqRender(){const el=document.getElementById('oq');if(!el)return;const x=document.getElementById('rescroll').scrollLeft;el.outerHTML=oqHTML();document.getElementById('rescroll').scrollLeft=x;oqBind();selUpdate();}
-function oqBind(){const el=document.getElementById('oq');if(!el)return;{const w=document.getElementById('dbarW');if(w&&w.offsetHeight)document.documentElement.style.setProperty('--dbh',(w.offsetHeight-1)+'px');}hScroll(document.getElementById('rescroll'));
+function oqBind(){const el=document.getElementById('oq');if(!el)return;{const w=document.getElementById('dbarW');if(w&&w.offsetHeight)document.documentElement.style.setProperty('--dbh',(w.offsetHeight+9)+'px');}hScroll(document.getElementById('rescroll'));
  el.querySelectorAll('.ock').forEach(b=>b.onclick=e=>{e.stopPropagation();const k=b.dataset.ck;osel.has(k)?osel.delete(k):osel.add(k);oqRender();});
  el.querySelectorAll('.ostep button').forEach(b=>b.onclick=e=>{e.stopPropagation();const id=b.dataset.k;OQ_Q[id]=Math.max(1,oqQ(id)+ +b.dataset.d);oqRender();});
  el.querySelector('#oall').onclick=()=>{const all=OQ_LIST.every(k=>osel.has('li:'+k));OQ_LIST.forEach(k=>all?osel.delete('li:'+k):osel.add('li:'+k));oqRender();};
@@ -954,7 +954,7 @@ function oqBind(){const el=document.getElementById('oq');if(!el)return;{const w=
 function selUpdate(){const bar=document.getElementById('selbar'),bnb=document.querySelector('.bnb');if(!bar)return;
  const n=osel.size,show=n>0&&view==='home';bar.hidden=!show;bnb.classList.toggle('sel',show);
  if(show){const sum=[...osel].reduce((a,id)=>a+OP[oK(id)].p*oqQ(id),0);bar.querySelector('.sum span').textContent=`${(dSel||['10/29'])[0].slice(0,5)} 입고요청 · 선택 ${n}품목`;bar.querySelector('.sum b').textContent=won(sum);}}
-function dbarStick(){const w=document.getElementById('dbarW');if(!w||w.hidden)return;const sc=document.getElementById('scroll');const top=isM()?0:sc.getBoundingClientRect().top;w.classList.toggle('stuck',w.getBoundingClientRect().top<=top+1&&(isM()?window.scrollY:sc.scrollTop)>20);const t=document.querySelector('.otabs');if(t){const ts=t.getBoundingClientRect().top<=w.getBoundingClientRect().bottom+1&&w.classList.contains('stuck')&&t.parentElement.getBoundingClientRect().top<t.getBoundingClientRect().top-1;t.classList.toggle('stuck',ts);}}
+function dbarStick(){const w=document.getElementById('dbarW');if(!w||w.hidden)return;const sc=document.getElementById('scroll');const top=isM()?0:sc.getBoundingClientRect().top;w.classList.toggle('stuck',w.getBoundingClientRect().top<=top+11&&(isM()?window.scrollY:sc.scrollTop)>20);const t=document.querySelector('.otabs');if(t){const ts=t.getBoundingClientRect().top<=w.getBoundingClientRect().bottom+1&&w.classList.contains('stuck')&&t.parentElement.getBoundingClientRect().top<t.getBoundingClientRect().top-1;t.classList.toggle('stuck',ts);}}
 document.getElementById('scroll').addEventListener('scroll',dbarStick,{passive:true});addEventListener('scroll',dbarStick,{passive:true});
 function otoast(t){let el=document.getElementById('otoast');if(!el){el=document.createElement('div');el.id='otoast';el.className='otoast';document.querySelector('.app').appendChild(el);}el.textContent=t;el.classList.add('on');clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove('on'),1600);}
 const ORD_TOTAL=312400;
