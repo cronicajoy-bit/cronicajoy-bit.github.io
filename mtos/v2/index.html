@@ -197,7 +197,7 @@ button:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
 .mini .mth{clip-path:inset(-7px -6px -7px -10px round 14px)}
 .mini.on{transform:none;opacity:1}
 .mini .mth{width:34px;height:34px;flex:none;position:relative;clip-path:inset(-7px -6px -7px -10px)}
-.mini .mth img{position:absolute;display:block;max-width:none}
+.mini .mth img{position:absolute;display:block;max-width:none}.mini .mth.mlogo{display:grid;place-items:center}.mini .mth.mlogo img{position:static;width:28px;height:29px;animation:fLogo 3.75s cubic-bezier(.42,0,.58,1) .6s infinite}
 .hicon .badge[hidden]{display:none}
 .mini .mtx{color:#111;flex:1;min-width:0;display:flex;align-items:center;gap:6px;font-size:16px;font-weight:600;letter-spacing:-.02em;white-space:nowrap;overflow:hidden}
 .mini .mtx em{font-style:normal;font-weight:700}
@@ -1108,7 +1108,7 @@ function showFirst(){
   <div class="grid" id="grid">${productsHTML(['pr_tangsu','pr_vienna','pr_egg','pr_noodle','pr_nurungji','pr_jelly'])}</div>
   <div class="spacer"></div>`;
  document.getElementById('orders').hidden=true;document.getElementById('home').hidden=false;
- {const mini=document.getElementById('mini');mini.innerHTML=`<span class="mth">${cargoMini(STATES[0])}</span><span class="mtx"><em>17:20</em> 발주마감 · 내일 07:00 도착</span>${chev('#111')}`;mini.classList.remove('on');}
+ {const mini=document.getElementById('mini');mini.innerHTML=`<span class="mth mlogo"><img src="${IMG.logo_color}" alt="아워홈"></span><span class="mtx"><em>17:20</em> 발주마감 · 내일 07:00 도착</span>${chev('#111')}`;mini.classList.remove('on');}
  bindHome();startCargo();fitRail();
  document.getElementById('scroll').scrollTop=0;if(isM())window.scrollTo(0,0);
 }
