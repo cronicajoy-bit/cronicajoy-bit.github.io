@@ -775,7 +775,7 @@ const STATES=[
   slots:[['오전','07:00','3품목 · 아워홈 탑차','출고 후 실시간 위치',1],['점심','11:00','2품목 · 협력사 배송','업체가 직접 배송해요',0]],
   btn1:'장바구니 보기',btn2:'품목 담기',dbar:['10/29(목)','오늘 17:20 발주마감'],ins:'부침가루 주문이 평소보다 늘고 있어요',
   now:[{icon:'box',t:'오늘 아침 17품목 도착',s:'입고검수 · 문제 품목은 클레임으로',warn:true,b:'입고검수'}],
-  mini:{thumb:'start',html:'<em>17:20</em> 발주마감 · 내일 07:00 도착',bar:18}},
+  mini:{thumb:'start',html:'<em>17:20</em> 마감 · 내일 07:00 도착',bar:18}},
  {id:'1500',t:'15:00',name:'마감 임박',desc:'장바구니 18품목, 주문 전',scene:'',
   count:'3건',cart:'18',label:'10/29(목) 입고 · 담는 중',head:'장바구니 18품목,<br>주문을 마무리해 주세요',lk:'발주마감까지',lv:'1시간 58분',rk:'장바구니',rv:'312,400원',av:'1,240,000원',
   prog:84,marks:[{type:'pin',x:91,text:'발주마감'},{type:'tick',x:191}],cap:'오전·점심·저녁 3번 도착',cargo:'c15',cx:33,cy:-17,
@@ -923,7 +923,7 @@ const OP={
  mus:{img:'pr_mushroom',n:'새송이·느타리 모둠버섯',u:'1팩',p:3550,q:5,org:'국내산',t:'냉장',fav:0},
  mst:{img:'pr_mustard',n:'청정원 겨자분',u:'200g',p:3750,q:2,box:30,org:'겨자 캐나다산',fav:0,ago:'18일 전 주문',cyc:'3주마다'}};
 const OQ_RE=['kal','per','gop','shi','mst'],OQ_LIST=['kal','per','gop','mus','mst'];
-const OPER=[['최근 일주일','10/22부터'],['최근 한달','9/29부터'],['최근 3개월','7/29부터'],['최근 6개월','4/29부터']];let oper=1;
+const OPER=[['최근 일주일','10/22부터',8],['최근 한달','9/29부터',24],['최근 3개월','7/29부터',41],['최근 6개월','4/29부터',57]];let oper=1;
 const osel=new Set();let otab=0;const OQ_Q={};const oqQ=id=>OQ_Q[id]??(OQ_Q[id]=OP[id.split(':')[1]].q);const oK=id=>id.split(':')[1];
 const STAR=on=>`<svg width="14" height="14" viewBox="0 0 24 24"><path d="M12 2.6l2.75 5.95 6.5.75-4.83 4.42 1.33 6.42L12 16.9l-5.75 3.24 1.33-6.42L2.75 9.3l6.5-.75Z" fill="${on?'#FFC60A':'#D6DBE5'}" stroke="${on?'#FFC60A':'#D6DBE5'}" stroke-width="1.6" stroke-linejoin="round"/></svg>`;
 const ock=k=>`<button class="ock${osel.has(k)?' on':''}" data-ck="${k}" aria-label="선택">${osel.has(k)?CK:''}</button>`;
@@ -939,9 +939,9 @@ function oqHTML(){
   <div class="osub"><b>주문할 때가 됐어요</b><small>평소 주기 기준</small></div>
   <div class="rescroll" id="rescroll">${re}</div>
   <div class="osub pt"><div class="ptw"><button class="pchip" id="pchip" aria-expanded="false">${OPER[oper][0]}<svg width="10" height="6" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" fill="none" stroke="#2E3A4F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="pmenu" id="pmenu" hidden>${OPER.map((o,j)=>`<button data-p="${j}"${j===oper?' class="on"':''}>${o[0]}<small>${o[1]}</small></button>`).join('')}</div></div><b>주문했던 상품</b></div>
-  <div class="ofilter"><button class="ack${all?' on':''}" id="oall" aria-label="전체 선택">${all?CK:''}</button><span>전체 선택</span><small class="pfrom">주문 많은 순 · 24개</small></div>
+  <div class="ofilter"><button class="ack${all?' on':''}" id="oall" aria-label="전체 선택">${all?CK:''}</button><span>전체 선택</span><small class="pfrom">주문 많은 순 · ${OPER[oper][2]}개</small></div>
   <div class="olist">${li}</div>
-  <div class="omore2"><button>자주사는상품 24개 전체 보기 ›</button></div></div>`;}
+  <div class="omore2"><button>자주사는상품 ${OPER[oper][2]}개 전체 보기 ›</button></div></div>`;}
 function oqRender(){const el=document.getElementById('oq');if(!el)return;const x=document.getElementById('rescroll').scrollLeft;el.outerHTML=oqHTML();document.getElementById('rescroll').scrollLeft=x;oqBind();selUpdate();}
 function oqBind(){const el=document.getElementById('oq');if(!el)return;{const w=document.getElementById('dbarW');if(w&&w.offsetHeight)document.documentElement.style.setProperty('--dbh',(w.offsetHeight+9)+'px');}hScroll(document.getElementById('rescroll'));
  el.querySelectorAll('.ock').forEach(b=>b.onclick=e=>{e.stopPropagation();const k=b.dataset.ck;osel.has(k)?osel.delete(k):osel.add(k);oqRender();});
@@ -1102,7 +1102,7 @@ function showFirst(){
   <div class="grid" id="grid">${productsHTML(['pr_tteok','pr_vienna','pr_egg','pr_noodle','pr_udon','pr_quail'])}</div>
   <div class="spacer"></div>`;
  document.getElementById('orders').hidden=true;document.getElementById('home').hidden=false;
- document.getElementById('mini').classList.remove('on');
+ {const mini=document.getElementById('mini');mini.innerHTML=`<span class="mth">${cargoMini(STATES[0])}</span><span class="mtx"><em>17:20</em> 발주마감 · 내일 07:00 도착</span>${chev('#111')}`;mini.classList.remove('on');}
  bindHome();startCargo();fitRail();
  document.getElementById('scroll').scrollTop=0;if(isM())window.scrollTo(0,0);
 }
@@ -1189,9 +1189,9 @@ function hScroll(el){
  window.addEventListener('pointerup',()=>{if(!down)return;down=false;setTimeout(()=>el.classList.remove('drag'),0);});
 }
 function bindHome(){
- const sc=document.getElementById('scroll'),hero=document.getElementById('hero'),mini=document.getElementById('mini');
+ const sc=document.getElementById('scroll'),hero=document.getElementById('hero')||document.getElementById('fhero'),mini=document.getElementById('mini');
  if(window._io)window._io.disconnect();
- window._io=new IntersectionObserver(([e])=>{if(view==='home')mini.classList.toggle('on',!e.isIntersecting)},{root:isM()?null:sc,threshold:0,rootMargin:'0px 0px -132px 0px'});
+ window._io=new IntersectionObserver(([e])=>{if(view==='home'||view==='first')mini.classList.toggle('on',!e.isIntersecting)},{root:isM()?null:sc,threshold:0,rootMargin:'0px 0px -132px 0px'});
  if(hero)window._io.observe(hero);
  hScroll(document.getElementById('chips'));
  document.querySelectorAll('#chips .chip').forEach(c=>c.onclick=()=>{chipIdx=+c.dataset.j;document.querySelectorAll('#chips .chip').forEach(x=>x.setAttribute('aria-pressed',String(x===c)));document.getElementById('grid').innerHTML=productsHTML(CHIPS[chipIdx].set);});
