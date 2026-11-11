@@ -1110,7 +1110,7 @@ function closeWx(){const el=document.getElementById('wxs');if(el)el.classList.re
 const railW=()=>{const w=document.querySelector('.app').clientWidth||390;return Math.max(302,Math.round(w-(bleed?52:88)));};
 let _rw=0;addEventListener('resize',()=>{clearTimeout(window._rwT);window._rwT=setTimeout(()=>{const w=railW();if(w===_rw)return;_rw=w;if(view==='first')showFirst();else if(view==='home')render(cur);},200);});
 let dOverride=null;
-const FUT={'10/30(금)':{dl:'10/29(목) 17:20',n:2,amt:'25,630원',wx:['cloud','금 흐림 30%'],ins:'흐린 날, 칼국수 주문이 평소보다 늘어요',wi:1},
+const FUT={'10/30(금)':{now:[{date:['금요일','30'],t:'단호박, 이제 담을 수 있어요',s:'10/30 입고분부터 · 지난번 4통',b:'담기'}],dl:'10/29(목) 17:20',n:2,amt:'25,630원',wx:['cloud','금 흐림 30%'],ins:'흐린 날, 칼국수 주문이 평소보다 늘어요',wi:1},
  '11/2(월)':{dl:'10/30(금) 17:20',n:0,amt:'0원',wx:['sun','월 맑고 쌀쌀'],ins:'쌀쌀한 날, 전골 재료가 잘 나가요',wi:2},
  '11/3(화)':{dl:'11/2(월) 17:20',n:0,amt:'0원',wx:['sun','화 맑고 쌀쌀'],ins:'쌀쌀한 날, 전골 재료가 잘 나가요',wi:2}};
 const TODAY='10/28(수)',TMR='10/29(목)';
@@ -1119,7 +1119,7 @@ function futState(s0,d){const f=FUT[d];if(!f)return s0;const lv=dlText(f.dl);con
  const wxc=(f.wx[0]==='cloud'?'<svg width="20" height="15" viewBox="0 0 30 22"><path d="M8 20h15a6 6 0 0 0 .8-11.95A8 8 0 0 0 8.3 9.1 5.5 5.5 0 0 0 8 20Z" fill="#9AA3B2"/></svg>':'<svg width="16" height="16" viewBox="0 0 26 26"><circle cx="13" cy="13" r="10" fill="#FFB020"/></svg>')+f.wx[1];
  return {...s0,id:'fut',label:`${d} 입고 · ${f.n?'담는 중':'담기 전'}`,head:f.n?`${f.n}품목 담았어요,<br>더 필요한 건 없으세요?`:`아직 담은 상품이 없어요,<br>미리 담아 두세요`,
   lk:/^(오늘|내일)/.test(lv)?'발주마감':'발주마감 · '+f.dl.split(' ')[1],lv:/^(오늘|내일)/.test(lv)?lv:f.dl.split(' ')[0],rk:'장바구니',rv:f.amt,av:'1,240,000원',prog:f.n?40:10,marks:[{type:'pin',x:91,text:'발주마감'},{type:'tick',x:191}],cap:`${short} 07:00부터 도착`,cargo:'c07',cx:4,cy:-17,slots:null,trk:null,
-  btn1:'장바구니 보기',btn2:'품목 담기',dbar:[d,lv+' 발주마감'],ins:f.ins,wxc,
+  btn1:'장바구니 보기',btn2:'품목 담기',dbar:[d,lv+' 발주마감'],ins:f.ins,wxc,now:f.now||[],count:(1+(f.now||[]).length)+'건',
   mini:{thumb:'start',html:`<em>${lv.replace(/\(.\)/,'')}</em> 마감 · ${short} 도착`,bar:f.n?20:6}};}
 function render(i,keepD){
  if(!keepD)dOverride=null;const _sy=keepD?(isM()?window.scrollY:document.getElementById('scroll').scrollTop):0;
@@ -1132,7 +1132,7 @@ function render(i,keepD){
  const TRK=s.trk?`<div class="trk"><span class="b"><i></i>${s.trk[0]}</span>${s.trk[1]}</div>`:'';
  const RW=railW();
  document.getElementById('home').innerHTML=`
-  <div class="sec-title first q">지금 할 일이 <span class="cnt">${s.count}</span> 있어요</div>
+  <div class="sec-title first q">할 일이 <span class="cnt">${s.count}</span> 있어요</div>
   <div class="hero-wrap"><section class="hero" id="hero">
    <div class="label"><i></i>${s.label}</div>
    <h2>${s.head}</h2>
