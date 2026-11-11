@@ -681,6 +681,10 @@ button:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
 .card .br+.nm{margin-top:2px}
 .irow img,.crow img,.it img{background:#F2F3F5}
 .mm{font-style:normal}
+.slots .sr{transition:opacity .32s ease,transform .38s cubic-bezier(.2,.8,.2,1)}
+.slots.pre .sr{opacity:0;transform:translateY(-8px)}
+.slots .sr:nth-child(2){transition-delay:.05s}.slots .sr:nth-child(3){transition-delay:.1s}
+.rail .capb .cv{transition:rotate .3s cubic-bezier(.2,.8,.2,1)}
 .hero:has(.capb:active,.slots:active,.trk:active,.wchip:active),.hero:has(.capb:hover):active{transform:none}
 .irow .t .mm svg,.crow .mm svg{position:relative;top:1px}
 </style></head><body>
@@ -1135,7 +1139,11 @@ function render(i){
  press(null);document.querySelectorAll('.time-btn,.sheet .time-btn').forEach(b=>b.setAttribute('aria-pressed',String(+b.dataset.i===i)));
  document.getElementById('fabT').textContent=s.t;
  document.getElementById('scroll').scrollTop=0;if(isM())window.scrollTo(0,0);mini.classList.remove('on');
- const cb=document.querySelector('.capb');if(cb)cb.onclick=e=>{e.stopPropagation();const sl=document.getElementById('slots');sl.hidden=!sl.hidden;cb.setAttribute('aria-expanded',String(!sl.hidden));};
+ const cb=document.querySelector('.capb');if(cb)cb.onclick=e=>{e.stopPropagation();const sl=document.getElementById('slots');if(sl._busy)return;sl._busy=1;const E='cubic-bezier(.2,.8,.2,1)';const open=sl.hidden;cb.setAttribute('aria-expanded',String(open));
+  const done=()=>{sl._busy=0;sl.style.transition='';sl.style.height='';sl.style.overflow='';sl.style.marginTop='';sl.style.opacity='';};
+  if(open){sl.hidden=false;sl.classList.add('pre');const h=sl.scrollHeight;sl.style.overflow='hidden';sl.style.height='0px';sl.style.marginTop='-12px';sl.style.opacity='0';sl.offsetHeight;
+   sl.style.transition=`height .42s ${E},margin-top .42s ${E},opacity .25s ease`;sl.style.height=h+'px';sl.style.marginTop='0px';sl.style.opacity='1';requestAnimationFrame(()=>sl.classList.remove('pre'));setTimeout(done,450);}
+  else{const h=sl.offsetHeight;sl.style.overflow='hidden';sl.style.height=h+'px';sl.offsetHeight;sl.style.transition=`height .34s ${E},margin-top .34s ${E},opacity .22s ease`;sl.classList.add('pre');sl.style.height='0px';sl.style.marginTop='-12px';sl.style.opacity='0';setTimeout(()=>{sl.hidden=true;sl.classList.remove('pre');done();},360);}};;
  bindHome();oqBind();selUpdate();startCountdown();startCargo();fitRail();
 }
 let bleed=false;
