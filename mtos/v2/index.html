@@ -641,6 +641,16 @@ button:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
 .ofilter .ack{width:22px;height:22px;border-radius:6px;background:#fff;box-shadow:inset 0 0 0 1.5px #D9DBE0;display:grid;place-items:center;flex:none}
 .ofilter .ack.on{background:#2E3A4F;box-shadow:none}
 .ofilter span{font-size:13px;font-weight:500;color:#111}
+.osub.pt{align-items:center;gap:6px;position:relative;z-index:3}
+.ptw{position:relative}
+.pchip{height:30px;display:inline-flex;align-items:center;gap:6px;padding:0 11px 0 12px;border-radius:999px;background:#F2F3F5;font-size:16px;font-weight:700;color:#2E3A4F;letter-spacing:-.02em}
+.pchip[aria-expanded="true"] svg{rotate:180deg}.pchip svg{transition:rotate .25s}
+.pmenu{position:absolute;left:0;top:36px;background:#fff;border-radius:14px;box-shadow:0 8px 24px rgba(0,0,0,.14),0 0 0 1px rgba(0,0,0,.04);padding:6px;min-width:170px;display:flex;flex-direction:column}
+.pmenu[hidden]{display:none}
+.pmenu button{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 10px;border-radius:9px;font-size:14px;font-weight:600;color:#111;text-align:left}
+.pmenu button small{font-size:12px;font-weight:500;color:#8E9196}
+.pmenu button.on{background:#F2F3F5}
+.ofilter .pfrom{margin-left:auto;font-size:12px;color:#8E9196}
 .ofilter .per{margin-left:auto;height:26px;padding:0 10px 0 12px;border-radius:999px;background:#F2F3F5;font-size:12px;font-weight:600;color:#111;display:flex;align-items:center}
 .olist{padding:4px 0}
 .oi{display:flex;gap:12px;padding:16px 22px;position:relative}
@@ -911,6 +921,7 @@ const OP={
  mus:{img:'pr_mushroom',n:'모둠버섯',u:'1팩',p:3550,q:5,org:'국내산',t:'냉장',fav:0},
  mst:{img:'pr_mustard',n:'청정원 겨자분',u:'200g',p:3750,q:2,box:30,org:'겨자 캐나다산',fav:0,ago:'18일 전 주문',cyc:'3주마다'}};
 const OQ_RE=['kal','per','gop','shi','mst'],OQ_LIST=['kal','per','gop','mus','mst'];
+const OPER=[['최근 1주','10/22부터'],['최근 한달','9/29부터'],['최근 3개월','7/29부터'],['최근 6개월','4/29부터']];let oper=1;
 const osel=new Set();let otab=0;const OQ_Q={};const oqQ=id=>OQ_Q[id]??(OQ_Q[id]=OP[id.split(':')[1]].q);const oK=id=>id.split(':')[1];
 const STAR=on=>`<svg width="14" height="14" viewBox="0 0 24 24"><path d="M12 2.6l2.75 5.95 6.5.75-4.83 4.42 1.33 6.42L12 16.9l-5.75 3.24 1.33-6.42L2.75 9.3l6.5-.75Z" fill="${on?'#FFC60A':'#D6DBE5'}" stroke="${on?'#FFC60A':'#D6DBE5'}" stroke-width="1.6" stroke-linejoin="round"/></svg>`;
 const ock=k=>`<button class="ock${osel.has(k)?' on':''}" data-ck="${k}" aria-label="선택">${osel.has(k)?CK:''}</button>`;
@@ -925,8 +936,8 @@ function oqHTML(){
   <div class="otabs">${tabs.map((t,j)=>`<button data-t="${j}"${j===otab?' aria-current="page"':''}>${t}</button>`).join('')}</div>
   <div class="osub"><b>다시 살 때 된 상품</b><small>평소 주기 기준</small></div>
   <div class="rescroll" id="rescroll">${re}</div>
-  <div class="osub"><b>기간별 주문 상품</b></div>
-  <div class="ofilter"><button class="ack${all?' on':''}" id="oall" aria-label="전체 선택">${all?CK:''}</button><span>전체 선택</span><button class="per">최근 한달 · 9/29부터 ▾</button></div>
+  <div class="osub pt"><div class="ptw"><button class="pchip" id="pchip" aria-expanded="false">${OPER[oper][0]}<svg width="10" height="6" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" fill="none" stroke="#2E3A4F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="pmenu" id="pmenu" hidden>${OPER.map((o,j)=>`<button data-p="${j}"${j===oper?' class="on"':''}>${o[0]}<small>${o[1]}</small></button>`).join('')}</div></div><b>자주 산 상품이에요</b></div>
+  <div class="ofilter"><button class="ack${all?' on':''}" id="oall" aria-label="전체 선택">${all?CK:''}</button><span>전체 선택</span><small class="pfrom">${OPER[oper][1]}</small></div>
   <div class="olist">${li}</div>
   <div class="omore2"><button>자주사는상품 24개 전체 보기 ›</button></div></div>`;}
 function oqRender(){const el=document.getElementById('oq');if(!el)return;const x=document.getElementById('rescroll').scrollLeft;el.outerHTML=oqHTML();document.getElementById('rescroll').scrollLeft=x;oqBind();selUpdate();}
@@ -934,6 +945,9 @@ function oqBind(){const el=document.getElementById('oq');if(!el)return;{const w=
  el.querySelectorAll('.ock').forEach(b=>b.onclick=e=>{e.stopPropagation();const k=b.dataset.ck;osel.has(k)?osel.delete(k):osel.add(k);oqRender();});
  el.querySelectorAll('.ostep button').forEach(b=>b.onclick=e=>{e.stopPropagation();const id=b.dataset.k;OQ_Q[id]=Math.max(1,oqQ(id)+ +b.dataset.d);oqRender();});
  el.querySelector('#oall').onclick=()=>{const all=OQ_LIST.every(k=>osel.has('li:'+k));OQ_LIST.forEach(k=>all?osel.delete('li:'+k):osel.add('li:'+k));oqRender();};
+ const pc=el.querySelector('#pchip'),pm=el.querySelector('#pmenu');pc.onclick=e=>{e.stopPropagation();pm.hidden=!pm.hidden;pc.setAttribute('aria-expanded',String(!pm.hidden));};
+ pm.querySelectorAll('button').forEach(b=>b.onclick=e=>{e.stopPropagation();oper=+b.dataset.p;oqRender();});
+ document.addEventListener('click',()=>{if(!pm.hidden){pm.hidden=true;pc.setAttribute('aria-expanded','false');}},{once:true});
  el.querySelectorAll('.otabs button').forEach(b=>b.onclick=()=>{otab=+b.dataset.t;el.querySelectorAll('.otabs button').forEach(x=>x.toggleAttribute('aria-current',x===b));});}
 function selUpdate(){const bar=document.getElementById('selbar'),bnb=document.querySelector('.bnb');if(!bar)return;
  const n=osel.size,show=n>0&&view==='home';bar.hidden=!show;bnb.classList.toggle('sel',show);
