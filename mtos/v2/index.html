@@ -695,7 +695,7 @@ button:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
 .card .br{display:block;font-size:12px;color:#8E9196;margin-top:10px;letter-spacing:-.01em}
 .card .br+.nm{margin-top:2px}
 .irow img,.crow img,.it img{background:#F2F3F5}
-.mm{font-style:normal}\n.slots .sr.sm{padding:10px 0}.slots .sr.sm .tm{width:96px}.slots .sr.sm .tm b{font-size:14px}.slots .sr.sm .nt{margin-left:auto;font-size:12px;color:#8A93A3}.slots .sr.sm .if b{font-size:14px;font-weight:600}.slots .sr.sm .bd{margin-left:auto}
+.mm{font-style:normal}\n.rail .pin{gap:0}.rail .pin span{background:#fff;border-radius:8px;padding:4px;font-size:12px;font-weight:700;line-height:14px;letter-spacing:-.02em;color:var(--navy)}.rail .pin .stm{display:block;width:1px;height:12px;background:#fff;margin:-1px 0 0 7px}\n.slots .sr.sm{padding:10px 0}.slots .sr.sm .tm{width:96px}.slots .sr.sm .tm b{font-size:14px}.slots .sr.sm .nt{margin-left:auto;font-size:12px;color:#8A93A3}.slots .sr.sm .if b{font-size:14px;font-weight:600}.slots .sr.sm .bd{margin-left:auto}
 .slots .sr{transition:opacity .32s ease,transform .38s cubic-bezier(.2,.8,.2,1)}
 .slots.pre .sr{opacity:0;transform:translateY(-8px)}
 .slots .sr:nth-child(2){transition-delay:.05s}.slots .sr:nth-child(3){transition-delay:.1s}
@@ -902,7 +902,7 @@ function rail(s,W=302){
  const kx=W/302,d=W-302;let m='';
  let mi=0;const DL=()=>`--d:${(1.08+0.16*(mi++)).toFixed(2)}s;`;
  for(const k of [...s.marks].sort((a,b)=>a.x-b.x)){
-  if(k.type==='pin')m+=`<div class="pin" style="${DL()}left:${k.x*kx}px;top:11.5px"><span>${k.text}</span><svg width="13" height="18.5" viewBox="0 -1.5 13 18.5" overflow="visible"><path d="M6.5 16.5 1.3 9.3A6.5 6.5 0 1 1 11.7 9.3Z" fill="#fff"/></svg></div>`;
+  if(k.type==='pin'){const dd=DL();m+=`<i class="passed" style="${dd}left:${k.x*kx+3.5}px"></i><div class="pin" style="${dd}left:${k.x*kx-1}px;top:14px"><span>${k.text}</span><i class="stm"></i></div>`;}
   if(k.type==='tick')m+=`<i class="tick" style="${DL()}left:${(k.x+4)*kx-4}px"></i>`;
   if(k.type==='passed')m+=`<i class="passed" style="${DL()}left:${(k.x+3)*kx-3}px"></i>`;
  }
