@@ -609,6 +609,9 @@ button:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
 .otabs button{height:30px;display:flex;flex-direction:column;justify-content:space-between;font-size:14px;font-weight:600;color:#6B7380;letter-spacing:-.02em}
 .otabs button::after{content:"";display:block;height:3px;border-radius:2px;background:transparent;margin-top:auto}
 .otabs button[aria-current]{font-weight:700;color:#111}
+.otabs button{transition:font-size .22s ease}
+.otabs.stuck button{font-size:16px}
+.otabs.stuck{gap:22px}
 .otabs button[aria-current]::after{background:#2E3A4F}
 .osub{display:flex;align-items:baseline;padding:28px 22px 10px}
 .osub b{font-size:16px;font-weight:700;letter-spacing:-.02em;color:#111}
@@ -927,7 +930,7 @@ function oqBind(){const el=document.getElementById('oq');if(!el)return;{const w=
 function selUpdate(){const bar=document.getElementById('selbar'),bnb=document.querySelector('.bnb');if(!bar)return;
  const n=osel.size,show=n>0&&view==='home';bar.hidden=!show;bnb.classList.toggle('sel',show);
  if(show){const sum=[...osel].reduce((a,k)=>a+OP[k].p*OP[k].q,0);bar.querySelector('.sum span').textContent=`${(dSel||['10/29'])[0].slice(0,5)} 입고요청 · 선택 ${n}품목`;bar.querySelector('.sum b').textContent=won(sum);}}
-function dbarStick(){const w=document.getElementById('dbarW');if(!w||w.hidden)return;const sc=document.getElementById('scroll');const top=isM()?0:sc.getBoundingClientRect().top;w.classList.toggle('stuck',w.getBoundingClientRect().top<=top+1&&(isM()?window.scrollY:sc.scrollTop)>20);}
+function dbarStick(){const w=document.getElementById('dbarW');if(!w||w.hidden)return;const sc=document.getElementById('scroll');const top=isM()?0:sc.getBoundingClientRect().top;w.classList.toggle('stuck',w.getBoundingClientRect().top<=top+1&&(isM()?window.scrollY:sc.scrollTop)>20);const t=document.querySelector('.otabs');if(t){const ts=t.getBoundingClientRect().top<=w.getBoundingClientRect().bottom+1&&w.classList.contains('stuck')&&t.parentElement.getBoundingClientRect().top<t.getBoundingClientRect().top-1;t.classList.toggle('stuck',ts);}}
 document.getElementById('scroll').addEventListener('scroll',dbarStick,{passive:true});addEventListener('scroll',dbarStick,{passive:true});
 function otoast(t){let el=document.getElementById('otoast');if(!el){el=document.createElement('div');el.id='otoast';el.className='otoast';document.querySelector('.app').appendChild(el);}el.textContent=t;el.classList.add('on');clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove('on'),1600);}
 const ORD_TOTAL=312400;
