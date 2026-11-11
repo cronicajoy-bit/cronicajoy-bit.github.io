@@ -701,7 +701,7 @@ button:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
 .slots .sr:nth-child(2){transition-delay:.05s}.slots .sr:nth-child(3){transition-delay:.1s}
 .rail .capb .cv{transition:rotate .3s cubic-bezier(.2,.8,.2,1)}
 .hero:has(.capb:active,.slots:active,.trk:active,.wchip:active),.hero:has(.capb:hover):active{transform:none}
-.irow .t .mm svg,.crow .mm svg{position:relative;top:1px}
+.irow .t .mm svg,.crow .mm svg{position:relative;top:1px}.crow{align-items:stretch;gap:12px;padding:14px 0}.crow .cth{position:relative;width:88px;height:88px;flex:none}.crow .cth img{width:88px;height:88px;border-radius:14px}.crow .cth .ck{position:absolute;left:6px;top:6px;box-shadow:0 1px 2px rgba(0,0,0,.08)}.crow .t{gap:4px}.crow .t span{white-space:nowrap}.crow .t .pr{display:flex;align-items:center;gap:8px;margin-top:auto;padding-top:6px}.crow .t .pr strong{font-size:16px;font-weight:700;letter-spacing:-.02em;color:#111;margin-right:auto}.crow .t .pr em{font-style:normal;font-size:13px;font-weight:600;color:#6B7280}.crow .t .pr .step{width:96px;height:32px}.crow.cl .t .pr strong{color:#8E9196}.memo{margin:-4px 0 16px 100px}.acts{padding:0 0 18px 100px}
 </style></head><body>
 
 <script>window.__h0=location.hash;</script>
@@ -1051,8 +1051,8 @@ const CK='<svg width="12" height="9" viewBox="0 0 12 9"><path d="M1 4.5 4.5 8 11
 let cartFrom=null;
 function cartRow(it,sec,i){
  const closed=sec==='closed';
- return `<div class="crow"><button class="ck${it.on?' on':''}" data-s="${sec}" data-i="${i}">${it.on?CK:''}</button><img src="${IMG[it.img]}" alt=""><div class="t"><b>${it.n}</b><span>${it.u} · ${won(it.p)}${!closed&&!it.memo?`<i class="mm">${MEMO_IC}메모</i>`:''}</span>${closed?'<span class="tg"><i>발주마감</i>다음 입고일 10/28(수)</span>':''}</div>
-  <div class="q">${closed?'':`<div class="step"><button data-s="${sec}" data-i="${i}" data-d="-1">−</button><b>${it.q}</b><button data-s="${sec}" data-i="${i}" data-d="1">+</button></div>`}<small>${won(it.p*it.q)}</small></div></div>
+ return `<div class="crow${closed?' cl':''}"><div class="cth"><img src="${IMG[it.img]}" alt=""><button class="ck${it.on?' on':''}" data-s="${sec}" data-i="${i}" aria-label="선택">${it.on?CK:''}</button></div><div class="t"><b>${it.n}</b><span>${it.u} · ${won(it.p)}${!closed&&!it.memo?`<i class="mm">${MEMO_IC}메모</i>`:''}</span>${closed?'<span class="tg"><i>발주마감</i>다음 입고일 10/28(수)</span>':''}
+  <div class="pr"><strong>${won(it.p*it.q)}</strong>${closed?`<em>×${it.q}</em>`:`<div class="step"><button data-s="${sec}" data-i="${i}" data-d="-1">−</button><b>${it.q}</b><button data-s="${sec}" data-i="${i}" data-d="1">+</button></div>`}</div></div></div>
   ${closed?`<div class="acts"><button class="o">10/28(수)으로 옮기기</button><button>대체상품 ${it.alt}개 ›</button></div>`:''}
   ${it.memo?`<div class="memo"><b>내 메모</b>${it.memo}<div class="op"><span><i></i>계속 사용</span><u>삭제</u></div></div>`:''}<div class="ln"></div>`;}
 function cartHTML(){const sum=k=>CART[k].filter(x=>x.on).reduce((a,x)=>a+x.p*x.q,0),cnt=k=>CART[k].filter(x=>x.on).length,all=k=>CART[k].reduce((a,x)=>a+x.p*x.q,0);
