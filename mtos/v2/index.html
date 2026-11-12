@@ -923,7 +923,7 @@ Object.assign(OP,{
  ssm:{img:'pr_ssamjang',n:'해찬들 알찬쌈장',u:'14kg',p:34900,q:10,org:'대두 외국산',al:1,t:'상온',fav:1},
  crb:{img:'pr_crab',n:'대림 게맛살 큰잔치',u:'500g',p:3290,q:100,org:'연육 미국산',al:1,t:'냉장',fav:0}});
 const OQ_RE=['kal','per','gop','shi','mst'],OQ_LIST=['spm','crn','ssm','mus','crb'];
-const OPER=[['최근 일주일','10/20부터',8],['최근 한달','9/27부터',24],['최근 3개월','7/27부터',41],['최근 6개월','4/27부터',57]];let oper=1;
+const OPER=[['일주일 동안','10/20부터',8],['한달 동안','9/27부터',24],['3개월 동안','7/27부터',41],['6개월 동안','4/27부터',57]];let oper=2;
 const osel=new Set();let otab=0;const OQ_Q={};const oqQ=id=>OQ_Q[id]??(OQ_Q[id]=OP[id.split(':')[1]].q);const oK=id=>id.split(':')[1];
 const STAR=on=>`<svg width="14" height="14" viewBox="0 0 24 24"><path d="M12 2.6l2.75 5.95 6.5.75-4.83 4.42 1.33 6.42L12 16.9l-5.75 3.24 1.33-6.42L2.75 9.3l6.5-.75Z" fill="${on?'#FFC60A':'#D6DBE5'}" stroke="${on?'#FFC60A':'#D6DBE5'}" stroke-width="1.6" stroke-linejoin="round"/></svg>`;
 const ock=k=>`<button class="ock${osel.has(k)?' on':''}" data-ck="${k}" aria-label="선택">${osel.has(k)?CK:''}</button>`;
@@ -938,7 +938,7 @@ function oqHTML(){
   <div class="otabs">${tabs.map((t,j)=>`<button data-t="${j}"${j===otab?' aria-current="page"':''}>${t}</button>`).join('')}</div>
   <div class="osub"><b>주문할 때가 됐어요</b><small>평소 주기 기준</small></div>
   <div class="rescroll" id="rescroll">${re}</div>
-  <div class="osub pt"><div class="ptw"><button class="pchip" id="pchip" aria-expanded="false">${OPER[oper][0]}<svg width="10" height="6" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" fill="none" stroke="#2E3A4F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="pmenu" id="pmenu" hidden>${OPER.map((o,j)=>`<button data-p="${j}"${j===oper?' class="on"':''}>${o[0]}<small>${o[1]}</small></button>`).join('')}</div></div><b>주문했던 상품</b></div>
+  <div class="osub pt"><b>최근</b><div class="ptw"><button class="pchip" id="pchip" aria-expanded="false">${OPER[oper][0]}<svg width="10" height="6" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" fill="none" stroke="#2E3A4F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="pmenu" id="pmenu" hidden>${OPER.map((o,j)=>`<button data-p="${j}"${j===oper?' class="on"':''}>${o[0]}<small>${o[1]}</small></button>`).join('')}</div></div><b>주문했던 상품</b></div>
   <div class="ofilter"><button class="ack${all?' on':''}" id="oall" aria-label="전체 선택">${all?CK:''}</button><span>전체 선택</span><small class="pfrom">주문 많은 순 · ${OPER[oper][2]}개</small></div>
   <div class="olist">${li}</div>
   <div class="omore2"><button>자주사는상품 ${OPER[oper][2]}개 전체 보기 ›</button></div></div>`;}
