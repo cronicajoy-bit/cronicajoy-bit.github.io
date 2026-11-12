@@ -1109,7 +1109,7 @@ function showFirst(){
   <div class="grid" id="grid">${productsHTML(['pr_tangsu','pr_vienna','pr_egg','pr_noodle','pr_nurungji','pr_jelly'])}</div>
   <div class="spacer"></div>`;
  document.getElementById('orders').hidden=true;document.getElementById('home').hidden=false;
- {const mini=document.getElementById('mini');mini.innerHTML=`<span class="mth mlogo"><img src="${IMG.logo_color}" alt="아워홈"></span><span class="mtx">첫 주문을 시작해 볼까요?</span>${chev('#111')}`;mini.classList.remove('on');}
+ {const mini=document.getElementById('mini');mini.innerHTML=`<span class="mth">${cargoMini(STATES[0])}</span><span class="mtx"><em>17:20</em> 발주마감 · 내일 07:00 도착</span>${chev('#111')}`;mini.classList.remove('on');}
  bindHome();startCargo();fitRail();
  document.getElementById('scroll').scrollTop=0;if(isM())window.scrollTo(0,0);
 }
