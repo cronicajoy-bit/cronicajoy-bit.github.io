@@ -1223,7 +1223,7 @@ function nextBanner(){const n=bIdx+1;setBanner(n,true);if(n===BANNERS.length){se
 function startCountdown(){clearInterval(cdTimer);const el=document.getElementById('cd');if(!el)return;let sec=1*3600+58*60;cdTimer=setInterval(()=>{sec=Math.max(0,sec-1);const h=Math.floor(sec/3600),m=Math.floor(sec%3600/60),s2=sec%60;el.textContent=`${h}:${String(m).padStart(2,'0')}:${String(s2).padStart(2,'0')}`;},1000);}
 document.getElementById('mini').onclick=()=>view==='orders'?render(1):(isM()?window:document.getElementById('scroll')).scrollTo({top:0,behavior:'smooth'});
 // panel
-STATES.push({...STATES[0],id:'0701',name:'담기 전',desc:'아직 장바구니가 비어 있어요',empty:1,cart:'',label:'10/27(화) 입고 · 담기 전',head:'아직 담은 게 없어요,<br>내일 받을 품목 담아볼까요?',rv:'0원',btn1:'자주 사는 상품',btn2:'지난 주문 다시 담기',mini:{thumb:'start',html:'<em>17:20</em> 마감 · 내일 07:00 도착',bar:0}});
+STATES.push({...STATES[0],id:'0701',name:'담기 전',desc:'아직 장바구니가 비어 있어요',empty:1,cart:'',label:'10/27(화) 입고 · 담기 전',head:'아직 담은 게 없어요,<br>내일 받을 품목 담아볼까요?',rv:'0원',prog:10,cx:-2,btn1:'자주 사는 상품',btn2:'지난 주문 다시 담기',mini:{thumb:'start',html:'<em>17:20</em> 마감 · 내일 07:00 도착',bar:0}});
 const ORD=[5,0,1,2,3,4];const timesHTML=ORD.map(i=>[STATES[i],i]).map(([s,i])=>`<button class="time-btn" data-i="${i}" aria-pressed="false"><span class="t">${s.t.replace(':','<i>:</i>')}</span><span class="d"><b>${s.name}</b></span></button>`).join('');
 document.getElementById('times').innerHTML='<button class="ov-btn" id="ovFirst" aria-pressed="false"><span class="d"><b>가입 완료 첫 화면</b></span></button>'+timesHTML;document.getElementById('sheetInner').innerHTML=timesHTML;
 document.getElementById('ovOrders').onclick=()=>showOrders('d29');
