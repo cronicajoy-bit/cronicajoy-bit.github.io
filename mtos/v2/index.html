@@ -716,7 +716,7 @@ button:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
 .fnote{margin:12px 26px 0;font-size:13px;font-weight:500;line-height:1.45;color:#6B7380;letter-spacing:-.02em}.fbtn{display:block;width:calc(100% - 44px);margin:16px 22px 0;height:52px;border-radius:999px;background:#2E3A4F;color:#fff;font-size:15px;font-weight:700;letter-spacing:-.02em}
 .fos .foc{flex:none;width:200px;background:#F2F3F5;border-radius:18px;padding:18px 16px 16px;display:flex;flex-direction:column;gap:14px}.foc>b{font-size:16px;font-weight:700;color:#111;letter-spacing:-.02em}.fst3{position:relative;height:52px}.fst3 span{position:absolute;top:0}.fst3 .fth{border-radius:14px}.fst3 em{position:absolute;top:0;width:52px;height:52px;border-radius:14px;background:#fff;display:grid;place-items:center;font-style:normal;font-size:14px;font-weight:700;color:#6B7380}.foc small{font-size:13px;font-weight:500;color:#6B7380}.foc .pill{height:38px;border-radius:999px;background:#fff;font-size:13px;font-weight:600;color:#111}
 .fgh{font-size:14px;font-weight:700;color:#2E3A4F;letter-spacing:-.02em}.fgh span{font-weight:500;font-size:13px}.fgh.r{color:#FF5729}.fcl .fr .fth{border-radius:10px}
-.banner-wrap.fcb{padding-top:50px}.fcm .mns{display:none}.fcm .mnk h3{margin-bottom:18px!important}.fcl.r14{border-radius:14px}.fnote.fn2{margin:18px 22px 0}.fnl{margin:18px 22px 0;padding:0 0 0 18px;list-style:disc;font-size:13px;font-weight:500;line-height:1.6;color:#6B7380;letter-spacing:-.02em}.fnl li::marker{font-size:10px}.fcm .hsec{padding-bottom:18px}.banner{border-radius:14px!important}.fcl{border-radius:14px}.fos .foc{border-radius:14px}.mnk h3{margin-bottom:18px!important}</style></head><body>
+.banner-wrap.fcb{padding-top:50px}.fcm .mns{display:none}.fcm .mnk h3{margin-bottom:18px!important}.fcl.r14{border-radius:14px}.fnote.fn2{margin:18px 22px 0}.fnl{margin:18px 22px 0;padding:0 0 0 18px;list-style:disc;font-size:13px;font-weight:500;line-height:1.6;color:#6B7380;letter-spacing:-.02em}.fnl li::marker{font-size:10px}.fcm .hsec{padding-bottom:18px}.banner{border-radius:14px!important}.fcl{border-radius:14px}.fos .foc{border-radius:14px}.mnk h3{margin-bottom:18px!important}.sts .op .l small,.sts .op.on .l small{color:#8E9196}</style></head><body>
 
 <script>window.__h0=location.hash;</script>
 <div class="stage">
@@ -1084,6 +1084,13 @@ function openDts(){let el=document.getElementById('dts');if(!el){el=document.cre
   <button class="cal">더 먼 날짜는 달력에서 고르기 ›</button>`;
  el.querySelectorAll('.op').forEach(b=>b.onclick=()=>{const o=OPS[+b.dataset.i];const dl=o[1].replace('마감','발주마감');dbar([o[0],dl]);setTimeout(()=>{closeDts();if(view==='home'){dOverride=o[0];render(cur,true);}},180);el.querySelectorAll('.op').forEach(x=>x.classList.toggle('on',x===b));});
  el.offsetWidth;el.classList.add('on');}
+const SITES=[['한빛 초등학교 급식실','학교 급식 · 1,200식','school'],['맛나김밥 강남2호점','프랜차이즈 · 김밥','fc']];
+function openSts(){let el=document.getElementById('sts');if(!el){el=document.createElement('div');el.id='sts';el.className='dts sts';el.innerHTML='<div class="dim"></div><div class="pane"></div>';document.querySelector('.app').appendChild(el);el.querySelector('.dim').onclick=closeSts;}
+ const isFc=view==='home'&&STATES[cur]&&STATES[cur].fc;
+ el.querySelector('.pane').innerHTML=`<div class="grab"></div><h3>사업장 선택</h3><p class="ws">주문할 사업장을 골라 주세요</p>${SITES.map(([n,d,k])=>{const on=(k==='fc')===!!isFc;return `<button class="op${on?' on':''}" data-k="${k}"><span class="l"><b>${n}</b><small>${d}</small></span><span class="rd"></span></button>`;}).join('')}`;
+ el.querySelectorAll('.op').forEach(b=>b.onclick=()=>{el.querySelectorAll('.op').forEach(x=>x.classList.toggle('on',x===b));const k=b.dataset.k;setTimeout(()=>{closeSts();if(k==='fc'){if(!(view==='home'&&STATES[cur].fc)){render(FCI);press('ovFC');}}else if(view!=='home'||STATES[cur].fc){render(0);}},200);});
+ el.offsetWidth;el.classList.add('on');}
+function closeSts(){const el=document.getElementById('sts');if(el)el.classList.remove('on');}
 function closeDts(){const el=document.getElementById('dts');if(el)el.classList.remove('on');}
 
 /* ---------- cart ---------- */
@@ -1275,6 +1282,7 @@ const timesHTML=ORD.map(i=>[STATES[i],i]).map(([s,i])=>`<button class="time-btn"
 document.getElementById('times').innerHTML='<button class="ov-btn" id="ovFirst" aria-pressed="false"><span class="d"><b>가입 완료 첫 화면</b></span></button>'+timesHTML;document.getElementById('sheetInner').innerHTML=timesHTML;
 document.getElementById('ovOrders').onclick=()=>showOrders('d29');
 document.getElementById('ovFC').onclick=()=>{render(FCI);press('ovFC');};
+{const st=document.querySelector('.header .store');if(st){st.style.cursor='pointer';st.onclick=e=>{e.stopPropagation();openSts();};}}
 
 document.getElementById('ovCart').onclick=()=>{if(view==='cart')return;render(1);showCart();};
 document.getElementById('ovDate').onclick=()=>{render(2);openDts();press('ovDate');};
