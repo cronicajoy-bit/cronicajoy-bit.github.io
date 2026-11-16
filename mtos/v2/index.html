@@ -1123,7 +1123,7 @@ function showFirst(){
  document.getElementById('orders').hidden=true;document.getElementById('home').hidden=false;
  {const mini=document.getElementById('mini');mini.innerHTML=`<span class="mth">${cargoMini(STATES[0])}</span><span class="mtx"><em>17:20</em> 마감 · 내일 07:00 도착</span><span class="bar"><i style="width:18%"></i></span>${chev('#111')}`;mini.classList.remove('on');}
  bindHome();startCargo();fitRail();
- {const pm=document.getElementById('promo');if(pm)pm.onclick=e=>{const c=e.target.closest('[data-ck]');const d=e.target.closest('[data-d]');if(c){const k=c.dataset.ck;osel.has(k)?osel.delete(k):osel.add(k);}else if(d){const k=d.dataset.k;OQ_Q[k]=Math.max(0,oqQ(k)+(+d.dataset.d)*10);}else return;const x=pm.scrollLeft;pm.innerHTML=promoHTML();pm.scrollLeft=x;};}
+ {const pm=document.getElementById('promo');if(pm)pm.onclick=e=>{const c=e.target.closest('[data-ck]');const d=e.target.closest('[data-d]');if(c){const k=c.dataset.ck;osel.has(k)?osel.delete(k):osel.add(k);}else if(d){const k=d.dataset.k;OQ_Q[k]=Math.max(0,oqQ(k)+(+d.dataset.d)*10);}else return;const x=pm.scrollLeft;pm.innerHTML=promoHTML();pm.scrollLeft=x;};if(pm)hScroll(pm);}
  document.getElementById('scroll').scrollTop=0;if(isM())window.scrollTo(0,0);
 }
 
