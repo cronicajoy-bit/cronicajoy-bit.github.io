@@ -1284,6 +1284,7 @@ const timesHTML=ORD.map(i=>[STATES[i],i]).map(([s,i])=>`<button class="time-btn"
 document.getElementById('times').innerHTML='<button class="ov-btn" id="ovFirst" aria-pressed="false"><span class="d"><b>가입 완료 첫 화면</b></span></button>'+timesHTML;document.getElementById('sheetInner').innerHTML=timesHTML;
 document.getElementById('ovOrders').onclick=()=>showOrders('d29');
 document.getElementById('ovFC').onclick=()=>{render(FCI);press('ovFC');};
+document.querySelector('.app').addEventListener('click',e=>{if(view==='home'&&STATES[cur]&&STATES[cur].fc&&e.target.closest('#cartBtn,.hicon,#hero .btn,#mini,.task-card .pill')){e.stopPropagation();e.preventDefault();}},true);
 {const st=document.querySelector('.header .store');if(st){st.style.cursor='pointer';st.onclick=e=>{e.stopPropagation();openSts();};}}
 
 document.getElementById('ovCart').onclick=()=>{if(view==='cart')return;render(1);showCart();};
