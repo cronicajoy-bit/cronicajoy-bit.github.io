@@ -1046,11 +1046,11 @@ let dSel=null;
 function dbar(d){const w=document.getElementById('dbarW');dSel=d;w.hidden=false;w.innerHTML=`<button class="dbar" id="dbar">${CAL}<b>${d[0]} 입고요청</b>${DV}<span class="dl">${d[1]}</span></button>`;document.getElementById('dbar').onclick=openDts;}
 const DOPTS=[['10/27(화)','오늘 17:20 마감','담는 중 5품목','가장 빠른 날'],['10/28(수)','10/27(화) 17:20 마감','담는 중 2품목',''],['10/29(목)','10/28(수) 17:20 마감','',''],['10/30(금)','10/29(목) 17:20 마감','','']];
 function openDts(){let el=document.getElementById('dts');if(!el){el=document.createElement('div');el.id='dts';el.className='dts';el.innerHTML='<div class="dim"></div><div class="pane"></div>';document.querySelector('.app').appendChild(el);el.querySelector('.dim').onclick=closeDts;}
- const closed=view==='home'&&STATES[cur].id==='1900';
+ const sid=view==='home'?STATES[cur].id:'';const aft=sid==='0600'||sid==='0705';const closed=sid==='1900'||aft;const OPS=closed?[['10/27(화)',sid==='0600'?'오늘 도착 · 배송 중':sid==='0705'?'오늘 도착 · 입고검수 중':'발주마감됨 · 배송 준비 중','',''],['10/28(수)',aft?'오늘 17:20 마감':'10/27(화) 17:20 마감','담는 중 2품목','가장 빠른 날'],DOPTS[2],DOPTS[3]]:DOPTS;
  el.querySelector('.pane').innerHTML=`<div class="grab"></div><h3>언제 받으실 건가요?</h3><p class="ws">날짜마다 발주마감 시간이 달라요</p>
-  ${DOPTS.map((o,i)=>{const dis=closed&&i===0;const on=dSel&&o[0]===dSel[0];return `<button class="op${on?' on':''}" data-i="${i}" ${dis?'disabled':''}><span class="l"><b>${o[0]}</b>${o[3]&&!dis?`<em>${o[3]}</em>`:''}<small>${dis?'발주마감됨 · 배송 준비 중':o[1]}</small></span>${o[2]&&!dis?`<span class="c">${o[2]}</span>`:''}<span class="rd"></span></button>`;}).join('')}
+  ${OPS.map((o,i)=>{const dis=closed&&i===0;const on=dSel&&o[0]===dSel[0];return `<button class="op${on?' on':''}" data-i="${i}" ${dis?'disabled':''}><span class="l"><b>${o[0]}</b>${o[3]&&!dis?`<em>${o[3]}</em>`:''}<small>${o[1]}</small></span>${o[2]&&!dis?`<span class="c">${o[2]}</span>`:''}<span class="rd"></span></button>`;}).join('')}
   <button class="cal">더 먼 날짜는 달력에서 고르기 ›</button>`;
- el.querySelectorAll('.op').forEach(b=>b.onclick=()=>{const o=DOPTS[+b.dataset.i];const dl=o[1].replace('마감','발주마감');dbar([o[0],dl]);setTimeout(()=>{closeDts();if(view==='home'){dOverride=o[0];render(cur,true);}},180);el.querySelectorAll('.op').forEach(x=>x.classList.toggle('on',x===b));});
+ el.querySelectorAll('.op').forEach(b=>b.onclick=()=>{const o=OPS[+b.dataset.i];const dl=o[1].replace('마감','발주마감');dbar([o[0],dl]);setTimeout(()=>{closeDts();if(view==='home'){dOverride=o[0];render(cur,true);}},180);el.querySelectorAll('.op').forEach(x=>x.classList.toggle('on',x===b));});
  el.offsetWidth;el.classList.add('on');}
 function closeDts(){const el=document.getElementById('dts');if(el)el.classList.remove('on');}
 
@@ -1238,7 +1238,7 @@ function startCountdown(){clearInterval(cdTimer);const el=document.getElementByI
 document.getElementById('mini').onclick=()=>view==='orders'?render(1):(isM()?window:document.getElementById('scroll')).scrollTo({top:0,behavior:'smooth'});
 // panel
 STATES.push({...STATES[0],id:'0701',name:'담기 전',desc:'아직 장바구니가 비어 있어요',empty:1,cart:'',label:'10/27(화) 입고 · 담기 전',head:'아직 담은 게 없어요,<br>내일 받을 품목 담아볼까요?',rv:'0원',prog:10,cx:-2,btn1:'자주 사는 상품',btn2:'지난 주문 다시 담기',mini:{thumb:'start',html:'<em>17:20</em> 마감 · 내일 07:00 도착',bar:0}});
-const ORD=[5,0,1,2,3,4];const timesHTML=ORD.map(i=>[STATES[i],i]).map(([s,i])=>`<button class="time-btn" data-i="${i}" aria-pressed="false"><span class="t">${s.t.replace(':','<i>:</i>')}</span><span class="d"><b>${s.name}</b></span></button>`).join('');
+STATES[3].cart='2';STATES[4].cart='2';const ORD=[5,0,1,2,3,4];const timesHTML=ORD.map(i=>[STATES[i],i]).map(([s,i])=>`<button class="time-btn" data-i="${i}" aria-pressed="false"><span class="t">${s.t.replace(':','<i>:</i>')}</span><span class="d"><b>${s.name}</b></span></button>`).join('');
 document.getElementById('times').innerHTML='<button class="ov-btn" id="ovFirst" aria-pressed="false"><span class="d"><b>가입 완료 첫 화면</b></span></button>'+timesHTML;document.getElementById('sheetInner').innerHTML=timesHTML;
 document.getElementById('ovOrders').onclick=()=>showOrders('d29');
 
