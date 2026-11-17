@@ -1451,8 +1451,8 @@ if(window.__h0==='#demo'||window.__h0==='#bleed')deck.hidden=true;else{intro=tru
 #srch .q-bg{position:absolute;inset:0;background:#fff;opacity:0;transition:opacity .22s ease}
 #srch.on{pointer-events:auto}#srch.on .q-bg{opacity:1}
 #srch .q-top{position:relative;height:54px;box-sizing:border-box;display:flex;align-items:flex-start;padding:7px 0 0 16px}
-#srch .q-sb{position:relative;flex:1;min-width:0;height:40px;border-radius:12px;background:#F2F3F5;display:flex;align-items:center;gap:8px;padding:0 12px;clip-path:inset(0 0 0 calc(100% - 44px) round 12px);transition:clip-path .38s cubic-bezier(.2,.8,.2,1)}
-#srch.on .q-sb{clip-path:inset(0 0 0 0 round 12px)}
+#srch .q-sb{position:relative;flex:1;min-width:0;height:40px;border-radius:12px;background:#F2F3F5;display:flex;align-items:center;gap:8px;padding:0 12px;clip-path:var(--cl,inset(0 0 0 calc(100% - 44px) round 12px));background-color:rgba(242,243,245,0);transition:clip-path .38s cubic-bezier(.2,.8,.2,1),background-color .22s}
+#srch.on .q-sb{clip-path:inset(0 0 0 0 round 12px);background-color:#F2F3F5}#srch .q-sb>svg{transform:translate(var(--mx,0),var(--my,0));transition:transform .38s cubic-bezier(.2,.8,.2,1)}#srch.on .q-sb>svg{transform:none}
 #srch .q-sb svg{flex:none}
 #srch .q-sb input::-webkit-search-cancel-button{display:none}#srch .q-sb input{flex:1;min-width:0;width:100%;border:0;background:none;outline:0;font-family:inherit;font-weight:500;font-size:15px;line-height:1.2;color:#111;caret-color:#2E3A4F;padding:0}
 #srch .q-sb input::placeholder{color:#999EA6;font-weight:400}
@@ -1479,11 +1479,11 @@ if(window.__h0==='#demo'||window.__h0==='#bleed')deck.hidden=true;else{intro=tru
 #srch .q-sg{display:none}#srch.typing .q-sg{display:block}#srch.typing .q-rec{display:none}
 #srch .q-sgi{display:flex;align-items:center;gap:12px;height:52px;padding:0 20px;font-size:15px;color:#111;cursor:pointer}
 #srch .q-sgi svg{opacity:.4;flex:none}#srch .q-sgi .q-w{flex:1}#srch .q-sgi em{font-style:normal;font-weight:700;color:#2E3A4F}#srch .q-sgi .q-up{color:#AEB2B9;font-size:14px}
-#srch.out .q-bd{transition:opacity .12s,transform .12s}#srch.out .q-cc{transition:opacity .1s,transform .1s}#srch.out .q-line{transition:opacity .1s}#srch.out .q-bg{transition:opacity .22s .1s ease}#srch.out .q-sb{transition:clip-path .3s .06s cubic-bezier(.4,0,.2,1)}
+#srch.out .q-bd{transition:opacity .12s,transform .12s}#srch.out .q-cc{transition:opacity .1s,transform .1s}#srch.out .q-line{transition:opacity .1s}#srch.out .q-bg{transition:opacity .22s .1s ease}#srch.out .q-sb{transition:clip-path .3s cubic-bezier(.4,0,.2,1),background-color .18s .12s}#srch.out .q-sb>svg{transition:transform .3s cubic-bezier(.4,0,.2,1)}
 #srch .q-emp{padding:28px 20px;font-size:14px;color:#999EA6}
 </style><script>
 (function(){
-const MAG='<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.6-3.6"/></svg>';
+const MAG='<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.6-3.6"/></svg>';
 const MAGS='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.6-3.6"/></svg>';
 let REC=['떡볶이 떡','양파','국간장','우유 200ml','대란 30구'];
 const WORDS=['떡볶이 떡','떡국 떡','가래떡','꿀떡','떡갈비','양파','양배추','대파','국간장','진간장','우유 200ml','대란 30구','두부','재래식 된장','동원참치 라이트','스팸 클래식','브로콜리','어묵','설탕','가지','닭 통다리'];
@@ -1497,7 +1497,7 @@ function open(){const app=document.querySelector('.app'),sc=document.getElementB
  let el=document.getElementById('srch');if(el)el.remove();el=document.createElement('div');el.id='srch';
  const top=hd.getBoundingClientRect().top-app.getBoundingClientRect().top+app.scrollTop;el.style.top=top+'px';
  el.innerHTML=`<div class="q-bg"></div><div class="q-top"><label class="q-sb">${MAG}<input type="text" placeholder="상품명으로 검색" enterkeyhint="search"><button class="q-clr" hidden aria-label="지우기"><svg width="8" height="8" viewBox="0 0 10 10" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M2 2l6 6M8 2 2 8"/></svg></button></label><button class="q-cc">취소</button></div><div class="q-line"></div><div class="q-bd"><div class="q-rec"><div class="q-sh2"><h4>최근 검색어</h4><button class="q-del">전체 삭제</button></div><div class="q-rc2">${recHTML()}</div><div class="q-sh2" style="padding-top:30px"><h4>자주 사는 상품</h4></div><div class="q-fq">${fqHTML()}</div></div><div class="q-sg"></div></div>`;
- app.appendChild(el);const inp=el.querySelector('input'),clr=el.querySelector('.q-clr'),sg=el.querySelector('.q-sg');
+ app.appendChild(el);const hb=document.getElementById('srchBtn');if(hb)hb.style.visibility='hidden';{const sb=el.querySelector('.q-sb'),btn=document.getElementById('srchBtn');if(sb&&btn){const R=sb.getBoundingClientRect(),I=btn.getBoundingClientRect(),G=sb.querySelector('svg').getBoundingClientRect(),p=7;const l=I.left-p-R.left,r=R.right-(I.right+p),t=Math.max(0,I.top-p-R.top),b=Math.max(0,R.bottom-(I.bottom+p));sb.style.setProperty('--cl',`inset(${t}px ${r}px ${b}px ${l}px round 14px)`);sb.style.setProperty('--mx',((I.left+I.width/2)-(G.left+G.width/2))+'px');sb.style.setProperty('--my',((I.top+I.height/2)-(G.top+G.height/2))+'px');}}const inp=el.querySelector('input'),clr=el.querySelector('.q-clr'),sg=el.querySelector('.q-sg');
  const upd=()=>{const q=inp.value.trim();el.classList.toggle('typing',!!q);clr.hidden=!inp.value;if(q)sg.innerHTML=sgHTML(q);};
  inp.oninput=upd;clr.onclick=e=>{e.preventDefault();inp.value='';upd();inp.focus();};
  el.querySelector('.q-cc').onclick=close;
@@ -1507,7 +1507,7 @@ function open(){const app=document.querySelector('.app'),sc=document.getElementB
  sg.onclick=e=>{const r=e.target.closest('.q-sgi');if(!r)return;inp.value=r.dataset.w;if(!e.target.dataset.up){REC=[r.dataset.w,...REC.filter(w=>w!==r.dataset.w)].slice(0,8);el.querySelector('.q-rc2').innerHTML=recHTML();}upd();inp.focus();};
  inp.onkeydown=e=>{if(e.key==='Enter'){const q=inp.value.trim();if(q){REC=[q,...REC.filter(w=>w!==q)].slice(0,8);el.querySelector('.q-rc2').innerHTML=recHTML();}inp.blur();}};
  requestAnimationFrame(()=>requestAnimationFrame(()=>{el.classList.add('on');setTimeout(()=>inp.focus({preventScroll:true}),260);}));}
-function close(){const el=document.getElementById('srch');if(!el)return;const i=el.querySelector('input');if(i)i.blur();el.classList.add('out');el.classList.remove('on');setTimeout(()=>el.remove(),400);}
+function close(){const el=document.getElementById('srch');if(!el)return;const i=el.querySelector('input');if(i)i.blur();el.classList.add('out');el.classList.remove('on');setTimeout(()=>{el.remove();const hb=document.getElementById('srchBtn');if(hb)hb.style.visibility='';},360);}
 document.addEventListener('click',e=>{if(e.target.closest('#srchBtn')){e.preventDefault();open();}});
 window.openSearch=open;window.closeSearch=close;
 })();
