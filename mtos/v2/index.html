@@ -1479,6 +1479,7 @@ if(window.__h0==='#demo'||window.__h0==='#bleed')deck.hidden=true;else{intro=tru
 #srch .q-sg{display:none}#srch.typing .q-sg{display:block}#srch.typing .q-rec{display:none}
 #srch .q-sgi{display:flex;align-items:center;gap:12px;height:52px;padding:0 20px;font-size:15px;color:#111;cursor:pointer}
 #srch .q-sgi svg{opacity:.4;flex:none}#srch .q-sgi .q-w{flex:1}#srch .q-sgi em{font-style:normal;font-weight:700;color:#2E3A4F}#srch .q-sgi .q-up{color:#AEB2B9;font-size:14px}
+#srch.out .q-bd{transition:opacity .12s,transform .12s}#srch.out .q-cc{transition:opacity .1s,transform .1s}#srch.out .q-line{transition:opacity .1s}#srch.out .q-bg{transition:opacity .22s .1s ease}#srch.out .q-sb{transition:clip-path .3s .06s cubic-bezier(.4,0,.2,1)}
 #srch .q-emp{padding:28px 20px;font-size:14px;color:#999EA6}
 </style><script>
 (function(){
@@ -1506,7 +1507,7 @@ function open(){const app=document.querySelector('.app'),sc=document.getElementB
  sg.onclick=e=>{const r=e.target.closest('.q-sgi');if(!r)return;inp.value=r.dataset.w;if(!e.target.dataset.up){REC=[r.dataset.w,...REC.filter(w=>w!==r.dataset.w)].slice(0,8);el.querySelector('.q-rc2').innerHTML=recHTML();}upd();inp.focus();};
  inp.onkeydown=e=>{if(e.key==='Enter'){const q=inp.value.trim();if(q){REC=[q,...REC.filter(w=>w!==q)].slice(0,8);el.querySelector('.q-rc2').innerHTML=recHTML();}inp.blur();}};
  requestAnimationFrame(()=>requestAnimationFrame(()=>{el.classList.add('on');setTimeout(()=>inp.focus({preventScroll:true}),260);}));}
-function close(){const el=document.getElementById('srch');if(!el)return;const i=el.querySelector('input');if(i)i.blur();el.classList.remove('on','typing');setTimeout(()=>el.remove(),400);}
+function close(){const el=document.getElementById('srch');if(!el)return;const i=el.querySelector('input');if(i)i.blur();el.classList.add('out');el.classList.remove('on');setTimeout(()=>el.remove(),400);}
 document.addEventListener('click',e=>{if(e.target.closest('#srchBtn')){e.preventDefault();open();}});
 window.openSearch=open;window.closeSearch=close;
 })();
