@@ -765,7 +765,7 @@ button:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
       <button class="ov-btn" id="ovCart" aria-pressed="false"><span class="d"><b>장바구니</b></span></button>
       <button class="ov-btn" id="ovDate" aria-pressed="false"><span class="d"><b>입고요청일 바꾸기</b></span></button>
       <button class="ov-btn" id="ovTabs" aria-pressed="false"><span class="d"><b>하단 탭 · 메뉴별 화면</b></span></button>
-      <button class="ov-btn" id="ovFC" aria-pressed="false"><span class="d"><b>FC 프랜차이즈 홈</b></span></button>
+      <button class="ov-btn" id="ovFC" aria-pressed="false"><span class="d"><b>FC(프랜차이즈) 홈</b></span></button>
     </div>
     <div class="alt" hidden><button class="alt-pill" id="ovBleed" aria-pressed="false">대안</button></div>
     <button class="deck-link" id="openDeckBtn"><span>디자인 컨셉 문서 보기</span><i>→</i></button>
@@ -1279,7 +1279,7 @@ document.getElementById('mini').onclick=()=>view==='orders'?render(1):(isM()?win
 // panel
 STATES.push({...STATES[0],id:'0701',name:'담기 전',desc:'아직 장바구니가 비어 있어요',empty:1,cart:'',label:'10/27(화) 입고 · 담기 전',head:'아직 담은 게 없어요,<br>내일 받을 품목 담아볼까요?',rv:'0원',prog:10,cx:-2,btn1:'자주 사는 상품',btn2:'지난 주문 다시 담기',mini:{thumb:'start',html:'<em>17:20</em> 마감 · 내일 07:00 도착',bar:0}});
 STATES[3].cart='2';STATES[4].cart='2';const ORD=[5,0,1,2,3,4];
-STATES.push({...STATES[0],id:'fc',name:'FC 프랜차이즈 홈',fc:1,count:'3건',now:[{icon:'pin',t:'본사 고정 메뉴 13품목',s:'지난주와 같은 구성, 수량만 확인',b:'확인하기'},...STATES[0].now]});const FCI=STATES.length-1;
+STATES.push({...STATES[0],id:'fc',name:'FC(프랜차이즈) 홈',fc:1,count:'3건',now:[{icon:'pin',t:'본사 고정 메뉴 13품목',s:'지난주와 같은 구성, 수량만 확인',b:'확인하기'},...STATES[0].now]});const FCI=STATES.length-1;
 const timesHTML=ORD.map(i=>[STATES[i],i]).map(([s,i])=>`<button class="time-btn" data-i="${i}" aria-pressed="false"><span class="t">${s.t.replace(':','<i>:</i>')}</span><span class="d"><b>${s.name}</b></span></button>`).join('');
 document.getElementById('times').innerHTML='<button class="ov-btn" id="ovFirst" aria-pressed="false"><span class="d"><b>가입 완료 첫 화면</b></span></button>'+timesHTML;document.getElementById('sheetInner').innerHTML=timesHTML;
 document.getElementById('ovOrders').onclick=()=>showOrders('d29');
