@@ -1141,7 +1141,7 @@ function greetHTML(){return ['chef','owner','courier'].map((k,i)=>{const g=GREET
 const PROMO=[['kal','30%'],['per','100매 한정'],['gop','10%'],['shi','20%'],['mst','오늘만']];
 function promoHTML(){return PROMO.map(([k,b])=>{const o=OP[k];return `<div class="rc"><div class="pth"><img src="${IMG[o.img]}" alt="${o.n}"><span class="pbd">${b}</span>${ock('pm:'+k)}</div><div class="if"><b>${o.n}</b><small>${o.u}</small><strong>${won(o.p)}</strong></div>${ostep('pm:'+k)}</div>`;}).join('');}
 function showFirst(){
- closeCart();closeDts();setBleed(false);view='first';setTab('home');press('ovFirst');dbar(['10/27(화)','오늘 17:20 발주마감']);
+ if(typeof fcMode==='function')fcMode({});closeCart();closeDts();setBleed(false);view='first';setTab('home');press('ovFirst');dbar(['10/27(화)','오늘 17:20 발주마감']);
  try{history.replaceState(null,'','#first')}catch(e){}
  document.getElementById('cartBadge').hidden=true;
  document.getElementById('home').innerHTML=`
