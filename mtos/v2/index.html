@@ -1402,8 +1402,8 @@ function build(si){if(built[si])return built[si];const S=DECK[si];const root=el(
   conts[i]={el:d,segs:sg,cnt:0};
   nodes[i]={d,inner,l,e,tw:inner?parseFloat(inner.style.width):0,once:(S.once||[]).includes(i),mask:!!l.mask};});
  built[si]={root,nodes,S};stage.appendChild(root);return built[si];}
-const DK_HOLD={'00-1':5.9,'01':8.4,'02':10.5,'03':9.4,'04':11.5,'05':10.4,'06':11.4,'07':15.94,'08':9.7,'12':7.9},DK_PAUSE=180;
-function frame(b,t){const dur=b.S.dur;const hd=DK_HOLD[b.S.id];let lt;if(hd!=null){const x=t%(dur+DK_PAUSE);lt=x<hd?x:(x<hd+DK_PAUSE?hd:x-DK_PAUSE);}else lt=t%dur;
+const DK_HOLD={'00-1':5.9,'01':8.4,'02':10.5,'03':9.4,'04':11.5,'05':10.4,'06':11.4,'07':15.94,'08':9.7,'12':7.9},DK_PAUSE=180,DK_ONCE={'00-1':1};
+function frame(b,t){const dur=b.S.dur;const hd=DK_HOLD[b.S.id];let lt;if(hd!=null&&DK_ONCE[b.S.id]){lt=Math.min(t,hd);}else if(hd!=null){const x=t%(dur+DK_PAUSE);lt=x<hd?x:(x<hd+DK_PAUSE?hd:x-DK_PAUSE);}else lt=t%dur;
  for(const n of b.nodes){const l=n.l,tk=l.tk,tt=n.once?Math.min(t,dur):lt;let op=l.op,tx=0,ty=0,rot=0,sx=1,sy=1;
   for(const k in tk){const v=val(tk[k],tt);
    switch(k){case 'OPACITY':op=l.op*v;break;case 'TRANSLATION_X':tx=v;break;case 'TRANSLATION_Y':ty=v;break;case 'ROTATION':rot=v-(l.rot||0);break;
