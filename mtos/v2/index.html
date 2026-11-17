@@ -1149,7 +1149,7 @@ function showFirst(){
    <div class="greet" aria-hidden="true">${greetHTML()}</div>
    <h2>선생님, 반가워요!<br>첫 주문을<br>시작해 볼까요?</h2>
    <p class="fsub">오늘 17:20까지 담으면<br>내일 급식실로 입고될 예정이에요</p>
-   ${rail({...STATES[0],prog:33,slots:null,cap:'내일 입고 예정'},railW()).replace(/<div class="cargo" id="cargo"[\s\S]*?<\/div>/,`<span class="lgw"><img src="${IMG.logo_color}" alt="아워홈"></span>`)}
+   ${rail({...STATES[0],prog:10,slots:null,cap:'내일 입고 예정'},railW()).replace(/<div class="cargo" id="cargo"[\s\S]*?<\/div>/,`<span class="lgw"><img src="${IMG.logo_color}" alt="아워홈"></span>`)}
    <div class="actions"><button class="btn primary">첫 주문 담기 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button><button class="btn secondary">둘러보기</button></div>${ntcHTML(['[필독] 11월 농산물 단가 변동 안내','[안내] 겨울철 냉장 상품 보냉 포장 안내','[안내] 11월 공휴일 배송 일정 안내'])}
   </section></div>
   <div class="fcheck"><div class="hd">처음 할 일 <span class="pg"><i class="on"></i><i></i><i></i><em>1 / 3</em></span></div>
