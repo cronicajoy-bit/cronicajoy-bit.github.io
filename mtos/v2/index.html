@@ -1402,7 +1402,7 @@ function build(si){if(built[si])return built[si];const S=DECK[si];const root=el(
   conts[i]={el:d,segs:sg,cnt:0};
   nodes[i]={d,inner,l,e,tw:inner?parseFloat(inner.style.width):0,once:(S.once||[]).includes(i),mask:!!l.mask};});
  built[si]={root,nodes,S};stage.appendChild(root);return built[si];}
-const DK_HOLD={'01':8.4,'02':10.5,'03':9.4,'04':11.5,'05':10.4,'06':11.4,'07':15.94,'08':9.7,'09':5.3,'10':12.4},DK_PAUSE=180;
+const DK_HOLD={'01':8.4,'02':10.5,'03':9.4,'04':11.5,'05':10.4,'06':11.4,'07':15.94,'08':9.7,'10':12.4},DK_PAUSE=180;
 function frame(b,t){const dur=b.S.dur;const hd=DK_HOLD[b.S.id];let lt;if(hd!=null){const x=t%(dur+DK_PAUSE);lt=x<hd?x:(x<hd+DK_PAUSE?hd:x-DK_PAUSE);}else lt=t%dur;
  for(const n of b.nodes){const l=n.l,tk=l.tk,tt=n.once?Math.min(t,dur):lt;let op=l.op,tx=0,ty=0,rot=0,sx=1,sy=1;
   for(const k in tk){const v=val(tk[k],tt);
