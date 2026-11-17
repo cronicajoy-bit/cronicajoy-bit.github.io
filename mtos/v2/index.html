@@ -1402,8 +1402,9 @@ function build(si){if(built[si])return built[si];const S=DECK[si];const root=el(
   conts[i]={el:d,segs:sg,cnt:0};
   nodes[i]={d,inner,l,e,tw:inner?parseFloat(inner.style.width):0,once:(S.once||[]).includes(i),mask:!!l.mask};});
  built[si]={root,nodes,S};stage.appendChild(root);return built[si];}
-const DK_HOLD={'00-1':5.9,'01':8.4,'02':10.5,'03':9.4,'04':11.5,'06':11.4,'07':17.2,'08':9.7,'12':7.9},DK_PAUSE=180,DK_ONCE={'00-1':1,'01':1,'02':1,'03':1,'04':1,'06':1,'07':1,'12':1},DK_OAT={'05':10.4};
+const DK_HOLD={'00-1':5.9,'01':8.4,'02':10.5,'03':9.4,'04':11.5,'06':11.4,'07':17.2,'08':9.7,'12':7.9},DK_PAUSE=180,DK_ONCE={'00-1':1,'01':1,'02':1,'03':1,'04':1,'06':1,'07':1,'12':1},DK_OAT={'05':10.4},DK_EXIT={'07':[22.9,23.75]};
 function frame(b,t){const dur=b.S.dur;const hd=DK_HOLD[b.S.id];let lt;if(hd!=null&&DK_ONCE[b.S.id]){lt=Math.min(t,hd);}else if(hd!=null){const x=t%(dur+DK_PAUSE);lt=x<hd?x:(x<hd+DK_PAUSE?hd:x-DK_PAUSE);}else lt=t%dur;
+ if(b._ex){const E=DK_EXIT[b.S.id];lt=Math.min(E[1],E[0]+(performance.now()-b._ex)/1000);}
  for(const n of b.nodes){const l=n.l,tk=l.tk,tt=n.once?Math.min(t,(DK_OAT[b.S.id]!=null?DK_OAT[b.S.id]:dur)):lt;let op=l.op,tx=0,ty=0,rot=0,sx=1,sy=1;
   for(const k in tk){const v=val(tk[k],tt);
    switch(k){case 'OPACITY':op=l.op*v;break;case 'TRANSLATION_X':tx=v;break;case 'TRANSLATION_Y':ty=v;break;case 'ROTATION':rot=v-(l.rot||0);break;
@@ -1420,7 +1421,7 @@ function buildEnd(){if(endEl)return endEl;endEl=el('dk-slide dk-end');
 function loop(now){const b=built[cur];if(b&&cur<DECK.length)frame(b,(now-t0)/1000);raf=requestAnimationFrame(loop);}
 let intro=false;
 function setEnd(){const a=buildEnd().querySelector('#dkAgain');a.querySelector('.l').textContent=intro?'디자인 컨셉':'처음으로';a.querySelector('.t').innerHTML=intro?'컨셉 문서 보기<i>→</i>':'컨셉 다시 보기<i>↺</i>';a.classList.toggle('first',intro);buildEnd().querySelector('#dkGo .l').textContent=intro?'모바일 시연':'다음으로';deck.classList.toggle('intro',intro);}
-function go(i){i=Math.max(0,Math.min(N-1,i));if(i!==N-1)intro=false;if(i===cur){setEnd();return;}const prev=cur;cur=i;setEnd();
+function go(i){i=Math.max(0,Math.min(N-1,i));if(cur>=0&&cur<DECK.length&&built[cur]){const b=built[cur];if(b._ex)return;const E=DK_EXIT[DECK[cur].id];if(E&&i>cur&&!b._skip){b._ex=performance.now();setTimeout(()=>{b._ex=0;b._skip=1;go(i);b._skip=0;},(E[1]-E[0])*1000+60);return;}}if(i!==N-1)intro=false;if(i===cur){setEnd();return;}const prev=cur;cur=i;setEnd();
  const node=i<DECK.length?build(i).root:buildEnd();if(i<DECK.length)frame(built[i],0);
  stage.appendChild(node);void node.offsetWidth;node.classList.add('on');t0=performance.now();
  const old=prev<0?null:(prev<DECK.length?built[prev].root:endEl);if(old&&old!==node)setTimeout(()=>{if(cur!==prev)old.classList.remove('on');},460);
