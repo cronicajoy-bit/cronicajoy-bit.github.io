@@ -206,7 +206,7 @@ button:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
 .mini .bar i{position:absolute;left:0;top:0;bottom:0;background:var(--navy);border-radius:2px}
 .tabbar{pointer-events:auto;height:89px;background:#fff;display:flex;padding:11px 12px 26px;position:relative;box-shadow:inset 0 1px 0 rgba(0,0,0,.10)}
 .tabbar::after{content:"";position:absolute;left:50%;bottom:8px;width:134px;height:5px;margin-left:-67px;border-radius:3px;background:#111;display:none}
-@media (max-width:760px){.tabbar::after{display:none}}
+@media (max-width:600px){.tabbar::after{display:none}}
 .tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:13px;font-weight:600;color:var(--icon)}
 .tab[aria-current="page"]{color:var(--navy);font-weight:700}
 /* orders */
@@ -300,7 +300,7 @@ button:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
 
 /* mobile: full-bleed app */
 .fab{display:none}
-@media (max-width:760px){
+@media (max-width:600px){
   .stage{padding:0;gap:0;display:block}
   .panel{display:none}
   .device-wrap{width:100%!important;height:100%!important}
@@ -341,8 +341,8 @@ button:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
 .hero.swap{animation:heroIn .42s cubic-bezier(.2,.8,.2,1)}
 .hero{cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .12s}
 .hero:active{transform:scale(.985)}
-@media (max-width:760px){.fab,.fab.fs{display:none!important}}
-@media (max-width:760px){
+@media (max-width:600px){.fab,.fab.fs{display:none!important}}
+@media (max-width:600px){
   /* mobile: the document itself scrolls so the browser toolbars can collapse */
   html,body{height:auto;min-height:100%;overflow:visible;background:#fff}
   .stage,.device-wrap,.device,.screen{height:auto!important;min-height:100dvh;overflow:visible}
@@ -350,7 +350,7 @@ button:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
   .scroll{overflow:visible;flex:none}
   .scrim,.bnb{position:fixed}
 }
-@media (max-width:760px){.tabbar{height:calc(65px + max(8px,env(safe-area-inset-bottom,0px)));padding-bottom:max(8px,env(safe-area-inset-bottom,0px))}.fab{bottom:calc(128px + max(8px,env(safe-area-inset-bottom,0px)))}.fab.fs{right:calc(84px + env(safe-area-inset-right,0px))}.fab.fs[hidden]{display:none}}
+@media (max-width:600px){.tabbar{height:calc(65px + max(8px,env(safe-area-inset-bottom,0px)));padding-bottom:max(8px,env(safe-area-inset-bottom,0px))}.fab{bottom:calc(128px + max(8px,env(safe-area-inset-bottom,0px)))}.fab.fs{right:calc(84px + env(safe-area-inset-right,0px))}.fab.fs[hidden]{display:none}}
 
 
 /* v2: radius + rail intro + compact panel + first visit */
@@ -469,7 +469,7 @@ button:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
 .wxs .it button{height:36px;padding:0 14px;border-radius:18px;background:#F2F2F2;font-size:14px;font-weight:600;flex:none}
 .wxs .src{margin-top:14px;font-size:11px;color:#A0A4AA}
 .wchip{cursor:pointer}
-@media (max-width:760px){.wxs{position:fixed}}
+@media (max-width:600px){.wxs{position:fixed}}
 @media (max-width:359px){.greet{transform:scale(.84);transform-origin:100% 0}.wxs .it span strong{display:inline-block}}
 .panel h1{display:flex;align-items:center;gap:9px;font-weight:700}
 .panel h1::before{content:'';width:7px;height:7px;border-radius:50%;background:#fff;flex:none}
@@ -589,7 +589,7 @@ button:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
 .dts .op .c{font-size:12px;font-weight:600;background:#F2F3F5;border-radius:999px;padding:4px 8px}
 .dts .op .rd{width:22px;height:22px;border-radius:50%;border:1.5px solid #D9DCE1;flex:none}.dts .op.on .rd{border:6px solid var(--navy)}
 .dts .cal{display:block;width:100%;text-align:center;font-size:14px;font-weight:600;color:var(--navy);padding-top:10px}
-@media (max-width:760px){.dts,.cartv{position:fixed}.cartv{top:0}}
+@media (max-width:600px){.dts,.cartv{position:fixed}.cartv{top:0}}
 .dts .pane{padding:12px 22px 34px}
 .dts .grab{background:#DEE0E5;margin-bottom:13px}
 .dts .ws{color:#6B7380;margin:4px 0 10px}
@@ -722,7 +722,7 @@ button:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
 /* v2.1: no demo list; real phone frame on wide screens */
 .stage .panel{display:none!important}
 .stage{gap:0}
-@media (min-width:761px){
+@media (min-width:601px){
  .device{box-sizing:border-box;width:414px;height:868px;padding:12px;border-radius:64px;background:#141416;box-shadow:inset 0 0 0 2px #3A3B40,0 0 0 1.5px #0B0B0C,0 40px 80px rgba(0,0,0,.35)}
  .device .btn-side,.island{display:block}
  .device .b1,.device .b2,.device .b3{left:-4px}.device .b4{right:-4px}
@@ -1260,7 +1260,7 @@ function shipTip(cb){const h=document.getElementById('hero');let t=h.querySelect
 function peekSlots(keep){if(keep||window._peeked)return;const sl=document.getElementById('slots'),cb=document.querySelector('.capb');if(!sl||!cb)return;window._peeked=1;const id=window._pk=(window._pk||0)+1;const E='cubic-bezier(.4,0,.2,1)';const alive=()=>id===window._pk&&sl.isConnected;cb.addEventListener('click',()=>{window._pk++},{capture:true,once:true});setTimeout(()=>{if(!alive()||!sl.hidden||sl._busy||matchMedia('(prefers-reduced-motion:reduce)').matches)return;sl._busy=1;cb.setAttribute('aria-expanded','true');sl.hidden=false;sl.classList.add('pre');const h=sl.scrollHeight;sl.style.overflow='hidden';sl.style.height='0px';sl.style.marginTop='-12px';sl.style.opacity='0';sl.offsetHeight;sl.style.transition=`height .55s ${E},margin-top .55s ${E},opacity .4s ease`;sl.style.height=h+'px';sl.style.marginTop='0px';sl.style.opacity='1';setTimeout(()=>sl.classList.remove('pre'),150);setTimeout(()=>{sl.style.transition='';sl.style.height='';sl.style.overflow='';sl.style.marginTop='';sl.style.opacity='';sl._busy=0;},600);setTimeout(()=>{if(!alive()||sl.hidden||sl._busy)return;sl._busy=1;cb.setAttribute('aria-expanded','false');const h2=sl.offsetHeight;sl.style.overflow='hidden';sl.style.height=h2+'px';sl.offsetHeight;sl.style.transition=`height .5s ${E},margin-top .5s ${E},opacity .3s ease .12s`;sl.classList.add('pre');sl.style.height='0px';sl.style.marginTop='-12px';sl.style.opacity='0';setTimeout(()=>{sl.hidden=true;sl.classList.remove('pre');sl.style.transition='';sl.style.height='';sl.style.overflow='';sl.style.marginTop='';sl.style.opacity='';sl._busy=0;},520);},1800);},1200);}
 let bleed=false;
 function setBleed(v){bleed=v;document.querySelector('.app').classList.toggle('bleed',v);try{history.replaceState(null,'',v?'#bleed':location.pathname+location.search)}catch(e){}}
-const isM=()=>matchMedia('(max-width:760px)').matches;
+const isM=()=>matchMedia('(max-width:600px)').matches;
 function hScroll(el){
  if(!el)return;let down=false,sx=0,sl=0,moved=0;
  el.addEventListener('wheel',e=>{if(Math.abs(e.deltaY)>Math.abs(e.deltaX)){const max=el.scrollWidth-el.clientWidth;const nx=el.scrollLeft+e.deltaY;if((e.deltaY>0&&el.scrollLeft<max-1)||(e.deltaY<0&&el.scrollLeft>0)){el.scrollLeft=Math.max(0,Math.min(max,nx));e.preventDefault();}}},{passive:false});
@@ -1325,7 +1325,7 @@ document.getElementById('fab').onclick=()=>document.getElementById('sheet').hidd
 document.getElementById('sheet').onclick=e=>{if(e.target.id==='sheet')e.currentTarget.hidden=true;};
 addEventListener('keydown',e=>{if(e.key==='ArrowRight')render(ORD[(ORD.indexOf(cur)+1)%5]);if(e.key==='ArrowLeft')render(ORD[(ORD.indexOf(cur)+4)%5]);});
 function fitRail(){document.querySelectorAll('.rail').forEach(r=>{r.style.zoom='';const avail=r.parentElement.clientWidth-parseFloat(getComputedStyle(r.parentElement).paddingLeft)-parseFloat(getComputedStyle(r.parentElement).paddingRight);const nw=+r.dataset.w||302;r.style.zoom=avail<nw?(avail/nw).toFixed(4):'';});}
-function fit(){fitRail();const w=document.getElementById('dwrap'),d=document.getElementById('device');if(innerWidth<=760){w.style.width='';w.style.height='';d.style.transform='';return;}const s=Math.min(1,(innerHeight-48)/868);d.style.transform=`scale(${s})`;w.style.width=414*s+'px';w.style.height=868*s+'px';}
+function fit(){fitRail();const w=document.getElementById('dwrap'),d=document.getElementById('device');if(innerWidth<=600){w.style.width='';w.style.height='';d.style.transform='';return;}const s=Math.min(1,(innerHeight-48)/868);d.style.transform=`scale(${s})`;w.style.width=414*s+'px';w.style.height=868*s+'px';}
 addEventListener('resize',fit);fit();
 if(location.hash==='#bleed'){setBleed(true);render(0);}else if(location.hash==='#first')showFirst();else render(2);
 </script>
