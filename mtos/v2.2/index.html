@@ -283,6 +283,10 @@ img,svg{display:block}
 .vtabs button.w i{background:#fff}
 @media (max-width:600px){.vtabs{position:fixed;z-index:50;left:50%;transform:translateX(-50%);bottom:calc(86px + env(safe-area-inset-bottom,0px));box-shadow:0 4px 16px rgba(20,20,30,.18)}.vtabs button{height:30px;padding:0 12px;font-size:12px}}
 
+.vtabs{display:none!important}
+.order .datebar{cursor:pointer;-webkit-tap-highlight-color:transparent}
+.order .datebar:active{transform:scale(.98)}
+.screen .scroll{transition:opacity .12s ease}.screen.vflip .scroll{opacity:.55}
 /* ===== screen 2 (white header) ===== */
 .v2{--page:#fff;background:#fff}
 .v2 .hdr{background:#fff}
@@ -533,10 +537,13 @@ addEventListener('pointerup',()=>{if(!down)return;down=false;if(!moved)return;le
 row.addEventListener('click',e=>{if(moved){e.preventDefault();e.stopPropagation();moved=false}},true);
 });})();
 (()=>{const scr=document.querySelector('.screen'),sc=document.getElementById('scroll'),bs=[...document.querySelectorAll('.vtabs button')];
-const set=v=>{scr.classList.toggle('v2',v===2);bs.forEach(b=>b.setAttribute('aria-selected',String(+b.dataset.v===v)));sc.scrollTop=0;if(window.scrollY)scrollTo(0,0);requestAnimationFrame(()=>{dispatchEvent(new Event('resize'));sc.dispatchEvent(new Event('scroll'))})};
+let keep=false;const set=v=>{scr.classList.toggle('v2',v===2);bs.forEach(b=>b.setAttribute('aria-selected',String(+b.dataset.v===v)));if(!keep){sc.scrollTop=0;if(window.scrollY)scrollTo(0,0)}keep=false;requestAnimationFrame(()=>{dispatchEvent(new Event('resize'));sc.dispatchEvent(new Event('scroll'))})};
 const fromHash=()=>set(location.hash==='#screen-2'?2:1);
 bs.forEach(b=>b.addEventListener('click',()=>{const v=+b.dataset.v;if(location.hash!=='#screen-'+v)location.hash='screen-'+v;else set(v)}));
-addEventListener('hashchange',fromHash);fromHash();})();
+addEventListener('hashchange',fromHash);fromHash();
+const db=sc.querySelector('.order .datebar');db.setAttribute('role','button');db.setAttribute('tabindex','0');db.setAttribute('aria-label','라임·화이트 화면 전환');
+const flip=()=>{keep=true;const v=scr.classList.contains('v2')?1:2;scr.classList.add('vflip');setTimeout(()=>scr.classList.remove('vflip'),260);location.hash='screen-'+v};
+db.addEventListener('click',flip);db.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();flip()}});})();
 (()=>{const SEL='.dchip,.chip,.wk,.pill';let cur=null,x0=0,y0=0;
 const up=()=>{if(cur){cur.classList.remove('prs');cur=null}};
 document.addEventListener('pointerdown',e=>{const b=e.target.closest(SEL);if(!b)return;cur=b;x0=e.clientX;y0=e.clientY;b.classList.add('prs')});
