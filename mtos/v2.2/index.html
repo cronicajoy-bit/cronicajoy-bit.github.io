@@ -557,7 +557,7 @@ const d=db.getBoundingClientRect().top-lc.getBoundingClientRect().bottom<=6.5;if
 sc.addEventListener('scroll',()=>{if(!raf)raf=requestAnimationFrame(chk)},{passive:true});chk();})();
 (()=>{const bn=document.querySelector('.banner'),N=5;const txt=bn.querySelector('.txt>div');txt.classList.add('roll-t');const chef=bn.querySelector('.chef');const num=bn.querySelector('.pgn span');let i=0,play=true,busy=false;
 const PAUSE='<path d="M3.5 3v6M6.5 3v6"/>',PLAY='<path d="M3.5 2.8l4 3.2-4 3.2z" fill="#fff"/>';
-const SL=[['새로워진 M-TOS','달라진 주문 방법을<br>1분 만에 확인하세요!'],['11월 식재 추천','이번 달 주문이 많은<br>상품 추천해 드려요']],imgs=[...bn.querySelectorAll('.bimg')],h2=txt.querySelector('h2'),pp=txt.querySelector('p');
+const SL=[['새로워진 M-TOS','달라진 주문 방법을<br>1분 만에 확인하세요!'],['11월 식재 추천','이번 달 주문 많은<br>상품 추천해요!']],imgs=[...bn.querySelectorAll('.bimg')],h2=txt.querySelector('h2'),pp=txt.querySelector('p');
 const go=n=>{if(busy)return;busy=true;i=(n+N)%N;const k=i%SL.length;txt.classList.remove('swap');void txt.offsetWidth;txt.classList.add('swap');setTimeout(()=>imgs.forEach((m,j)=>m.classList.toggle('on',j===k)),120);setTimeout(()=>{num.textContent=i+1;h2.innerHTML=SL[k][0];pp.innerHTML=SL[k][1]},400);setTimeout(()=>{busy=false;txt.classList.remove('swap')},1000)};
 setInterval(()=>{if(play&&!document.hidden)go(i+1)},4000);
 bn.addEventListener('click',e=>{const cap=e.target.closest('.cap');if(!cap)return;const caps=[...cap.parentNode.children];if(caps.indexOf(cap)===1){play=!play;cap.querySelector('svg').innerHTML=play?PAUSE:PLAY;return}const r=cap.getBoundingClientRect();go(i+(e.clientX<r.left+r.width/2?-1:1))});
