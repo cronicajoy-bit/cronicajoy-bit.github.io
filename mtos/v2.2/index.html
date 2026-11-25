@@ -359,6 +359,8 @@ img,svg{display:block}
 .v2 .cap{background:transparent;box-shadow:inset 0 0 0 1px rgba(0,0,0,.1);color:#B6B6B6;padding:4px 7px}
 .v2 .cap svg{stroke:#B6B6B6}.v2 .cap svg path[fill]{fill:#B6B6B6}
 .v2 .banner .chef{left:169px;top:4px}
+.banner .chef.veg,.v2 .banner .chef.veg{left:178px;top:15px;width:171px;height:114px}
+.banner .bimg{transition:opacity .55s ease}.banner .bimg:not(.on){opacity:0}
 .v2 .card{background:var(--lime);filter:none;position:relative}
 .v2 .card .tt span{color:rgba(0,0,0,.4)}
 .v2 .dchip{box-shadow:inset 0 0 0 1.4px rgba(0,0,0,.2)}
@@ -430,7 +432,7 @@ img,svg{display:block}
       <span class="cap"><svg width="10" height="12" viewBox="0 0 10 12" fill="none" stroke="#fff" stroke-width="1.2" stroke-linecap="round"><path d="M3.5 3v6M6.5 3v6"/></svg></span>
      </div>
     </div>
-    <img class="chef" src="img/chef2.png" alt="M-TOS를 들고 있는 셰프 캐릭터">
+    <img class="chef bimg on" src="img/chef2.png" alt="M-TOS를 들고 있는 셰프 캐릭터"><img class="chef bimg veg" src="img/veg.png" alt="배추, 무, 굴, 고추, 마늘, 귤 등 11월 제철 식재료">
    </div>
 
    <div class="widj">
@@ -555,7 +557,8 @@ const d=db.getBoundingClientRect().top-lc.getBoundingClientRect().bottom<=6.5;if
 sc.addEventListener('scroll',()=>{if(!raf)raf=requestAnimationFrame(chk)},{passive:true});chk();})();
 (()=>{const bn=document.querySelector('.banner'),N=5;const txt=bn.querySelector('.txt>div');txt.classList.add('roll-t');const chef=bn.querySelector('.chef');const num=bn.querySelector('.pgn span');let i=0,play=true,busy=false;
 const PAUSE='<path d="M3.5 3v6M6.5 3v6"/>',PLAY='<path d="M3.5 2.8l4 3.2-4 3.2z" fill="#fff"/>';
-const go=n=>{if(busy)return;busy=true;i=(n+N)%N;txt.classList.remove('swap');void txt.offsetWidth;txt.classList.add('swap');setTimeout(()=>{num.textContent=i+1},400);setTimeout(()=>{busy=false;txt.classList.remove('swap')},1000)};
+const SL=[['새로워진 M-TOS','달라진 주문 방법을<br>1분 만에 확인하세요!'],['11월 식재 추천','이번 달 주문이 많은<br>상품 추천해 드려요']],imgs=[...bn.querySelectorAll('.bimg')],h2=txt.querySelector('h2'),pp=txt.querySelector('p');
+const go=n=>{if(busy)return;busy=true;i=(n+N)%N;const k=i%SL.length;txt.classList.remove('swap');void txt.offsetWidth;txt.classList.add('swap');setTimeout(()=>imgs.forEach((m,j)=>m.classList.toggle('on',j===k)),120);setTimeout(()=>{num.textContent=i+1;h2.innerHTML=SL[k][0];pp.innerHTML=SL[k][1]},400);setTimeout(()=>{busy=false;txt.classList.remove('swap')},1000)};
 setInterval(()=>{if(play&&!document.hidden)go(i+1)},4000);
 bn.addEventListener('click',e=>{const cap=e.target.closest('.cap');if(!cap)return;const caps=[...cap.parentNode.children];if(caps.indexOf(cap)===1){play=!play;cap.querySelector('svg').innerHTML=play?PAUSE:PLAY;return}const r=cap.getBoundingClientRect();go(i+(e.clientX<r.left+r.width/2?-1:1))});
 let sx=null;bn.addEventListener('touchstart',e=>sx=e.touches[0].clientX,{passive:true});bn.addEventListener('touchend',e=>{if(sx==null)return;const d=e.changedTouches[0].clientX-sx;if(Math.abs(d)>40)go(i+(d<0?1:-1));sx=null});})();
