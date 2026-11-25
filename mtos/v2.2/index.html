@@ -293,12 +293,12 @@ img,svg{display:block}
 .v2 .datebar .l,.v2 .datebar .r{position:relative;z-index:1}
 .v2 .datebar .aur{display:block;position:absolute;inset:0;border-radius:inherit;overflow:hidden;pointer-events:none;z-index:0;transform:translateZ(0)}
 .aur i{position:absolute;border-radius:50%;will-change:transform}
-.aur i:nth-child(1){width:230px;height:120px;left:-90px;top:-36px;background:radial-gradient(closest-side,rgba(202,241,143,.26),rgba(202,241,143,.16) 32%,rgba(202,241,143,.06) 62%,rgba(202,241,143,.015) 84%,rgba(202,241,143,0));filter:blur(5px);animation:aur1 9s ease-in-out infinite}
-.aur i:nth-child(2){width:210px;height:110px;right:-90px;top:-28px;background:radial-gradient(closest-side,rgba(150,232,200,.18),rgba(150,232,200,.11) 32%,rgba(150,232,200,.04) 62%,rgba(150,232,200,.01) 84%,rgba(150,232,200,0));filter:blur(5px);animation:aur2 11s ease-in-out infinite}
-.aur i:nth-child(3){display:block;width:120px;height:70px;left:40%;top:-6px;background:radial-gradient(closest-side,rgba(226,255,160,.16),rgba(226,255,160,.07) 50%,rgba(226,255,160,0));filter:blur(4px);animation:aur3 7s ease-in-out infinite}
-@keyframes aur1{0%{transform:translate(0,0) rotate(0) scale(1,1)}20%{transform:translate(70px,10px) rotate(12deg) scale(1.15,.85)}40%{transform:translate(150px,-6px) rotate(-8deg) scale(.9,1.15)}60%{transform:translate(220px,8px) rotate(10deg) scale(1.2,.9)}80%{transform:translate(110px,-8px) rotate(-12deg) scale(.95,1.1)}100%{transform:translate(0,0) rotate(0) scale(1,1)}}
-@keyframes aur2{0%{transform:translate(0,0) rotate(0) scale(1,1)}25%{transform:translate(-80px,-8px) rotate(-14deg) scale(.85,1.2)}50%{transform:translate(-200px,6px) rotate(8deg) scale(1.2,.85)}75%{transform:translate(-110px,10px) rotate(-6deg) scale(.95,1.1)}100%{transform:translate(0,0) rotate(0) scale(1,1)}}
-@keyframes aur3{0%{transform:translate(-40px,0) scale(.8,1.1)}33%{transform:translate(30px,-8px) scale(1.25,.8)}66%{transform:translate(70px,6px) scale(.9,1.2)}100%{transform:translate(-40px,0) scale(.8,1.1)}}
+.aur i{opacity:0}
+.aur i:nth-child(1){width:230px;height:120px;left:-250px;top:-36px;background:radial-gradient(closest-side,rgba(202,241,143,.28),rgba(202,241,143,.17) 32%,rgba(202,241,143,.06) 62%,rgba(202,241,143,.015) 84%,rgba(202,241,143,0));filter:blur(5px);animation:aur1 10s ease-in-out infinite}
+.aur i:nth-child(2){width:210px;height:110px;right:-240px;top:-28px;background:radial-gradient(closest-side,rgba(150,232,200,.2),rgba(150,232,200,.12) 32%,rgba(150,232,200,.045) 62%,rgba(150,232,200,.01) 84%,rgba(150,232,200,0));filter:blur(5px);animation:aur2 10s ease-in-out -5s infinite}
+.aur i:nth-child(3){display:none}
+@keyframes aur1{0%{transform:translate(0,0) rotate(0) scale(.9,1);opacity:0}8%{opacity:1}22%{transform:translate(170px,10px) rotate(12deg) scale(1.2,.85)}40%{transform:translate(330px,-6px) rotate(-8deg) scale(.9,1.15)}58%{transform:translate(480px,8px) rotate(10deg) scale(1.15,.9);opacity:1}66%,100%{transform:translate(620px,0) rotate(0) scale(.9,1);opacity:0}}
+@keyframes aur2{0%{transform:translate(0,0) rotate(0) scale(.95,1);opacity:0}8%{opacity:1}24%{transform:translate(-170px,-8px) rotate(-14deg) scale(.85,1.2)}42%{transform:translate(-330px,6px) rotate(8deg) scale(1.2,.85)}58%{transform:translate(-470px,8px) rotate(-6deg) scale(.95,1.1);opacity:1}66%,100%{transform:translate(-600px,0) rotate(0) scale(.95,1);opacity:0}}
 @media (prefers-reduced-motion:reduce){.aur i{animation:none}}
 /* effects: aurora(2) .aur / sweep(1) .swp — only sweep is on */
 .datebar .gls,.datebar .swp{display:none}
