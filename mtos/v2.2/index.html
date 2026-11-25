@@ -289,12 +289,12 @@ img,svg{display:block}
 
 /* calendar page flip + check redraw (loop, offset from coin) */
 .datebar .l .ib svg{overflow:visible}
-.datebar .l .ib .pg{opacity:0;transform-box:fill-box;transform-origin:50% 0;animation:calpg 7s infinite}
+.datebar .l .ib .pg{opacity:0;transform-box:view-box;transform-origin:12px 8.25px;animation:calpg 7s infinite}
 .datebar .l .ib .pgbg{fill:#fff}
-.v2 .datebar .l .ib .pgbg{fill:rgba(202,241,143,.08)}
+.v2 .datebar .l .ib .pgbg{fill:#2E3A4F}
 .datebar .l .ib .ck{stroke-dasharray:1 1;animation:calck 7s infinite}
-@keyframes calpg{0%,29.9%{opacity:0;transform:scaleY(1)}30%{opacity:1;transform:scaleY(1);animation-timing-function:cubic-bezier(.55,0,.8,.45)}35%{opacity:1;transform:scaleY(.02)}35.1%,100%{opacity:0;transform:scaleY(1)}}
-@keyframes calck{0%,29.9%{stroke-dashoffset:0}30%,35.5%{stroke-dashoffset:1;animation-timing-function:cubic-bezier(.35,0,.25,1)}42%,100%{stroke-dashoffset:0}}
+@keyframes calpg{0%,29.9%{opacity:0;transform:scaleY(1)}30%{opacity:1;transform:scaleY(1);animation-timing-function:cubic-bezier(.5,0,.9,.5)}36%{opacity:1;transform:scaleY(0)}36.01%{opacity:1;transform:scaleY(0);animation-timing-function:cubic-bezier(.1,.5,.4,1)}40%{opacity:.85;transform:scaleY(-.45)}43%{opacity:0;transform:scaleY(-.5)}43.1%,100%{opacity:0;transform:scaleY(1)}}
+@keyframes calck{0%,29.9%{stroke-dashoffset:0}30%,40%{stroke-dashoffset:1;animation-timing-function:cubic-bezier(.35,0,.25,1)}47%,100%{stroke-dashoffset:0}}
 @media (prefers-reduced-motion:reduce){.datebar .l .ib .pg,.datebar .l .ib .ck{animation:none}}
 /* ===== screen tabs ===== */
 .stage{flex-direction:column;align-items:center;gap:18px}
@@ -408,7 +408,7 @@ img,svg{display:block}
    </div>
    <div class="order">
     <div class="datebar">
-     <div class="l"><span class="ib"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M3.75 8.25h16.5V4.5a.75.75 0 0 0-.75-.75h-15a.75.75 0 0 0-.75.75z" fill="#A6CE6A" fill-opacity=".3"/><g stroke="#A6CE6A" stroke-width="1.69" stroke-linecap="round" stroke-linejoin="round"><rect x="3.75" y="3.75" width="16.5" height="16.5" rx="1.13"/><path d="M16.5 2.06v3.19M7.5 2.06v3.19M3.75 8.25h16.5"/><path class="ck" pathLength="1" d="M8.81 14.06l2.07 2.07 4.5-4.32"/></g><g class="pg"><rect class="pgbg" x="4.6" y="9.1" width="14.8" height="10.3" rx=".6"/><path d="M8.81 14.06l2.07 2.07 4.5-4.32" stroke="#A6CE6A" stroke-width="1.69" stroke-linecap="round" stroke-linejoin="round"/></g></svg></span><b>11/30 (금)</b><svg width="16" height="16" viewBox="0 0 16 16"><path d="M12.56 5.72a.5.5 0 0 1-.02.71l-4.2 4a.5.5 0 0 1-.69 0l-4.2-4a.5.5 0 1 1 .69-.73L8 9.38l3.85-3.67a.5.5 0 0 1 .71.01z" fill="#5A6832"/></svg></div>
+     <div class="l"><span class="ib"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M3.75 8.25h16.5V4.5a.75.75 0 0 0-.75-.75h-15a.75.75 0 0 0-.75.75z" fill="#A6CE6A" fill-opacity=".3"/><g stroke="#A6CE6A" stroke-width="1.69" stroke-linecap="round" stroke-linejoin="round"><rect x="3.75" y="3.75" width="16.5" height="16.5" rx="1.13"/><path d="M16.5 2.06v3.19M7.5 2.06v3.19M3.75 8.25h16.5"/><path class="ck" pathLength="1" d="M8.81 14.06l2.07 2.07 4.5-4.32"/></g><g class="pg"><rect class="pgbg" x="3.75" y="8.25" width="16.5" height="12" rx="1.13" stroke="#A6CE6A" stroke-width="1.69"/><path d="M8.81 14.06l2.07 2.07 4.5-4.32" stroke="#A6CE6A" stroke-width="1.69" stroke-linecap="round" stroke-linejoin="round"/></g></svg></span><b>11/30 (금)</b><svg width="16" height="16" viewBox="0 0 16 16"><path d="M12.56 5.72a.5.5 0 0 1-.02.71l-4.2 4a.5.5 0 0 1-.69 0l-4.2-4a.5.5 0 1 1 .69-.73L8 9.38l3.85-3.67a.5.5 0 0 1 .71.01z" fill="#5A6832"/></svg></div>
      <div class="r"><span class="ib"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 18a8 8 0 1 1 0-16 8 8 0 0 1 0 16z" fill="#A6CE6A"/><path d="M7.5 9.5l2 6 2.5-6 2.5 6 2-6M8.5 12.5h-2M17.5 12.5H16" stroke="#A6CE6A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><b>7,845,200원</b></div>
     </div>
    </div>
