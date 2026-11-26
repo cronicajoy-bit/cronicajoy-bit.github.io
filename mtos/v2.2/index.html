@@ -586,7 +586,7 @@ addEventListener('resize',shape);db.addEventListener('transitionend',()=>{if(!ra
 (()=>{const sc=document.getElementById('scroll'),db=sc.querySelector('.order .datebar'),els=[...sc.querySelectorAll(':scope>.cont,:scope>.white')];let raf=0;
 const clr=()=>els.forEach(e=>{e.style.webkitMaskImage=e.style.maskImage=''});
 const upd=()=>{raf=0;if(!sc.classList.contains('dock-on')){clr();return}const yb=db.getBoundingClientRect().bottom;
-els.forEach(e=>{const t=e.getBoundingClientRect().top,a=yb-4-t,b=a+30;if(b<=0){e.style.webkitMaskImage=e.style.maskImage='';return}const m=`linear-gradient(to bottom,transparent ${a}px,rgba(0,0,0,.35) ${a+12}px,#000 ${b}px)`;e.style.webkitMaskImage=m;e.style.maskImage=m})};
+els.forEach(e=>{const t=e.getBoundingClientRect().top,a=yb-2-t,b=a+8;if(b<=0){e.style.webkitMaskImage=e.style.maskImage='';return}const m=`linear-gradient(to bottom,transparent ${a}px,rgba(0,0,0,.6) ${a+4}px,#000 ${b}px)`;e.style.webkitMaskImage=m;e.style.maskImage=m})};
 const q=()=>{if(!raf)raf=requestAnimationFrame(upd)};sc.addEventListener('scroll',q,{passive:true});new MutationObserver(q).observe(sc,{attributes:true,attributeFilter:['class']});db.addEventListener('transitionend',q);
 let n=0;const tick=()=>{upd();if(++n<30)requestAnimationFrame(tick)};sc.addEventListener('scroll',()=>{n=0},{passive:true});db.addEventListener('transitionrun',()=>{n=0;requestAnimationFrame(tick)});q();})();
 (()=>{const sc=document.getElementById('scroll');document.querySelectorAll('.hs,.recent,.chips').forEach(row=>{
