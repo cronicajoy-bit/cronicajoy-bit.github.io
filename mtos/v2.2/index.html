@@ -374,6 +374,16 @@ img,svg{display:block}
 .v2 .search .in{background:#fff;filter:none;box-shadow:inset 0 0 0 2px rgba(0,0,0,.18)}
 .v2 .widj{padding-bottom:10px}
 
+
+/* ===== screen 3 (purple) ===== */
+.v3 .hdr,.v3 .bg,.v3 .order::before{background:#BFB7FF}
+.v3 .bg svg path{fill:#BFB7FF}
+.v3 .order .sheet path{fill:#BFB7FF}
+.v3 .datebar{border-color:#8276EB}
+.v3 .datebar [fill="#A6CE6A"]{fill:#BFB7FF}.v3 .datebar [stroke="#A6CE6A"]{stroke:#BFB7FF}
+.v3 .datebar .glow .dot{background:radial-gradient(closest-side,#FFFFFF 0%,rgba(236,230,255,.95) 28%,rgba(190,176,255,.5) 62%,rgba(190,176,255,0) 100%)}
+.v3 .order .halo i{background:radial-gradient(closest-side,rgba(214,204,255,.7),rgba(191,183,255,.3) 45%,rgba(191,183,255,0))}
+.vtabs button.p i{background:#BFB7FF}
 /* phones: full bleed */
 @media (max-width:600px){
  html,body{background:var(--page)}
@@ -390,7 +400,7 @@ img,svg{display:block}
 </style>
 </head><body>
 
-<div class="stage"><nav class="vtabs" role="tablist" aria-label="화면 선택"><button type="button" role="tab" aria-selected="true" data-v="1"><i></i>화면 1 · 라임</button><button type="button" role="tab" aria-selected="false" data-v="2" class="w"><i></i>화면 2 · 화이트</button></nav><div class="device"><div class="screen">
+<div class="stage"><nav class="vtabs" role="tablist" aria-label="화면 선택"><button type="button" role="tab" aria-selected="true" data-v="1"><i></i>화면 1 · 라임</button><button type="button" role="tab" aria-selected="false" data-v="2" class="w"><i></i>화면 2 · 화이트</button><button type="button" role="tab" aria-selected="false" data-v="3" class="p"><i></i>화면 3 · 퍼플</button></nav><div class="device"><div class="screen">
  <div class="island"></div>
  <header class="hdr" id="hdr">
   <div class="sbar"><div class="in"><div class="time">9:41</div><div class="mid"></div><div class="lv">
@@ -599,12 +609,12 @@ addEventListener('pointerup',()=>{if(!down)return;down=false;if(!moved)return;le
 row.addEventListener('click',e=>{if(moved){e.preventDefault();e.stopPropagation();moved=false}},true);
 });})();
 (()=>{const scr=document.querySelector('.screen'),sc=document.getElementById('scroll'),bs=[...document.querySelectorAll('.vtabs button')];
-let keep=false;const set=v=>{scr.classList.toggle('v2',v===2);bs.forEach(b=>b.setAttribute('aria-selected',String(+b.dataset.v===v)));if(!keep){sc.scrollTop=0;if(window.scrollY)scrollTo(0,0)}keep=false;requestAnimationFrame(()=>{dispatchEvent(new Event('resize'));sc.dispatchEvent(new Event('scroll'))})};
-const fromHash=()=>set(location.hash==='#screen-2'?2:1);
+let keep=false;const set=v=>{scr.classList.toggle('v2',v===2);scr.classList.toggle('v3',v===3);const ch=scr.querySelector('.banner .chef:not(.veg)');if(ch)ch.src=v===3?'img/chef-p.png':'img/chef2.png';bs.forEach(b=>b.setAttribute('aria-selected',String(+b.dataset.v===v)));if(!keep){sc.scrollTop=0;if(window.scrollY)scrollTo(0,0)}keep=false;requestAnimationFrame(()=>{dispatchEvent(new Event('resize'));sc.dispatchEvent(new Event('scroll'))})};
+const fromHash=()=>set(location.hash==='#screen-2'?2:location.hash==='#screen-3'?3:1);
 bs.forEach(b=>b.addEventListener('click',()=>{const v=+b.dataset.v;if(location.hash!=='#screen-'+v)location.hash='screen-'+v;else set(v)}));
 addEventListener('hashchange',fromHash);fromHash();
-const db=sc.querySelector('.order .datebar');db.setAttribute('role','button');db.setAttribute('tabindex','0');db.setAttribute('aria-label','라임·화이트 화면 전환');
-const flip=()=>{keep=true;const v=scr.classList.contains('v2')?1:2;scr.classList.add('vflip');setTimeout(()=>scr.classList.remove('vflip'),260);location.hash='screen-'+v};
+const db=sc.querySelector('.order .datebar');db.setAttribute('role','button');db.setAttribute('tabindex','0');db.setAttribute('aria-label','라임·화이트·퍼플 화면 전환');
+const flip=()=>{keep=true;const v=scr.classList.contains('v2')?3:scr.classList.contains('v3')?1:2;scr.classList.add('vflip');setTimeout(()=>scr.classList.remove('vflip'),260);location.hash='screen-'+v};
 db.addEventListener('click',flip);db.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();flip()}});})();
 (()=>{const SEL='.dchip,.chip,.wk,.pill';let cur=null,x0=0,y0=0;
 const up=()=>{if(cur){cur.classList.remove('prs');cur=null}};
