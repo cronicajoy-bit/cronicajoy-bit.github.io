@@ -421,7 +421,20 @@ img,svg{display:block}
 .v5 .datebar{height:60px}.v5 .dock-on .order .datebar{height:44px}
 .v5 .datebar b{color:#111;font-size:18px;letter-spacing:-.36px}
 .v5 .datebar .l .ib .pgbg{fill:#fff}
-.v5 .card{background:#BFB7FF}
+.v5 .card{background:#CBB7FF}
+.v5 .wcard{background:#9CE2C1;border-radius:26px}
+/* v5: 테두리가 한 번씩 휙 돌며 피스타치오로 바뀜 */
+@property --sw{syntax:'<angle>';inherits:false;initial-value:0deg}
+.datebar .sw5{display:none}
+.v5 .datebar .sw5{display:block;position:absolute;inset:-3px;border-radius:100px;padding:3px;pointer-events:none;-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0);background:conic-gradient(from 250deg,#9CE2C1 0deg,#9CE2C1 calc(var(--sw) - 24deg),rgba(156,226,193,0) var(--sw));animation:sw5 9s linear infinite}
+.v5 .dock-on .order .datebar .sw5{inset:-2.5px;padding:2.5px}
+@keyframes sw5{0%,68%{--sw:0deg;opacity:1;animation-timing-function:cubic-bezier(.55,0,.25,1)}76%{--sw:384deg;opacity:1}90%{--sw:384deg;opacity:1;animation-timing-function:ease-in-out}98%,100%{--sw:384deg;opacity:0}}
+@media (prefers-reduced-motion:reduce){.v5 .datebar .sw5{animation:none;opacity:0}}
+.v5 .tile{background:#fff;border-radius:16px;width:40px;height:40px}
+.v5 .wc .tx{gap:5px}
+.v5 .wc .lb{color:#111}
+.v5 .wc .nm b{color:#111;margin-right:-3px}
+.v5 .badge-o{background:#FF5729;border-color:#FF5729;color:#fff}
 .v5 .datebar .aur{display:none}.v5 .aur i{filter:url(#wave5)!important}
 .v5 .aur i{filter:none;background-size:120px 120px,auto;-webkit-mask:radial-gradient(closest-side,#000 0%,rgba(0,0,0,.7) 45%,rgba(0,0,0,.25) 75%,transparent 100%);mask:radial-gradient(closest-side,#000 0%,rgba(0,0,0,.7) 45%,rgba(0,0,0,.25) 75%,transparent 100%)}
 .v5 .aur i:nth-child(1){width:260px;height:130px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.95' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1.4 -.35'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E"),radial-gradient(closest-side,rgba(214,226,246,.55),rgba(160,176,206,.4) 50%,rgba(110,122,148,.3))}
@@ -702,6 +715,7 @@ const up=()=>{const w=db.offsetWidth,h=db.offsetHeight,i=.8,rr=h/2-i;const p=`pa
 up();new ResizeObserver(up).observe(db);})();
 (()=>{const ns='http://www.w3.org/2000/svg';const d=document.createElement('div');d.style.cssText='position:absolute;width:0;height:0;overflow:hidden';d.setAttribute('aria-hidden','true');
 d.innerHTML='<svg width="0" height="0"><filter id="wave5" x="-10%" y="-40%" width="120%" height="180%"><feTurbulence type="fractalNoise" baseFrequency="0.006 0.035" numOctaves="1" seed="3" result="t"><animate attributeName="baseFrequency" dur="9s" values="0.006 0.035;0.009 0.05;0.005 0.028;0.006 0.035" repeatCount="indefinite"/></feTurbulence><feDisplacementMap in="SourceGraphic" in2="t" scale="26" xChannelSelector="R" yChannelSelector="G"/></filter></svg>';document.body.appendChild(d);})();
+(()=>{const db=document.querySelector('.order .datebar');if(!db)return;const e=document.createElement('span');e.className='sw5';e.setAttribute('aria-hidden','true');db.insertBefore(e,db.firstChild)})();
 </script>
 
 </body></html>
