@@ -577,10 +577,10 @@ const I=(u,v)=>u.map((p,i)=>[p[0]+(v[i][0]-p[0])*k,p[1]+(v[i][1]-p[1])*k]);const
 pa.setAttribute('d',`M0 0L${f(a[0])}C${f(a[1])} ${f(a[2])} ${f(a[3])}C${f(b[1])} ${f(b[2])} ${f(b[3])}C${f(m(b[2]))} ${f(m(b[1]))} ${f(m(b[0]))}C${f(m(a[2]))} ${f(m(a[1]))} ${f(m(a[0]))}L${W} 0Z`)};
 const ez=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
 const bk=t=>{const c=1.5,d=c+1;return 1+d*Math.pow(t-1,3)+c*Math.pow(t-1,2)};
-const step=now=>{const D=tgt?680:DUR,t=Math.min(1,(now-t0)/D);k=k0+(tgt-k0)*(tgt?bk(t):ez(t));shape();if(t<1)raf=requestAnimationFrame(step);else{raf=0;if(tgt===0)sv.style.opacity=0}};
-const go=on=>{tgt=on?1:0;if(on){sv.style.opacity=1;sv.classList.add('shd')}else sv.classList.remove('shd');k0=k;t0=performance.now();if(matchMedia('(prefers-reduced-motion:reduce)').matches){k=tgt;shape();if(!on)sv.style.opacity=0;return}if(!raf)raf=requestAnimationFrame(step)};
-const scrn=sc.closest('.screen'),isOn=()=>sc.classList.contains(scrn.classList.contains('v2')?'dock-on':'curve-on');let was=isOn();shape();if(was){k=1;tgt=1;sv.style.opacity=1;sv.classList.add('shd');shape()}
-const mo=()=>{const on=isOn();if(on!==was){was=on;go(on)}};new MutationObserver(mo).observe(sc,{attributes:true,attributeFilter:['class']});new MutationObserver(mo).observe(scrn,{attributes:true,attributeFilter:['class']});
+const step=now=>{const D=tgt?680:DUR,t=Math.min(1,(now-t0)/D);k=k0+(tgt-k0)*(tgt?bk(t):ez(t));shape();if(t<1)raf=requestAnimationFrame(step);else{raf=0;if(!vis)sv.style.opacity=0}};
+let vis=false;const go=on=>{vis=on;tgt=on&&scrn.classList.contains('v2')?1:0;if(on){sv.style.opacity=1;sv.classList.add('shd')}else sv.classList.remove('shd');k0=k;t0=performance.now();if(matchMedia('(prefers-reduced-motion:reduce)').matches){k=tgt;shape();if(!on)sv.style.opacity=0;return}if(!raf)raf=requestAnimationFrame(step)};
+const scrn=sc.closest('.screen'),isOn=()=>sc.classList.contains(scrn.classList.contains('v2')?'dock-on':'curve-on');let was=isOn();shape();if(was){k=tgt=scrn.classList.contains('v2')?1:0;vis=true;sv.style.opacity=1;sv.classList.add('shd');shape()}
+const mo=()=>{const on=isOn();if(on!==was){was=on;go(on)}};new MutationObserver(mo).observe(sc,{attributes:true,attributeFilter:['class']});new MutationObserver(()=>{was=isOn();go(was)}).observe(scrn,{attributes:true,attributeFilter:['class']});
 addEventListener('resize',shape);db.addEventListener('transitionend',()=>{if(!raf)shape()});})();
 (()=>{const sc=document.getElementById('scroll'),db=sc.querySelector('.order .datebar'),els=[...sc.querySelectorAll(':scope>.cont,:scope>.white')];let raf=0;
 const clr=()=>els.forEach(e=>{e.style.webkitMaskImage=e.style.maskImage=''});
