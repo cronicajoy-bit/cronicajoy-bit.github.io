@@ -232,7 +232,7 @@ img,svg{display:block}
 .slide h4{font-weight:700;font-size:18px;letter-spacing:-.54px;line-height:1.4;white-space:nowrap}
 .slide p{font-weight:500;font-size:12px;letter-spacing:-.24px;white-space:nowrap}
 .slide .cap{margin-top:8px;padding:4px 8px;background:rgba(18,18,18,.2);gap:7px}
-.slide .pent{position:absolute;left:184px;top:5px;width:170px;height:170px}
+.slide .pent{position:absolute;left:166.77px;top:-2.44px;width:200.46px;height:196.87px}
 .rec-h{display:flex;align-items:center;justify-content:space-between;padding:50px 26px 22px;white-space:nowrap}
 .rec-h b{font-weight:800;font-size:20px;letter-spacing:-.6px}
 .rec-h a{display:flex;align-items:center;gap:2px;font-weight:500;font-size:14px;letter-spacing:-.28px;color:#8E9196;text-decoration:none}
@@ -604,11 +604,11 @@ let rh='';for(let c=0;c<6;c++)rh+=`<div class="rcol">${rcard(rec[c*2])}${rcard(r
 document.getElementById('recent').innerHTML=rh;
 const menu=[["m1","국물요리",11.82,10.93,40,44],["m2","면요리",13.87,9.87,38.4,40.8],["m3","밥/볶음밥",11.82,13.16,40,37.6],["m4","분식요리",12.89,13.5,39.03,33.31],["m5","고기요리",11.21,17.5,42.12,31.83],["m6","튀김요리",14.4,11.2,35.2,42.4],["m7","반찬/사이드",12.98,18.93,38.25,28.8],["m8","샐러드",13.25,16.5,37.05,32.14],["m9","간편식",12.75,15.24,39.11,31.49],["m10","베이커리/디저트",16.18,14.84,31.2,35.2],["m11","손질식재",13.75,17.5,38.48,28.86]];
 document.getElementById('menu').innerHTML=menu.map(([i,n,l,t,w,h])=>`<button class="mi" type="button"><span class="sq"><img src="img/${i}.png" alt="" style="left:${l}px;top:${t}px;width:${w}px;height:${h}px"></span>${n}</button>`).join('');
-const slides=[["#CEEFE7","아워홈 직수입","Oh! 촉촉한 맛밤<br>박스 구매 15% 할인","50g × 50봉 · 겨울 간식 준비","b1"],["#D4D4D4","11/10부터 인상","홀그레인 머스타드<br>이전 가격 마지막","4,990원 → 5,490원","b2"],["#FFD2C2","급식 메뉴 인기","떡·어묵·소스 묶음<br>7% 할인","같이 담으면 자동 적용","b3"],["#F8EFD4","어묵탕 시즌","어묵·꼬치 세트<br>최대 15% 할인","11/7까지 · 겨울 메뉴 준비","b4"],["#FFE8D4","금Day 기획전","매주 금요일<br>새 기획전이 열려요","이번 주 아워홈 신상 12종","b5"]];
+const slides=[["#CEEFE7","역대급 할인","oh!파인애플제로<br>최대 15% 할인","톡톡 튀는 상큼한 과일맛!","pb4"],["#FFECB1","아워홈 직수입","Oh! 촉촉한 맛밤<br>박스 구매 15% 할인","50g × 50봉 · 겨울 간식 준비","pb1"],["#B9B6B6","11/10부터 인상","모짜렐라 보코치니<br>행복한맛남","4,990원 → 5,490원","pb2"],["#FFD2C2","급식 메뉴 인기","한 입에 먹기 좋도록<br>쫄깃한 볼어묵튀김","같이 담으면 자동 적용","pb3"],["#D4E0FF","리뷰이벤트","신선함 그대로<br>산지배송!","국내산 생물 흰다리새우 1kg","pb5"]];
 const IC={p:'<path d="M6.5 2.5L3 6l3.5 3.5"/>',n:'<path d="M3.5 2.5L7 6 3.5 9.5"/>',z:'<path d="M3.5 3v6M6.5 3v6"/>',y:'<path d="M3 2.5l5 3.5-5 3.5z" fill="#fff"/>'};
 const ic=k=>`<svg width="10" height="12" viewBox="0 0 10 12" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${IC[k]}</svg>`;
 const rt=document.getElementById('rt');
-rt.innerHTML=slides.map(([bg,tg,h,p,img],k)=>`<div class="slide" style="background:${bg}"><div class="cp"><span class="tg">${tg}</span><h4>${h}</h4><p${k===0?' style="font-weight:700"':''}>${p}</p><span class="cap"><button type="button" data-a="prev" aria-label="이전">${ic('p')}</button>${k+1} | 5<button type="button" data-a="pause" aria-label="일시정지">${ic('z')}</button><button type="button" data-a="next" aria-label="다음">${ic('n')}</button></span></div><img class="pent" src="img/${img}.png" alt=""></div>`).join('');
+rt.innerHTML=slides.map(([bg,tg,h,p,img],k)=>`<div class="slide" style="background:${bg}"><div class="cp"><span class="tg">${tg}</span><h4>${h}</h4><p${img==='pb1'?' style="font-weight:700"':''}>${p}</p><span class="cap"><button type="button" data-a="prev" aria-label="이전">${ic('p')}</button>${k+1} | 5<button type="button" data-a="pause" aria-label="일시정지">${ic('z')}</button><button type="button" data-a="next" aria-label="다음">${ic('n')}</button></span></div><img class="pent" src="img/${img}.png" alt=""></div>`).join('');
 let si=0,playing=true;
 const go=n=>{si=(n+slides.length)%slides.length;rt.style.transform=`translateX(${-100*si}%)`};
 let tm=setInterval(()=>playing&&go(si+1),4000);
