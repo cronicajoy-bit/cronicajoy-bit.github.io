@@ -415,34 +415,24 @@ img,svg{display:block}
 
 .v2 .datebar .glow .dot,.v2 .order .halo i{opacity:.5}
 /* ===== screen 5 (white + purple bar) ===== */
-.v5 .datebar{background:#6A7386}
+.v5 .datebar{background:linear-gradient(#fff,#fff) padding-box,radial-gradient(120% 220% at 18% 15%,#978BF5 0%,#B8AFFF 100%) border-box;border:3px solid transparent;filter:drop-shadow(0 4px 8px rgba(0,0,0,.1))}
+.v5 .datebar,.v5 .dock-on .order .datebar{border-width:3px}.v5 .dock-on .order .datebar{border-width:2.5px}
+.v5 .datebar b{color:#111}
+.v5 .datebar .l .ib .pgbg{fill:#fff}
+.v5 .card{background:#BFB7FF}
 .v5 .datebar .aur{display:none}.v5 .aur i{filter:url(#wave5)!important}
 .v5 .aur i{filter:none;background-size:120px 120px,auto;-webkit-mask:radial-gradient(closest-side,#000 0%,rgba(0,0,0,.7) 45%,rgba(0,0,0,.25) 75%,transparent 100%);mask:radial-gradient(closest-side,#000 0%,rgba(0,0,0,.7) 45%,rgba(0,0,0,.25) 75%,transparent 100%)}
 .v5 .aur i:nth-child(1){width:260px;height:130px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.95' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1.4 -.35'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E"),radial-gradient(closest-side,rgba(214,226,246,.55),rgba(160,176,206,.4) 50%,rgba(110,122,148,.3))}
 .v5 .aur i:nth-child(2){width:240px;height:120px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.95' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1.4 -.35'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E"),radial-gradient(closest-side,rgba(92,102,126,.55),rgba(118,130,158,.38) 55%,rgba(150,164,196,.25))}
-.v5 .datebar [fill="#A6CE6A"]{fill:#CFFF87}.v5 .datebar [stroke="#A6CE6A"]{stroke:#CFFF87}
-/* v5: 블루그레이 유지 → 스르륵 네이비 → 금방 화이트(살짝 커짐) → 원래 크기로 블루그레이 */
-.v5 .order .datebar{animation:v5bg 8.92s ease-in-out infinite,v5pop 8.92s linear infinite}
-.v5 .order .datebar b{animation:v5tx 8.92s ease-in-out infinite}
-.v5 .order .datebar .l>svg path{animation:v5chev 8.92s ease-in-out infinite}
-.v5 .order .datebar [fill="#A6CE6A"]{animation:v5fi 8.92s ease-in-out infinite}
-.v5 .order .datebar [stroke="#A6CE6A"]{animation:v5st 8.92s ease-in-out infinite}
-.v5 .order .datebar .l .ib .pgbg{animation:v5pg 8.92s ease-in-out infinite}
-@keyframes v5bg{0%,78.48%,100%{background-color:#6A7386;box-shadow:inset 0 0 0 1px rgba(46,58,79,0)}85.2%,86.55%{background-color:var(--navy);box-shadow:inset 0 0 0 1px rgba(46,58,79,0)}89.24%,91.93%{background-color:#fff;box-shadow:inset 0 0 0 1px rgba(46,58,79,.12)}}
-@keyframes v5tx{0%,78.48%,100%{color:#fff}85.2%,86.55%{color:#fff}89.24%,91.93%{color:#2E3A4F}}
-@keyframes v5chev{0%,78.48%,100%{fill:#fff}85.2%,86.55%{fill:#fff}89.24%,91.93%{fill:#2E3A4F}}
-@keyframes v5fi{0%,78.48%,100%{fill:#CFFF87}85.2%,86.55%{fill:#CAF18F}89.24%,91.93%{fill:#8DB84F}}
-@keyframes v5st{0%,78.48%,100%{stroke:#CFFF87}85.2%,86.55%{stroke:#CAF18F}89.24%,91.93%{stroke:#8DB84F}}
-@keyframes v5pg{0%,78.48%,100%{fill:#6A7386}85.2%,86.55%{fill:#2E3A4F}89.24%,91.93%{fill:#fff}}
-@keyframes v5pop{0%,86.55%{margin-left:0px;margin-right:0px;animation-timing-function:cubic-bezier(.2,.8,.3,1)}89.5%,91.93%{margin-left:-1px;margin-right:-1px;animation-timing-function:cubic-bezier(.45,0,.25,1)}100%{margin-left:0px;margin-right:0px}}
-@media (prefers-reduced-motion:reduce){.v5 .order .datebar,.v5 .order .datebar *{animation:none!important}}
+.v5 .datebar [fill="#A6CE6A"]{fill:#9E93F4}.v5 .datebar [stroke="#A6CE6A"]{stroke:#9E93F4}
 
 .vtabs button.n i{background:#2E3A4F}
-.vtabs button.pb i{background:#6A7386}
+.vtabs button.pb i{background:#9E93F4}
 
 /* ===== blue-gray ink shimmer (screen 5) ===== */
 .datebar .ink{display:none}
-.v5 .datebar .glow,.v5 .order .halo{display:none}
+.v5 .datebar .glow .dot{opacity:1;background:radial-gradient(closest-side,#6E5CF5 0%,rgba(118,100,250,.95) 30%,rgba(140,124,255,.5) 62%,rgba(140,124,255,0) 100%);filter:blur(1px) saturate(1.3)}
+.v5 .order .halo i{opacity:1;background:radial-gradient(closest-side,rgba(158,147,244,.16),rgba(158,147,244,.06) 45%,rgba(158,147,244,0))}
 .v5 .datebar .ink{display:none;position:absolute;inset:0;border-radius:inherit;overflow:hidden;pointer-events:none;z-index:0}
 .ink>i{position:absolute;inset:0;display:block}
 .ink .d{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='520' height='120'%3E%3Cfilter id='n' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.008 0.04' numOctaves='2' seed='11' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .16  0 0 0 0 .2  0 0 0 0 .3  2 0 0 0 -.75'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url%28%23n%29'/%3E%3C/svg%3E") 0 50%/520px 120px repeat;opacity:0;animation:inkD 11s ease-in-out infinite}
@@ -476,7 +466,7 @@ img,svg{display:block}
 }
 </style>
 </head><body>
-<div class="stage"><nav class="vtabs" role="tablist" aria-label="시안 선택"><div class="vt-g"><span class="vt-l">(나)1안</span><button type="button" role="tab" aria-selected="true" data-v="1"><i></i>라임</button><button type="button" role="tab" aria-selected="false" data-v="3" class="p"><i></i>퍼플</button><button type="button" role="tab" aria-selected="false" data-v="4" class="o"><i></i>오렌지</button></div><span class="vt-div" aria-hidden="true"></span><div class="vt-g"><span class="vt-l">(나)2안</span><button type="button" role="tab" aria-selected="false" data-v="2" class="n"><i></i>네이비</button><button type="button" role="tab" aria-selected="false" data-v="5" class="pb"><i></i>블루그레이</button></div></nav><div class="device"><div class="screen">
+<div class="stage"><nav class="vtabs" role="tablist" aria-label="시안 선택"><div class="vt-g"><span class="vt-l">배경 컬러적용</span><button type="button" role="tab" aria-selected="true" data-v="1"><i></i>라임</button><button type="button" role="tab" aria-selected="false" data-v="3" class="p"><i></i>퍼플</button><button type="button" role="tab" aria-selected="false" data-v="4" class="o"><i></i>오렌지</button></div><span class="vt-div" aria-hidden="true"></span><div class="vt-g"><span class="vt-l">배경 없음</span><button type="button" role="tab" aria-selected="false" data-v="2" class="n"><i></i>네이비</button><button type="button" role="tab" aria-selected="false" data-v="5" class="pb"><i></i>퍼플</button></div></nav><div class="device"><div class="screen">
  <div class="island"></div>
  <header class="hdr" id="hdr">
   <div class="sbar"><div class="in"><div class="time">9:41</div><div class="mid"></div><div class="lv">
