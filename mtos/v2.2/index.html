@@ -81,6 +81,7 @@ img,svg{display:block}
 
 
 .dock-on .order::after{bottom:14px}
+.screen:not(.v2) .curve-on .order::before{height:24px}
 .order{transition:padding .36s cubic-bezier(.22,.61,.36,1)}
 .dock-on .order{padding-left:16px;padding-right:16px;padding-top:0}
 .order::after{display:none!important}
@@ -572,14 +573,14 @@ const sv=document.createElementNS(NS,'svg');sv.setAttribute('class','sheet');sv.
 const sp=(P,t)=>{const L=(a,b)=>[a[0]+(b[0]-a[0])*t,a[1]+(b[1]-a[1])*t];const a=L(P[0],P[1]),b=L(P[1],P[2]),c=L(P[2],P[3]),d=L(a,b),e=L(b,c),f=L(d,e);return [[P[0],a,d,f],[f,e,c,P[3]]]};
 let k=0,tgt=0,raf=0,t0=0,k0=0,DUR=560;
 const shape=()=>{const W=od.clientWidth,sx=W/390,Y=36;const cv=[[0,33.5],[40,15.5],[118,7.5],[195,7.5]].map(p=>[p[0]*sx,p[1]+Y]);const [A,B]=sp(cv,.18);
-const yB=db.offsetTop+db.offsetHeight+16,r=26,q=r*.448;const C=[[0,yB-r],[0,yB-q],[r-q,yB],[r,yB]];const M=[[r,yB],[r+(W/2-r)/3,yB],[r+2*(W/2-r)/3,yB],[W/2,yB]];
+let C,M;if(sc.closest('.screen').classList.contains('v2')){const yB=db.offsetTop+db.offsetHeight+16,r=26,q=r*.448;C=[[0,yB-r],[0,yB-q],[r-q,yB],[r,yB]];M=[[r,yB],[r+(W/2-r)/3,yB],[r+2*(W/2-r)/3,yB],[W/2,yB]]}else{const yT=db.offsetTop,h=db.offsetHeight;[C,M]=sp([[0,yT+h*.8],[40*sx,yT+h*.47],[118*sx,yT+h*.32],[W/2,yT+h*.32]],.18)}
 const I=(u,v)=>u.map((p,i)=>[p[0]+(v[i][0]-p[0])*k,p[1]+(v[i][1]-p[1])*k]);const a=I(A,C),b=I(B,M),m=p=>[W-p[0],p[1]],f=p=>p[0].toFixed(2)+' '+p[1].toFixed(2);
 pa.setAttribute('d',`M0 0L${f(a[0])}C${f(a[1])} ${f(a[2])} ${f(a[3])}C${f(b[1])} ${f(b[2])} ${f(b[3])}C${f(m(b[2]))} ${f(m(b[1]))} ${f(m(b[0]))}C${f(m(a[2]))} ${f(m(a[1]))} ${f(m(a[0]))}L${W} 0Z`)};
 const ez=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
 const bk=t=>{const c=1.5,d=c+1;return 1+d*Math.pow(t-1,3)+c*Math.pow(t-1,2)};
 const step=now=>{const D=tgt?680:DUR,t=Math.min(1,(now-t0)/D);k=k0+(tgt-k0)*(tgt?bk(t):ez(t));shape();if(t<1)raf=requestAnimationFrame(step);else{raf=0;if(!vis)sv.style.opacity=0}};
-let vis=false;const go=on=>{vis=on;tgt=on&&scrn.classList.contains('v2')?1:0;if(on){sv.style.opacity=1;sv.classList.add('shd')}else sv.classList.remove('shd');k0=k;t0=performance.now();if(matchMedia('(prefers-reduced-motion:reduce)').matches){k=tgt;shape();if(!on)sv.style.opacity=0;return}if(!raf)raf=requestAnimationFrame(step)};
-const scrn=sc.closest('.screen'),isOn=()=>sc.classList.contains(scrn.classList.contains('v2')?'dock-on':'curve-on');let was=isOn();shape();if(was){k=tgt=scrn.classList.contains('v2')?1:0;vis=true;sv.style.opacity=1;sv.classList.add('shd');shape()}
+let vis=false;const go=on=>{vis=on;tgt=on?1:0;if(on){sv.style.opacity=1;sv.classList.add('shd')}else sv.classList.remove('shd');k0=k;t0=performance.now();if(matchMedia('(prefers-reduced-motion:reduce)').matches){k=tgt;shape();if(!on)sv.style.opacity=0;return}if(!raf)raf=requestAnimationFrame(step)};
+const scrn=sc.closest('.screen'),isOn=()=>sc.classList.contains(scrn.classList.contains('v2')?'dock-on':'curve-on');let was=isOn();shape();if(was){k=tgt=1;vis=true;sv.style.opacity=1;sv.classList.add('shd');shape()}
 const mo=()=>{const on=isOn();if(on!==was){was=on;go(on)}};new MutationObserver(mo).observe(sc,{attributes:true,attributeFilter:['class']});new MutationObserver(()=>{was=isOn();go(was)}).observe(scrn,{attributes:true,attributeFilter:['class']});
 addEventListener('resize',shape);db.addEventListener('transitionend',()=>{if(!raf)shape()});})();
 (()=>{const sc=document.getElementById('scroll'),db=sc.querySelector('.order .datebar'),els=[...sc.querySelectorAll(':scope>.cont,:scope>.white')];let raf=0;
