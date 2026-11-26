@@ -723,9 +723,9 @@ const pt=(f,w,h)=>{const i=1.5,r=h/2-i,a=w/2-i-r,b=w-2*i-2*r,c=Math.PI*r,L=2*a+2
 if(d<a)return[w/2+d,i];d-=a;if(d<c){const t=-Math.PI/2+d/r;return[w-i-r+r*Math.cos(t),h/2+r*Math.sin(t)]}d-=c;
 if(d<b)return[w-i-r-d,h-i];d-=b;if(d<c){const t=Math.PI/2+d/r;return[i+r+r*Math.cos(t),h/2+r*Math.sin(t)]}d-=c;return[i+r+d,i]};
 const tick=()=>{requestAnimationFrame(tick);if(!scr.classList.contains('v5'))return;const an=dot.getAnimations().find(x=>x.animationName==='glowrun');if(!an)return;
-const D=an.effect.getTiming().duration||6500,t=(+an.currentTime||0),lap=Math.floor(t/D)%2,f=(t%D)/D,w=gl.offsetWidth,h=gl.offsetHeight,[x,y]=pt(f,w,h);
+const D=an.effect.getTiming().duration||6500,t=(+an.currentTime||0),lap=Math.floor(t/D)%3,f=(t%D)/D,w=gl.offsetWidth,h=gl.offsetHeight,[x,y]=pt(f,w,h);
 let g=Math.atan2(y-h/2,x-w/2)*180/Math.PI+90;g=(g+360)%360;if(f>.98)g=360;
-const A=lap?T:P,B=lap?P:T;e.style.background=`conic-gradient(from 0deg,${A} 0deg,${A} ${g.toFixed(2)}deg,${B} ${(g+.01).toFixed(2)}deg)`};tick();})();
+if(lap===2){e.style.background='transparent';return}const A=lap?T:P,B=lap?P:T;const S=100,k=Math.max(0,Math.min(45,g/2.5,(360-g)/2)),g0=Math.max(k,g-S),M='rgba(156,226,193,.5)';e.style.background=`conic-gradient(from 0deg,${M} 0deg,${A} ${k.toFixed(2)}deg,${A} ${g0.toFixed(2)}deg,${B} ${g.toFixed(2)}deg,${B} ${(360-k).toFixed(2)}deg,${M} 360deg)`};tick();})();
 </script>
 
 </body></html>
