@@ -417,14 +417,14 @@ img,svg{display:block}
 /* ===== screen 5 (white + purple bar) ===== */
 .v5 .datebar{background:#9FA6B5}
 .v5 .datebar [fill="#A6CE6A"]{fill:#CFFF87}.v5 .datebar [stroke="#A6CE6A"]{stroke:#CFFF87}
-.v5 .datebar .aur{display:none}
+
 .vtabs button.n i{background:#2E3A4F}
 .vtabs button.pb i{background:#9FA6B5}
 
 /* ===== blue-gray ink shimmer (screen 5) ===== */
 .datebar .ink{display:none}
 .v5 .datebar .glow,.v5 .order .halo{display:none}
-.v5 .datebar .ink{display:block;position:absolute;inset:0;border-radius:inherit;overflow:hidden;pointer-events:none;z-index:0}
+.v5 .datebar .ink{display:none;position:absolute;inset:0;border-radius:inherit;overflow:hidden;pointer-events:none;z-index:0}
 .ink>i{position:absolute;inset:0;display:block}
 .ink .d{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='520' height='120'%3E%3Cfilter id='n' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.008 0.04' numOctaves='2' seed='11' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .16  0 0 0 0 .2  0 0 0 0 .3  2 0 0 0 -.75'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url%28%23n%29'/%3E%3C/svg%3E") 0 50%/520px 120px repeat;opacity:0;animation:inkD 11s ease-in-out infinite}
 .ink .v{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='120'%3E%3Cfilter id='n' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.0055 0.03' numOctaves='3' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .86  0 0 0 0 .9  0 0 0 0 1  2.6 0 0 0 -1.15'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url%28%23n%29'/%3E%3C/svg%3E") 0 50%/600px 120px repeat;mix-blend-mode:screen;opacity:.34;animation:inkV 22s linear infinite}
