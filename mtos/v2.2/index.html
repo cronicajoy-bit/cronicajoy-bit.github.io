@@ -316,7 +316,8 @@ img,svg{display:block}
 @media (max-width:600px){.vtabs{display:none!important}}
 .order .datebar{cursor:pointer;-webkit-tap-highlight-color:transparent}
 .order .datebar:active{transform:scale(.98)}
-.screen::after{content:"";position:absolute;inset:0;z-index:25;background:#fff;opacity:0;pointer-events:none;transition:opacity .12s ease}.screen.vflip::after{opacity:.45}
+/* 안 전환: 흰 막 없이 색만 함께 부드럽게 바뀜 */
+.hdr,.bg,.order::before,.card{transition:background-color .35s ease}.bg svg path{transition:fill .35s ease}
 /* ===== screen 2 (white header) ===== */
 .datebar .aur{display:none}
 .v2 .datebar .l,.v2 .datebar .r{position:relative;z-index:1}
