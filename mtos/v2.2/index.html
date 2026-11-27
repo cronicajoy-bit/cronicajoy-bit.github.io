@@ -461,7 +461,16 @@ img,svg{display:block}
 .v5 .datebar [fill="#A6CE6A"]{fill:#964BB2}.v5 .datebar [stroke="#A6CE6A"]{stroke:#964BB2}
 
 .vtabs button.n i{background:#2E3A4F}
-.vtabs button.pb i{background:#9A3CBC}
+.vtabs button.pb i{background:#9A3CBC}.vtabs button.pb2 i{background:#70208D}
+/* v7: 배경없음 퍼플2 (네이비 기반) */
+.v7 .datebar{background:#70208D}
+.v7 .datebar [fill="#A6CE6A"]{fill:#D8FDED}.v7 .datebar [stroke="#A6CE6A"]{stroke:#D8FDED}
+.v7 .datebar .l .ib .pgbg{fill:#70208D}
+.v7 .card{background:#BCD1C8}
+.v7 .cnt .s b{color:#70208D}
+.v7 .datebar .glow .dot{background:radial-gradient(closest-side,#FFFFFF 0%,rgba(216,253,237,.95) 28%,rgba(216,253,237,.45) 62%,rgba(216,253,237,0) 100%)}
+.v7 .order .halo i{background:radial-gradient(closest-side,rgba(190,240,220,.5),rgba(190,240,220,.2) 45%,rgba(190,240,220,0))}
+.v7 .banner .chef:not(.veg){left:179px;top:4px;width:169px;height:148px}
 
 /* ===== blue-gray ink shimmer (screen 5) ===== */
 .datebar .ink{display:none}
@@ -500,7 +509,7 @@ img,svg{display:block}
 }
 </style>
 </head><body>
-<div class="stage"><nav class="vtabs" role="tablist" aria-label="시안 선택"><div class="vt-g"><span class="vt-l">배경 컬러</span><button type="button" role="tab" aria-selected="true" data-v="1"><i></i>라임</button><button type="button" role="tab" aria-selected="false" data-v="3" class="p"><i></i>퍼플</button><button type="button" role="tab" aria-selected="false" data-v="4" class="o"><i></i>오렌지</button><button type="button" role="tab" aria-selected="false" data-v="6" class="pi"><i></i>피스타치오</button></div><span class="vt-div" aria-hidden="true"></span><div class="vt-g"><span class="vt-l">배경 없음</span><button type="button" role="tab" aria-selected="false" data-v="2" class="n"><i></i>네이비</button><button type="button" role="tab" aria-selected="false" data-v="5" class="pb"><i></i>퍼플</button></div></nav><div class="device"><div class="screen">
+<div class="stage"><nav class="vtabs" role="tablist" aria-label="시안 선택"><div class="vt-g"><span class="vt-l">배경 컬러</span><button type="button" role="tab" aria-selected="true" data-v="1"><i></i>라임</button><button type="button" role="tab" aria-selected="false" data-v="3" class="p"><i></i>퍼플</button><button type="button" role="tab" aria-selected="false" data-v="4" class="o"><i></i>오렌지</button><button type="button" role="tab" aria-selected="false" data-v="6" class="pi"><i></i>피스타치오</button></div><span class="vt-div" aria-hidden="true"></span><div class="vt-g"><span class="vt-l">배경 없음</span><button type="button" role="tab" aria-selected="false" data-v="2" class="n"><i></i>네이비</button><button type="button" role="tab" aria-selected="false" data-v="5" class="pb"><i></i>퍼플</button><button type="button" role="tab" aria-selected="false" data-v="7" class="pb2"><i></i>퍼플2</button></div></nav><div class="device"><div class="screen">
  <div class="island"></div>
  <header class="hdr" id="hdr">
   <div class="sbar"><div class="in"><div class="time">9:41</div><div class="mid"></div><div class="lv">
@@ -709,12 +718,12 @@ addEventListener('pointerup',()=>{if(!down)return;down=false;if(!moved)return;le
 row.addEventListener('click',e=>{if(moved){e.preventDefault();e.stopPropagation();moved=false}},true);
 });})();
 (()=>{const scr=document.querySelector('.screen'),sc=document.getElementById('scroll'),bs=[...document.querySelectorAll('.vtabs [data-v]')],pbs=[...document.querySelectorAll('.vtabs [data-plan]')],sub=document.querySelector('.vt-sub'),PLAN2=[2];let last1=1;
-let keep=false;const set=v=>{scr.classList.toggle('v2',v===2||v===5);scr.classList.toggle('v5',v===5);scr.classList.toggle('v3',v===3||v===6);scr.classList.toggle('v6',v===6);scr.classList.toggle('v4',v===4);const ch=scr.querySelector('.banner .chef:not(.veg)');if(ch)ch.src=(v===3||v===6)?'img/chef-p.png':v===4?'img/chef-o.png':'img/chef2.png';bs.forEach(b=>b.setAttribute('aria-selected',String(+b.dataset.v===v)));const pl=PLAN2.includes(v)?2:1;if(pl===1)last1=v;pbs.forEach(b=>b.setAttribute('aria-selected',String(+b.dataset.plan===pl)));if(sub)sub.hidden=pl!==1;dispatchEvent(new Event('resize'));if(!keep){sc.scrollTop=0;if(window.scrollY)scrollTo(0,0)}keep=false;requestAnimationFrame(()=>{dispatchEvent(new Event('resize'));sc.dispatchEvent(new Event('scroll'))})};
-const fromHash=()=>{const m=/^#screen-([1-6])$/.exec(location.hash);set(m?+m[1]:1)};
+let keep=false;const set=v=>{scr.classList.toggle('v2',v===2||v===5||v===7);scr.classList.toggle('v7',v===7);scr.classList.toggle('v5',v===5);scr.classList.toggle('v3',v===3||v===6);scr.classList.toggle('v6',v===6);scr.classList.toggle('v4',v===4);const ch=scr.querySelector('.banner .chef:not(.veg)');if(ch)ch.src=v===7?'img/chef-g.png':(v===3||v===6)?'img/chef-p.png':v===4?'img/chef-o.png':'img/chef2.png';bs.forEach(b=>b.setAttribute('aria-selected',String(+b.dataset.v===v)));const pl=PLAN2.includes(v)?2:1;if(pl===1)last1=v;pbs.forEach(b=>b.setAttribute('aria-selected',String(+b.dataset.plan===pl)));if(sub)sub.hidden=pl!==1;dispatchEvent(new Event('resize'));if(!keep){sc.scrollTop=0;if(window.scrollY)scrollTo(0,0)}keep=false;requestAnimationFrame(()=>{dispatchEvent(new Event('resize'));sc.dispatchEvent(new Event('scroll'))})};
+const fromHash=()=>{const m=/^#screen-([1-7])$/.exec(location.hash);set(m?+m[1]:1)};
 const goV=v=>{if(location.hash!=='#screen-'+v)location.hash='screen-'+v;else set(v)};bs.forEach(b=>b.addEventListener('click',()=>goV(+b.dataset.v)));pbs.forEach(b=>b.addEventListener('click',()=>goV(+b.dataset.plan===2?2:last1)));
 addEventListener('hashchange',fromHash);fromHash();
 const db=sc.querySelector('.order .datebar');db.setAttribute('role','button');db.setAttribute('tabindex','0');db.setAttribute('aria-label','라임·화이트·퍼플 화면 전환');
-const flip=()=>{keep=true;const ORD=[1,3,4,6,2,5],cur=scr.classList.contains('v5')?5:scr.classList.contains('v2')?2:scr.classList.contains('v6')?6:scr.classList.contains('v3')?3:scr.classList.contains('v4')?4:1,v=ORD[(ORD.indexOf(cur)+1)%ORD.length];scr.classList.add('vflip');setTimeout(()=>scr.classList.remove('vflip'),260);location.hash='screen-'+v};
+const flip=()=>{keep=true;const ORD=[1,3,4,6,2,5,7],cur=scr.classList.contains('v7')?7:scr.classList.contains('v5')?5:scr.classList.contains('v2')?2:scr.classList.contains('v6')?6:scr.classList.contains('v3')?3:scr.classList.contains('v4')?4:1,v=ORD[(ORD.indexOf(cur)+1)%ORD.length];scr.classList.add('vflip');setTimeout(()=>scr.classList.remove('vflip'),260);location.hash='screen-'+v};
 db.addEventListener('click',flip);db.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();flip()}});})();
 (()=>{const SEL='.dchip,.chip,.wk,.pill';let cur=null,x0=0,y0=0;
 const up=()=>{if(cur){cur.classList.remove('prs');cur=null}};
