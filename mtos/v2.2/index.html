@@ -389,7 +389,15 @@ img,svg{display:block}
 .v3 .datebar [fill="#A6CE6A"]{fill:#9E93F4}.v3 .datebar [stroke="#A6CE6A"]{stroke:#9E93F4}
 .v3 .datebar .glow .dot{background:radial-gradient(closest-side,#FFFFFF 0%,rgba(236,230,255,.95) 28%,rgba(190,176,255,.5) 62%,rgba(190,176,255,0) 100%)}
 .v3 .order .halo i{background:radial-gradient(closest-side,rgba(255,255,255,.42),rgba(255,255,255,.17) 45%,rgba(255,255,255,0))}
-.vtabs button.p i{background:#BFB7FF}
+.vtabs button.p i{background:#BFB7FF}.vtabs button.pi i{background:#BCD1C8}
+/* v6: 배경컬러 피스타치오+퍼플 (v3 기반) */
+.v6 .hdr,.v6 .bg,.v6 .order::before{background:#BCD1C8}
+.v6 .bg svg path{fill:#BCD1C8}
+.v6 .order .sheet path{fill:#BCD1C8}
+.v6 .datebar{background:linear-gradient(#fff,#fff) padding-box,radial-gradient(120% 220% at 18% 15%,#6C2984 0%,#9E47BE 100%) border-box;border-color:transparent}
+.v6 .datebar [fill="#A6CE6A"]{fill:#70208D}.v6 .datebar [stroke="#A6CE6A"]{stroke:#70208D}
+.v6 .datebar .glow .dot{background:radial-gradient(closest-side,#FFFFFF 0%,rgba(240,226,248,.95) 28%,rgba(158,71,190,.45) 62%,rgba(158,71,190,0) 100%)}
+.v6 .dchip.on{background:#70208D;border-color:#70208D}
 .vtabs{flex-direction:column;align-items:center;gap:8px;padding:0;background:none;box-shadow:none;border-radius:0}
 .vt-main{display:flex;gap:4px;padding:4px;border-radius:999px;background:#fff;box-shadow:0 2px 10px rgba(20,20,30,.08),0 0 0 1px rgba(20,20,30,.06)}
 .vt-main button{min-width:92px}
@@ -492,7 +500,7 @@ img,svg{display:block}
 }
 </style>
 </head><body>
-<div class="stage"><nav class="vtabs" role="tablist" aria-label="시안 선택"><div class="vt-g"><span class="vt-l">배경 컬러</span><button type="button" role="tab" aria-selected="true" data-v="1"><i></i>라임</button><button type="button" role="tab" aria-selected="false" data-v="3" class="p"><i></i>퍼플</button><button type="button" role="tab" aria-selected="false" data-v="4" class="o"><i></i>오렌지</button></div><span class="vt-div" aria-hidden="true"></span><div class="vt-g"><span class="vt-l">배경 없음</span><button type="button" role="tab" aria-selected="false" data-v="2" class="n"><i></i>네이비</button><button type="button" role="tab" aria-selected="false" data-v="5" class="pb"><i></i>퍼플</button></div></nav><div class="device"><div class="screen">
+<div class="stage"><nav class="vtabs" role="tablist" aria-label="시안 선택"><div class="vt-g"><span class="vt-l">배경 컬러</span><button type="button" role="tab" aria-selected="true" data-v="1"><i></i>라임</button><button type="button" role="tab" aria-selected="false" data-v="3" class="p"><i></i>퍼플</button><button type="button" role="tab" aria-selected="false" data-v="4" class="o"><i></i>오렌지</button><button type="button" role="tab" aria-selected="false" data-v="6" class="pi"><i></i>피스타치오</button></div><span class="vt-div" aria-hidden="true"></span><div class="vt-g"><span class="vt-l">배경 없음</span><button type="button" role="tab" aria-selected="false" data-v="2" class="n"><i></i>네이비</button><button type="button" role="tab" aria-selected="false" data-v="5" class="pb"><i></i>퍼플</button></div></nav><div class="device"><div class="screen">
  <div class="island"></div>
  <header class="hdr" id="hdr">
   <div class="sbar"><div class="in"><div class="time">9:41</div><div class="mid"></div><div class="lv">
@@ -701,12 +709,12 @@ addEventListener('pointerup',()=>{if(!down)return;down=false;if(!moved)return;le
 row.addEventListener('click',e=>{if(moved){e.preventDefault();e.stopPropagation();moved=false}},true);
 });})();
 (()=>{const scr=document.querySelector('.screen'),sc=document.getElementById('scroll'),bs=[...document.querySelectorAll('.vtabs [data-v]')],pbs=[...document.querySelectorAll('.vtabs [data-plan]')],sub=document.querySelector('.vt-sub'),PLAN2=[2];let last1=1;
-let keep=false;const set=v=>{scr.classList.toggle('v2',v===2||v===5);scr.classList.toggle('v5',v===5);scr.classList.toggle('v3',v===3);scr.classList.toggle('v4',v===4);const ch=scr.querySelector('.banner .chef:not(.veg)');if(ch)ch.src=v===3?'img/chef-p.png':v===4?'img/chef-o.png':'img/chef2.png';bs.forEach(b=>b.setAttribute('aria-selected',String(+b.dataset.v===v)));const pl=PLAN2.includes(v)?2:1;if(pl===1)last1=v;pbs.forEach(b=>b.setAttribute('aria-selected',String(+b.dataset.plan===pl)));if(sub)sub.hidden=pl!==1;dispatchEvent(new Event('resize'));if(!keep){sc.scrollTop=0;if(window.scrollY)scrollTo(0,0)}keep=false;requestAnimationFrame(()=>{dispatchEvent(new Event('resize'));sc.dispatchEvent(new Event('scroll'))})};
-const fromHash=()=>{const m=/^#screen-([1-5])$/.exec(location.hash);set(m?+m[1]:1)};
+let keep=false;const set=v=>{scr.classList.toggle('v2',v===2||v===5);scr.classList.toggle('v5',v===5);scr.classList.toggle('v3',v===3||v===6);scr.classList.toggle('v6',v===6);scr.classList.toggle('v4',v===4);const ch=scr.querySelector('.banner .chef:not(.veg)');if(ch)ch.src=(v===3||v===6)?'img/chef-p.png':v===4?'img/chef-o.png':'img/chef2.png';bs.forEach(b=>b.setAttribute('aria-selected',String(+b.dataset.v===v)));const pl=PLAN2.includes(v)?2:1;if(pl===1)last1=v;pbs.forEach(b=>b.setAttribute('aria-selected',String(+b.dataset.plan===pl)));if(sub)sub.hidden=pl!==1;dispatchEvent(new Event('resize'));if(!keep){sc.scrollTop=0;if(window.scrollY)scrollTo(0,0)}keep=false;requestAnimationFrame(()=>{dispatchEvent(new Event('resize'));sc.dispatchEvent(new Event('scroll'))})};
+const fromHash=()=>{const m=/^#screen-([1-6])$/.exec(location.hash);set(m?+m[1]:1)};
 const goV=v=>{if(location.hash!=='#screen-'+v)location.hash='screen-'+v;else set(v)};bs.forEach(b=>b.addEventListener('click',()=>goV(+b.dataset.v)));pbs.forEach(b=>b.addEventListener('click',()=>goV(+b.dataset.plan===2?2:last1)));
 addEventListener('hashchange',fromHash);fromHash();
 const db=sc.querySelector('.order .datebar');db.setAttribute('role','button');db.setAttribute('tabindex','0');db.setAttribute('aria-label','라임·화이트·퍼플 화면 전환');
-const flip=()=>{keep=true;const ORD=[1,3,4,2,5],cur=scr.classList.contains('v5')?5:scr.classList.contains('v2')?2:scr.classList.contains('v3')?3:scr.classList.contains('v4')?4:1,v=ORD[(ORD.indexOf(cur)+1)%ORD.length];scr.classList.add('vflip');setTimeout(()=>scr.classList.remove('vflip'),260);location.hash='screen-'+v};
+const flip=()=>{keep=true;const ORD=[1,3,4,6,2,5],cur=scr.classList.contains('v5')?5:scr.classList.contains('v2')?2:scr.classList.contains('v6')?6:scr.classList.contains('v3')?3:scr.classList.contains('v4')?4:1,v=ORD[(ORD.indexOf(cur)+1)%ORD.length];scr.classList.add('vflip');setTimeout(()=>scr.classList.remove('vflip'),260);location.hash='screen-'+v};
 db.addEventListener('click',flip);db.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();flip()}});})();
 (()=>{const SEL='.dchip,.chip,.wk,.pill';let cur=null,x0=0,y0=0;
 const up=()=>{if(cur){cur.classList.remove('prs');cur=null}};
